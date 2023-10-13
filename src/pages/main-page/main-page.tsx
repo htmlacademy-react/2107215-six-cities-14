@@ -1,0 +1,23 @@
+import CitiesInfo from '../../components/layout/cities-info/cities-info';
+import CitiesNav from '../../components/layout/cities-nav/cities-nav';
+import CityBoard from '../../components/layout/city-board/city-board';
+import {Offers} from '../../types/types';
+
+type MainProps = {
+  offers: Offers[];
+}
+
+function MainPage({offers}: MainProps): JSX.Element {
+  return (
+    <div className="page page--gray page--main">
+      <CitiesInfo/>
+      <main className="page__main page__main--index">
+        <h1 className="visually-hidden">Cities</h1>
+        <CitiesNav/>
+        <CityBoard offers={offers}/>
+      </main>
+    </div>
+  );
+}
+
+export default MainPage;
