@@ -5,7 +5,7 @@ const DESCRIPTIONS: string[] = [
   'Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.'
 ];
 
-const TITLE: string[] = [
+const TITLES: string[] = [
   'Beautiful & luxurious studio at great location',
   'Our hotel is located in close proximity to the sea and a beautiful sandy beach',
   'The best hotel of hotels',
@@ -19,6 +19,6 @@ const CITIES: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg'
 export {
   DESCRIPTIONS,
   CITIES,
-  TITLE,
+  TITLES,
   TYPES
 };

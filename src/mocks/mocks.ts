@@ -1,5 +1,5 @@
 import {Offers} from '../types/types';
-import {CITIES, TYPES, DESCRIPTIONS, TITLE} from '../const';
+import {CITIES, TYPES, DESCRIPTIONS, TITLES} from '../const';
 import {getRandomInt, getRandomArrayElement, getRandomFloat} from '../utils/common';
 
 function getCityOffer(index: number): Offers {
@@ -38,7 +38,7 @@ function getCityOffer(index: number): Offers {
     previewImage: `https://loremflickr.com/248/152?${getRandomInt(1, 400)}`,
     price: getRandomInt(100, 2000),
     rating: getRandomFloat(1, 5, 1),
-    title: getRandomArrayElement(TITLE),
+    title: getRandomArrayElement(TITLES),
     type: getRandomArrayElement(TYPES)
   };
 }
