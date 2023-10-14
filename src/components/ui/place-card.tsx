@@ -1,7 +1,7 @@
-import {Offers} from '../../types/types';
+import {Offer} from '../../types/types';
 
-type PlacesProps = {
-  offers: Offers;
+type PlaceProps = {
+  offer: Offer;
 }
 
 function Premium(): JSX.Element {
@@ -12,14 +12,14 @@ function Premium(): JSX.Element {
   );
 }
 
-function PlacesCard({offers}: PlacesProps): JSX.Element {
+function PlaceCard({offer}: PlaceProps): JSX.Element {
   const {
     images,
     isFavorite,
     isPremium,
     price,
     title,
-    type } = offers;
+    type } = offer;
   return (
     <>
       {isPremium && <Premium/>}
@@ -61,4 +61,4 @@ function PlacesCard({offers}: PlacesProps): JSX.Element {
   );
 }
 
-export default PlacesCard;
+export default PlaceCard;

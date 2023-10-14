@@ -1,8 +1,8 @@
-import {Offers} from '../types/types';
+import {Offer} from '../types/types';
 import {CITIES, TYPES, DESCRIPTIONS, TITLES} from '../const';
 import {getRandomInt, getRandomArrayElement, getRandomFloat} from '../utils/common';
 
-function getCityOffer(index: number): Offers {
+function getCityOffer(index: number): Offer {
   return {
     bedrooms: getRandomInt(0, 20),
     city: {
@@ -43,7 +43,7 @@ function getCityOffer(index: number): Offers {
   };
 }
 
-const offers: Offers[] = Array.from({length: 5}, (_, index: number): Offers => getCityOffer(index + 1));
+const offers: Offer[] = Array.from({length: 5}, (_, index: number): Offer => getCityOffer(index + 1));
 
 export default offers;
 

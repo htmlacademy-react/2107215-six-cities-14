@@ -4,7 +4,7 @@ type Location = {
   zoom: number;
 }
 
-export type Offers = {
+export type Offer = {
   bedrooms: number;
   city: {
     location: Location;

@@ -1,9 +1,9 @@
 import MainPage from '../../pages/main-page/main-page';
 
-import {Offers} from '../../types/types';
+import {Offer} from '../../types/types';
 
 type AppProps = {
-  offers: Offers[];
+  offers: Offer[];
 }
 
 function App({offers}: AppProps): JSX.Element {

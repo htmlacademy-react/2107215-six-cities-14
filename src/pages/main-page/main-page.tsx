@@ -1,10 +1,10 @@
 import CitiesInfo from '../../components/layout/cities-info/cities-info';
 import CitiesNav from '../../components/layout/cities-nav/cities-nav';
 import CityBoard from '../../components/layout/city-board/city-board';
-import {Offers} from '../../types/types';
+import {Offer} from '../../types/types';
 
 type MainProps = {
-  offers: Offers[];
+  offers: Offer[];
 }
 
 function MainPage({offers}: MainProps): JSX.Element {

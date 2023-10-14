@@ -1,9 +1,9 @@
 import PlacesList from '../../blocks/places-list/places-list';
 import Map from '../../blocks/map/map';
-import {Offers} from '../../../types/types';
+import {Offer} from '../../../types/types';
 
 type BoardProps = {
-  offers: Offers[];
+  offers: Offer[];
 }
 
 function CityBoard({offers}: BoardProps): JSX.Element {
