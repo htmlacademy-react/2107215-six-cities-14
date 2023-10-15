@@ -6,9 +6,8 @@ type PlacesProps = {
 }
 
 function PlacesList({offers}: PlacesProps): JSX.Element|null {
-  return offers && offers.length ? (
+  return offers?.length ? (
     <div className="cities__places-list places__list tabs__content">
-
       {offers.map((item: Offer) => (
         <article key={item.id} className="cities__card place-card">
           <PlaceCard offer={item}/>
