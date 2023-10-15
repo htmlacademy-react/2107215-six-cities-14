@@ -1,6 +1,6 @@
-import CitiesInfo from '../../components/layout/cities-info/cities-info';
-import CitiesNav from '../../components/layout/cities-nav/cities-nav';
-import CityBoard from '../../components/layout/city-board/city-board';
+import CitiesInfo from '../../components/layout/cities-info';
+import CitiesNav from '../../components/layout/cities-nav';
+import CityBoard from '../../components/layout/city-board';
 import {Offer} from '../../types/types';
 
 type MainProps = {

@@ -1,6 +1,6 @@
-import PlacesList from '../../blocks/places-list/places-list';
-import Map from '../../blocks/map/map';
-import {Offer} from '../../../types/types';
+import PlacesList from '../blocks/places-list';
+import Map from '../blocks/map';
+import {Offer} from '../../types/types';
 
 type BoardProps = {
   offers: Offer[];
