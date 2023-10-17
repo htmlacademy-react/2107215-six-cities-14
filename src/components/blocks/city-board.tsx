@@ -1,5 +1,5 @@
-import PlacesList from '../blocks/places-list';
-import CardsMap from '../blocks/cards-map';
+import PlacesList from './places-list';
+import CardsMap from './cards-map';
 import {Offer} from '../../types/types';
 
 type BoardProps = {
@@ -17,8 +17,8 @@ function CityBoard({offers}: BoardProps): JSX.Element {
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
               Popular
-              <svg className="places__sorting-arrow" width="7" height="4">
-                <use xlinkHref="#icon-arrow-select"></use>
+              <svg className="places__sorting-arrow" width={7} height={4}>
+                <use xlinkHref="#icon-arrow-select" />
               </svg>
             </span>
             <ul className="places__options places__options--custom places__options--opened">

@@ -25,7 +25,7 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
       {isPremium && <Premium/>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          {images && <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image"/>}
+          {images && <img className="place-card__image" src={images[0]} width={260} height={200} alt="Place image"/>}
         </a>
       </div>
       <div className="place-card__info">
@@ -35,7 +35,7 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={ `${'place-card__bookmark-button button'} ${isFavorite && 'place-card__bookmark-button--active'}` } type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
+            <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
@@ -43,11 +43,7 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span
-              style={{
-                width: '80%'
-              }}
-            >
+            <span style={{ width: '80%' }}>
             </span>
             <span className="visually-hidden">Rating</span>
           </div>
