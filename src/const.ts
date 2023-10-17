@@ -18,7 +18,7 @@ const IMAGES = [
   'https://14.react.pages.academy/static/offer/17.jpg',
   'https://14.react.pages.academy/static/offer/19.jpg',
   'https://14.react.pages.academy/static/offer/16.jpg',
-  'https://14.react.pages.academy/static/offer/7.jpg'
+  'https://14.react.pages.academy/static/offer/9.jpg'
 ];
 
 const TYPES = ['apartment', 'room', 'house', 'hotel'];

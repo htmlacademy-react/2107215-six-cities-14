@@ -41,15 +41,7 @@ function NotFoundPage(): JSX.Element {
           <p>Where are we?</p>
           <p>The page you are lookiing for was moved,<br/> removed, renamed or might never existed.</p>
         </div>
-        <Link className="no-page__link" to="/"
-          style={{
-            padding: '20px',
-            background: '#5c84cf',
-            borderRadius: '10px',
-            boxShadow: '4px 3px 5px rgb(82, 86, 170, 0.5)'
-          }}
-        >go home
-        </Link>
+        <Link className="no-page__link" to="/">go home</Link>
       </div>
     </section>
   );
