@@ -26,9 +26,9 @@ const TYPES = ['apartment', 'room', 'house', 'hotel'];
 const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 enum AppRoute {
-  Login = 'login',
-  Favorites = 'favorites',
-  Offer = 'offer/:id',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer/:id',
   Root = '/',
 }
 

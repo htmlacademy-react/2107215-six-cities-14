@@ -19,29 +19,27 @@ function App({offers}: AppProps): JSX.Element {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path={AppRoute.Root}>
-          <Route index element={<MainPage offers={offers} />} />
-          <Route path={AppRoute.Login}
-            element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
-                authorizationStatusLogin={AuthorizationStatus.Login}
-              >
-                <LoginPage />
-              </PrivateRoute>
-            }
-          />
-          <Route path={AppRoute.Favorites}
-            element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
-              >
-                <FavoritePage />
-              </PrivateRoute>
-            }
-          />
-          <Route path={AppRoute.Offer} element={<OfferPage />} />
-        </Route>
+        <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
+        <Route path={AppRoute.Login}
+          element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatusLogin={AuthorizationStatus.Login}
+            >
+              <LoginPage />
+            </PrivateRoute>
+          }
+        />
+        <Route path={AppRoute.Favorites}
+          element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.NoAuth}
+            >
+              <FavoritePage />
+            </PrivateRoute>
+          }
+        />
+        <Route path={AppRoute.Offer} element={<OfferPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
