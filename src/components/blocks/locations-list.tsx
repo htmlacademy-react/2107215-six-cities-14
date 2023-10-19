@@ -1,4 +1,4 @@
-function CitiesNav(): JSX.Element {
+function LocationsList(): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -39,4 +39,4 @@ function CitiesNav(): JSX.Element {
   );
 }
 
-export default CitiesNav;
+export default LocationsList;
