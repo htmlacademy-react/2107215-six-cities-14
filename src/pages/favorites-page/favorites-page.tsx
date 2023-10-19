@@ -1,5 +1,5 @@
-import CitiesInfo from '../../components/blocks/header';
-import Nav from '../../components/blocks/nav';
+import CitiesInfo from '../../components/general/header';
+import Nav from '../../components/general/nav';
 import {Offer} from '../../types/index';
 import PlaceCard from '../../components/ui/place-card';
 import {CITIES} from '../../const';

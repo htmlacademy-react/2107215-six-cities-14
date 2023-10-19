@@ -1,12 +1,15 @@
-// import {useParams} from 'react-router-dom';
-import CitiesInfo from '../../components/blocks/header';
-import Nav from '../../components/blocks/nav';
+import {useParams} from 'react-router-dom';
+import CitiesInfo from '../../components/general/header';
+import Nav from '../../components/general/nav';
+import {Offer} from '../../types/index';
 
-function OfferPage(): JSX.Element {
-  // const params = useParams();
-  // if (params.id) {
-  //   console.log(params);
-  // }
+type OfferProps = {
+  offers: Offer[];
+}
+
+function OfferPage({offers}: OfferProps): JSX.Element {
+  const params = Number(useParams().id);
+  const offerById = offers.find((item) => item.id === params);
 
   return (
     <div className="page">
@@ -17,24 +20,16 @@ function OfferPage(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/room.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-03.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/studio-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
+            {(offerById) ?
+              offerById.images.slice(0, 6).map((item): JSX.Element|null => {
+                return (
+                  <div key={item} className="offer__image-wrapper">
+                    <a href="#">
+                      <img className="offer__image" src={item} alt="Photo studio" />
+                    </a>
+                  </div>)
+                })
+            : null }
             </div>
           </div>
           <div className="offer__container container">

@@ -1,7 +1,7 @@
-import LocationsList from '../../components/blocks/locations-list';
-import CityBoard from '../../components/blocks/city-board';
-import CitiesInfo from '../../components/blocks/header';
-import Nav from '../../components/blocks/nav';
+import LocationsList from '../../components/main/locations-list';
+import CityBoard from '../../components/main/city-board';
+import CitiesInfo from '../../components/general/header';
+import Nav from '../../components/general/nav';
 import {Offer} from '../../types/index';
 
 type MainProps = {

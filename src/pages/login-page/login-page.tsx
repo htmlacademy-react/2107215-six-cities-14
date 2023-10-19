@@ -1,4 +1,4 @@
-import CitiesInfo from '../../components/blocks/header';
+import CitiesInfo from '../../components/general/header';
 
 function LoginPage(): JSX.Element {
   return (

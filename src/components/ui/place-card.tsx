@@ -1,4 +1,6 @@
 import {Offer} from '../../types/types';
+import {Link} from 'react-router-dom';
+import {useState} from 'react';
 
 type PlaceProps = {
   offer: Offer;
@@ -14,11 +16,17 @@ function Premium(): JSX.Element {
 
 function PlaceCard({offer}: PlaceProps): JSX.Element {
   const {
-    isFavorite,
     isPremium,
     price,
     title,
     type } = offer;
+
+  const [userFavorites, setUserFavorites] = useState({
+    ...offer,
+    isFavorite: offer.isFavorite
+  });
+
+
   return (
     <>
       {isPremium && <Premium/>}
@@ -28,7 +36,14 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
             <b className="place-card__price-value">{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={ `${'place-card__bookmark-button button'} ${isFavorite && 'place-card__bookmark-button--active'}` } type="button">
+          <button className={ `${'place-card__bookmark-button button'} ${userFavorites.isFavorite && 'place-card__bookmark-button--active'}` } type="button"
+            onClick= {() => {
+              setUserFavorites({
+                ...userFavorites,
+                isFavorite: !userFavorites.isFavorite
+              })
+            }}
+          >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -43,7 +58,7 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to="/offer/:id">{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

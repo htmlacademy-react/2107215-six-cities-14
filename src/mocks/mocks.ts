@@ -24,10 +24,8 @@ function getCityOffer(index: number): Offer {
       name: 'Angelina',
     },
     id: index,
-    images: [
-      getRandomArrayElement(IMAGES)
-    ],
-    isFavorite: !!getRandomInt(0, 1),
+    images: Array.from({length: getRandomInt(0, 20)}, (): string => getRandomArrayElement(IMAGES)),
+    isFavorite: false,
     isPremium: !!getRandomInt(0, 1),
     location: {
       latitude: 52.35514938496378,

@@ -18,7 +18,11 @@ const IMAGES = [
   'https://14.react.pages.academy/static/offer/17.jpg',
   'https://14.react.pages.academy/static/offer/19.jpg',
   'https://14.react.pages.academy/static/offer/16.jpg',
-  'https://14.react.pages.academy/static/offer/9.jpg'
+  'https://14.react.pages.academy/static/offer/9.jpg',
+  'https://14.react.pages.academy/static/offer/5.jpg',
+  'https://14.react.pages.academy/static/offer/2.jpg',
+  'https://14.react.pages.academy/static/offer/11.jpg',
+  'https://14.react.pages.academy/static/offer/4.jpg',
 ];
 
 const TYPES = ['apartment', 'room', 'house', 'hotel'];
