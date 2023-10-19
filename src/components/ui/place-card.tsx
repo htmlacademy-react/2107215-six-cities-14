@@ -14,7 +14,6 @@ function Premium(): JSX.Element {
 
 function PlaceCard({offer}: PlaceProps): JSX.Element {
   const {
-    images,
     isFavorite,
     isPremium,
     price,
@@ -23,11 +22,6 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
   return (
     <>
       {isPremium && <Premium/>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          {images && <img className="place-card__image" src={images[0]} width={260} height={200} alt="Place image"/>}
-        </a>
-      </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">

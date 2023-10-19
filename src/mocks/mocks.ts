@@ -1,4 +1,4 @@
-import {Offer} from '../types/types';
+import {Offer} from '../types/index';
 import {CITIES, TYPES, DESCRIPTIONS, TITLES, IMAGES} from '../const';
 import {getRandomInt, getRandomArrayElement, getRandomFloat} from '../utils/common';
 

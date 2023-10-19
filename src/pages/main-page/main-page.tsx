@@ -2,7 +2,7 @@ import LocationsList from '../../components/blocks/locations-list';
 import CityBoard from '../../components/blocks/city-board';
 import CitiesInfo from '../../components/blocks/header';
 import Nav from '../../components/blocks/nav';
-import {Offer} from '../../types/types';
+import {Offer} from '../../types/index';
 
 type MainProps = {
   offers: Offer[];

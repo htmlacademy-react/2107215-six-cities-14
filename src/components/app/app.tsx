@@ -7,8 +7,7 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-
-import {Offer} from '../../types/types';
+import {Offer} from '../../types/index';
 
 type AppProps = {
   offers: Offer[];
@@ -33,9 +32,9 @@ function App({offers}: AppProps): JSX.Element {
         <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <FavoritePage />
+              <FavoritePage offers={offers} />
             </PrivateRoute>
           }
         />
