@@ -1,6 +1,6 @@
 import LocationsList from '../../components/blocks/locations-list';
 import CityBoard from '../../components/blocks/city-board';
-import CitiesInfo from '../../components/blocks/cities-info';
+import CitiesInfo from '../../components/blocks/header';
 import Nav from '../../components/blocks/nav';
 import {Offer} from '../../types/types';
 

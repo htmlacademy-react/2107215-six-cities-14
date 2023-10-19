@@ -1,4 +1,4 @@
-import CitiesInfo from '../../components/blocks/cities-info';
+import CitiesInfo from '../../components/blocks/header';
 import Nav from '../../components/blocks/nav';
 
 function FavoritePage(): JSX.Element {

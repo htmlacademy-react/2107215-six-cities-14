@@ -1,7 +1,7 @@
 import Logo from '../ui/logo';
 import {PropsWithChildren} from 'react';
 
-function CitiesInfo(props: PropsWithChildren): JSX.Element {
+function Header(props: PropsWithChildren): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -16,4 +16,4 @@ function CitiesInfo(props: PropsWithChildren): JSX.Element {
   );
 }
 
-export default CitiesInfo;
+export default Header;
