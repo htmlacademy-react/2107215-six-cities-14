@@ -1,6 +1,6 @@
 import PlacesList from './places-list';
 import CardsMap from '../general/cards-map';
-import {Offer} from '../../types/index';
+import {Offer} from '../../index/index';
 
 type BoardProps = {
   offers: Offer[];

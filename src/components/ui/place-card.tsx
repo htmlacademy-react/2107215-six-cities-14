@@ -1,4 +1,4 @@
-import {Offer} from '../../types/types';
+import {Offer} from '../../index/offer';
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
 
@@ -26,7 +26,6 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
     ...offer,
     isFavorite: offer.isFavorite
   });
-
 
   return (
     <>

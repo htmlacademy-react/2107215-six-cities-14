@@ -2,7 +2,7 @@ import LocationsList from '../../components/main/locations-list';
 import CityBoard from '../../components/main/city-board';
 import CitiesInfo from '../../components/general/header';
 import Nav from '../../components/general/nav';
-import {Offer} from '../../types/index';
+import {Offer} from '../../index/index';
 import {Helmet} from 'react-helmet-async';
 
 type MainProps = {

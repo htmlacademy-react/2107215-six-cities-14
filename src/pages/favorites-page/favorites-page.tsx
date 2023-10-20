@@ -1,6 +1,6 @@
 import CitiesInfo from '../../components/general/header';
 import Nav from '../../components/general/nav';
-import {Offer} from '../../types/index';
+import {Offer} from '../../index/index';
 import PlaceCard from '../../components/ui/place-card';
 import {CITIES} from '../../const';
 import {Helmet} from 'react-helmet-async';
