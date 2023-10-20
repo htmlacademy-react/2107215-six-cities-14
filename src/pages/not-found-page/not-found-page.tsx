@@ -1,8 +1,12 @@
 import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 
 function NotFoundPage(): JSX.Element {
   return (
     <section className="no-page">
+      <Helmet>
+        <title>{'6 cities - Not Found'}</title>
+      </Helmet>
       <h1 className="visually-hidden">404. Page not found</h1>
       <img className="no-page__image" src="img/not-found-bg.jpg" alt="Not found page image" />
       <div className="no-page__content">

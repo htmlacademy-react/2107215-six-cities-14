@@ -3,6 +3,7 @@ import Nav from '../../components/general/nav';
 import {Offer} from '../../types/index';
 import PlaceCard from '../../components/ui/place-card';
 import {CITIES} from '../../const';
+import {Helmet} from 'react-helmet-async';
 
 type FavoritesProps = {
   offers: Offer[];
@@ -56,6 +57,9 @@ function FavoritesPlaces({offers}: FavoritesProps): (JSX.Element | null)[] | nul
 function FavoritePage({offers} :FavoritesProps): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>{'6 cities - Favorite'}</title>
+      </Helmet>
       <CitiesInfo>
         <Nav/>
       </CitiesInfo>
