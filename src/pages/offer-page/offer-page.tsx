@@ -37,7 +37,7 @@ function OfferPage({offers}: OfferProps) {
       maxAdults
     } = offerById;
 
-    return offerById && (
+    return (
       <div className="page">
         <Helmet>
           <title>{'6 cities - Offer'}</title>
