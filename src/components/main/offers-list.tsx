@@ -6,7 +6,7 @@ type OffersProps = {
 }
 
 function OffersList({offers}: OffersProps): JSX.Element|null {
-  return offers.length ?
+  return offers?.length ?
     <div className="cities__places-list places__list tabs__content">
       <Offers offers={offers} />
     </div>
