@@ -1,39 +1,14 @@
 import CitiesInfo from '../../components/general/header';
 import Nav from '../../components/general/nav';
 import {Offer} from '../../index/index';
-import PlaceCard from '../../components/ui/place-card';
+import PlaceCard from '../../components/ui/offer-card';
 import {CITIES} from '../../const';
 import {Helmet} from 'react-helmet-async';
 
+// правильный ли подход используется к компонентам в одном файле, снизу-вверх?
+
 type FavoritesProps = {
   offers: Offer[];
-}
-
-function FavoritesList({offers}: FavoritesProps): JSX.Element | null {
-    const favoriteslocations = (!offers?.length) ? null :
-    <ul className="favorites__list">
-      {CITIES.map((item): JSX.Element|null => {
-        const filterCards = offers.filter((el) => {
-          return el.city.name === item && el.isFavorite;
-        })
-
-        return (filterCards?.length) ?
-        <li key={item} className="favorites__locations-items">
-          <div className="favorites__locations locations locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>{item}</span>
-              </a>
-            </div>
-          </div>
-          <div className="favorites__places">
-            <FavoritesPlaces offers={filterCards} />
-          </div>
-        </li> : null;
-      })}
-    </ul>
-
-   return favoriteslocations
 }
 
 function FavoritesPlaces({offers}: FavoritesProps): (JSX.Element | null)[] | null {
@@ -49,9 +24,34 @@ function FavoritesPlaces({offers}: FavoritesProps): (JSX.Element | null)[] | nul
           </div>
           <PlaceCard offer={item}/>
         </article>
-      : null
+        : null;
     })
-  )
+  );
+}
+
+// eslint иначе не пропускал(() => {})()
+// сделала пока так, наверное потом переделаю после ретро
+function FavoritesList({offers}: FavoritesProps): JSX.Element | null {
+  const favoriteslocations = (!offers.length) ? null : (
+    <ul className="favorites__list">
+      {CITIES.map((item) => (() => {
+        const filterCards = offers.filter((el) => el.city.name === item && el.isFavorite);
+        return (filterCards.length) ?
+          <li key={item} className="favorites__locations-items">
+            <div className="favorites__locations locations locations--current">
+              <div className="locations__item">
+                <a className="locations__item-link" href="#">
+                  <span>{item}</span>
+                </a>
+              </div>
+            </div>
+            <div className="favorites__places">
+              <FavoritesPlaces offers={filterCards} />
+            </div>
+          </li> : null;
+      })())}
+    </ul>);
+  return favoriteslocations;
 }
 
 function FavoritePage({offers} :FavoritesProps): JSX.Element {

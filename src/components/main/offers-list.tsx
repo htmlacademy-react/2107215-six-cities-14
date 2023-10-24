@@ -1,11 +1,11 @@
-import PlaceCard from '../ui/place-card';
+import PlaceCard from '../ui/offer-card';
 import {Offer} from '../../index/index';
 
 type PlacesProps = {
   offers: Offer[];
 }
 
-function Places({offers}: PlacesProps): (JSX.Element | null)[] | null {
+function Offers({offers}: PlacesProps): (JSX.Element | null)[] | null {
   return (
     offers.map((item: Offer): JSX.Element => {
       const {images} = item;
@@ -18,17 +18,17 @@ function Places({offers}: PlacesProps): (JSX.Element | null)[] | null {
           </div>
           <PlaceCard offer={item}/>
         </article>
-      )
+      );
     })
-  )
+  );
 }
 
-function PlacesList({offers}: PlacesProps): JSX.Element|null {
-  return offers?.length ? (
+function OffersList({offers}: PlacesProps): JSX.Element|null {
+  return offers?.length ?
     <div className="cities__places-list places__list tabs__content">
-      <Places offers={offers} />
+      <Offers offers={offers} />
     </div>
-  ) : null;
+    : null;
 }
 
-export default PlacesList;
+export default OffersList;

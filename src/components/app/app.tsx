@@ -19,17 +19,17 @@ function App({offers}: AppProps): JSX.Element {
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
-          <Routes>
-            <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
-            <Route path={AppRoute.Login}
-              element={
-                <PrivateRoute
-                  restrictedFor={AuthorizationStatus.Auth}
-                  redirectTo={AppRoute.Root}
-                >
-                  <LoginPage />
-                </PrivateRoute>
-              }
+        <Routes>
+          <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
+          <Route path={AppRoute.Login}
+            element={
+              <PrivateRoute
+                restrictedFor={AuthorizationStatus.Auth}
+                redirectTo={AppRoute.Root}
+              >
+                <LoginPage />
+              </PrivateRoute>
+            }
           />
           <Route path={AppRoute.Favorites}
             element={

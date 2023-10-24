@@ -2,7 +2,7 @@ import {Offer} from '../../index/offer';
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
 
-type PlaceProps = {
+type OfferProps = {
   offer: Offer;
 }
 
@@ -14,7 +14,7 @@ function Premium(): JSX.Element {
   );
 }
 
-function PlaceCard({offer}: PlaceProps): JSX.Element {
+function OfferCard({offer}: OfferProps): JSX.Element {
   const {
     id,
     isPremium,
@@ -23,7 +23,6 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
     type } = offer;
 
   const [userFavorites, setUserFavorites] = useState({
-    ...offer,
     isFavorite: offer.isFavorite
   });
 
@@ -39,9 +38,8 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
           <button className={ `${'place-card__bookmark-button button'} ${userFavorites.isFavorite && 'place-card__bookmark-button--active'}` } type="button"
             onClick= {() => {
               setUserFavorites({
-                ...userFavorites,
                 isFavorite: !userFavorites.isFavorite
-              })
+              });
             }}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
@@ -66,4 +64,4 @@ function PlaceCard({offer}: PlaceProps): JSX.Element {
   );
 }
 
-export default PlaceCard;
+export default OfferCard;

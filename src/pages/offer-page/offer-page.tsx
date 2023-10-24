@@ -1,9 +1,10 @@
 import {useParams} from 'react-router-dom';
-import CitiesInfo from '../../components/general/header';
+import Header from '../../components/general/header';
 import Nav from '../../components/general/nav';
 import {Offer} from '../../index/index';
 import {Helmet} from 'react-helmet-async';
-import OfferForm from '../../components/offer/offer-form';
+import ReviewsList from '../../components/offer/reviews-list';
+import {offerInside} from '../../const';
 
 type OfferProps = {
   offers: Offer[];
@@ -14,39 +15,46 @@ function OfferPage({offers}: OfferProps) {
   const offerById = offers.find((item) => item.id === params);
 
   if(offerById) {
-    const {title, images} = offerById;
+    const {
+      title,
+      images,
+      isPremium,
+      type,
+      bedrooms,
+      maxAdults
+    } = offerById;
     return offerById && (
       <div className="page">
         <Helmet>
           <title>{'6 cities - Offer'}</title>
         </Helmet>
-        <CitiesInfo>
+        <Header>
           <Nav/>
-        </CitiesInfo>
+        </Header>
         <main className="page__main page__main--offer">
           <section className="offer">
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
-                {/* нужна ли проверка на наличие длинны в массиве? */}
-                {images.slice(0, 6).map((item, index): JSX.Element|null => {
-                  return (
-                    <div key={index} className="offer__image-wrapper">
-                      <a href="#">
-                        <img className="offer__image" src={item} alt="Photo studio" />
-                      </a>
-                    </div>)
-                  })}
+                {images.slice(0, 6).map((item): JSX.Element => (
+                  <div key={item} className="offer__image-wrapper">
+                    <a href="#">
+                      <img className="offer__image" src={item} alt="Photo studio" />
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="offer__container container">
               <div className="offer__wrapper">
+                {isPremium &&
                 <div className="offer__mark">
                   <span>Premium</span>
-                </div>
+                </div>}
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
                     {title}
                   </h1>
+                  {/* <ButtonBookmark isFavorite={isFavorite} offerID={id} isBig /> */}
                   <button className="offer__bookmark-button button" type="button">
                     <svg className="offer__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
@@ -63,13 +71,13 @@ function OfferPage({offers}: OfferProps) {
                 </div>
                 <ul className="offer__features">
                   <li className="offer__feature offer__feature--entire">
-                    Apartment
+                    {type}
                   </li>
                   <li className="offer__feature offer__feature--bedrooms">
-                    3 Bedrooms
+                    {bedrooms} Bedrooms
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max 4 adults
+                    Max {maxAdults} adults
                   </li>
                 </ul>
                 <div className="offer__price">
@@ -79,36 +87,11 @@ function OfferPage({offers}: OfferProps) {
                 <div className="offer__inside">
                   <h2 className="offer__inside-title">What&apos;s inside</h2>
                   <ul className="offer__inside-list">
-                    <li className="offer__inside-item">
-                      Wi-Fi
-                    </li>
-                    <li className="offer__inside-item">
-                      Washing machine
-                    </li>
-                    <li className="offer__inside-item">
-                      Towels
-                    </li>
-                    <li className="offer__inside-item">
-                      Heating
-                    </li>
-                    <li className="offer__inside-item">
-                      Coffee machine
-                    </li>
-                    <li className="offer__inside-item">
-                      Baby seat
-                    </li>
-                    <li className="offer__inside-item">
-                      Kitchen
-                    </li>
-                    <li className="offer__inside-item">
-                      Dishwasher
-                    </li>
-                    <li className="offer__inside-item">
-                      Cabel TV
-                    </li>
-                    <li className="offer__inside-item">
-                      Fridge
-                    </li>
+                    {offerInside.map((item) => (
+                      <li key={item} className="offer__inside-item">
+                        {item}
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="offer__host">
@@ -133,34 +116,7 @@ function OfferPage({offers}: OfferProps) {
                     </p>
                   </div>
                 </div>
-                <section className="offer__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                  <ul className="reviews__list">
-                    <li className="reviews__item">
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width={54} height={54} alt="Reviews avatar" />
-                        </div>
-                        <span className="reviews__user-name">
-                          Max
-                        </span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <div className="reviews__stars rating__stars">
-                            <span style={{ width: '80%' }} />
-                            <span className="visually-hidden">Rating</span>
-                          </div>
-                        </div>
-                        <p className="reviews__text">
-                          A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                        </p>
-                        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                      </div>
-                    </li>
-                  </ul>
-                  <OfferForm/>
-                </section>
+                <ReviewsList />
               </div>
             </div>
             <section className="offer__map map"></section>

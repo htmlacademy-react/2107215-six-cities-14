@@ -25,16 +25,42 @@ const IMAGES = [
   'https://14.react.pages.academy/static/offer/4.jpg',
 ];
 
+const COMMENTS = [
+  'Home is amazing. It like staying in a museum. The rooms, furnishings and artworks are incredible. The views of My Vesuvius.',
+  'Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra.',
+];
+
 const TYPES = ['apartment', 'room', 'house', 'hotel'];
 
 const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-enum AppRoute {
-  Login = '/login',
-  Favorites = '/favorites',
-  Offer = '/offer',
-  Root = '/',
-}
+const offerInside = [
+  'Wi-Fi',
+  'Washing machine',
+  'Towels',
+  'Heating',
+  'Coffee machine',
+  'Baby seat',
+  'KitchenBaby seat',
+  'Dishwasher',
+  'Cabel TV',
+  'Fridge'
+];
+
+const RviewSymbolLenght = {
+  Max: 300,
+  Min: 50
+} as const;
+
+// куда писать тип для перечислений обьявленных как const?
+// type AppRouteEnum = typeof AppRoute[keyof typeof AppRoute];
+const AppRoute = {
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer',
+  Root: '/'
+} as const;
 
 enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -45,9 +71,12 @@ enum AuthorizationStatus {
 export {
   AppRoute,
   AuthorizationStatus,
+  RviewSymbolLenght,
   DESCRIPTIONS,
+  COMMENTS,
   CITIES,
   TITLES,
   TYPES,
-  IMAGES
+  IMAGES,
+  offerInside
 };

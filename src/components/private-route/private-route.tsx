@@ -1,9 +1,11 @@
 import {Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 
+type AppRouteEnum = typeof AppRoute[keyof typeof AppRoute];
+
 type PrivateRouteProps = {
   restrictedFor: AuthorizationStatus;
-  redirectTo: AppRoute;
+  redirectTo: AppRouteEnum;
   children: JSX.Element;
 }
 
