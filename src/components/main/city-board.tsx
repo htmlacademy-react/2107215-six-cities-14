@@ -1,5 +1,5 @@
-import PlacesList from './places-list';
-import CardsMap from '../general/cards-map';
+import PlacesList from './offers-list';
+import OffersMap from '../general/offers-map';
 import {Offer} from '../../index/index';
 
 type BoardProps = {
@@ -30,7 +30,7 @@ function CityBoard({offers}: BoardProps): JSX.Element {
           </form>
           <PlacesList offers={offers}/>
         </section>
-        <CardsMap/>
+        <OffersMap/>
       </div>
     </div>
   );

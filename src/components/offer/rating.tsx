@@ -1,13 +1,6 @@
 import {Fragment} from 'react';
 import {ChangeEvent} from 'react';
 
-// Критерий Д8:
-// Импорты
-// Описание типа компонента (props)
-// Код компонента
-// Блоки кода, не описанные в этой структуре, могут быть расположены произвольно.
-
-// куда писать такие обьекты?
 const ratingReview = [
   {title: 'perfect', value: '5'},
   {title: 'good', value: '4'},

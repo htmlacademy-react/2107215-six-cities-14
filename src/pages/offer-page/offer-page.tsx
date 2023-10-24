@@ -4,7 +4,20 @@ import Nav from '../../components/general/nav';
 import {Offer} from '../../index/index';
 import {Helmet} from 'react-helmet-async';
 import ReviewsList from '../../components/offer/reviews-list';
-import {offerInside} from '../../const';
+import ButtonBookmark from '../../components/ui/button-bookmark';
+
+const offerInside = [
+  'Wi-Fi',
+  'Washing machine',
+  'Towels',
+  'Heating',
+  'Coffee machine',
+  'Baby seat',
+  'KitchenBaby seat',
+  'Dishwasher',
+  'Cabel TV',
+  'Fridge'
+];
 
 type OfferProps = {
   offers: Offer[];
@@ -23,6 +36,7 @@ function OfferPage({offers}: OfferProps) {
       bedrooms,
       maxAdults
     } = offerById;
+
     return offerById && (
       <div className="page">
         <Helmet>
@@ -35,10 +49,10 @@ function OfferPage({offers}: OfferProps) {
           <section className="offer">
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
-                {images.slice(0, 6).map((item): JSX.Element => (
-                  <div key={item} className="offer__image-wrapper">
+                {images.slice(0, 6).map((src): JSX.Element => (
+                  <div key={src} className="offer__image-wrapper">
                     <a href="#">
-                      <img className="offer__image" src={item} alt="Photo studio" />
+                      <img className="offer__image" src={src} alt="Photo studio" />
                     </a>
                   </div>
                 ))}
@@ -54,13 +68,7 @@ function OfferPage({offers}: OfferProps) {
                   <h1 className="offer__name">
                     {title}
                   </h1>
-                  {/* <ButtonBookmark isFavorite={isFavorite} offerID={id} isBig /> */}
-                  <button className="offer__bookmark-button button" type="button">
-                    <svg className="offer__bookmark-icon" width={31} height={33}>
-                      <use xlinkHref="#icon-bookmark" />
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <ButtonBookmark offer={offerById} isBig />
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">

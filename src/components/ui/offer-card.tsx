@@ -1,17 +1,9 @@
 import {Offer} from '../../index/offer';
 import {Link} from 'react-router-dom';
-import {useState} from 'react';
+import ButtonBookmark from './button-bookmark';
 
 type OfferProps = {
   offer: Offer;
-}
-
-function Premium(): JSX.Element {
-  return (
-    <div className="place-card__mark">
-      <span>Premium</span>
-    </div>
-  );
 }
 
 function OfferCard({offer}: OfferProps): JSX.Element {
@@ -22,31 +14,19 @@ function OfferCard({offer}: OfferProps): JSX.Element {
     title,
     type } = offer;
 
-  const [userFavorites, setUserFavorites] = useState({
-    isFavorite: offer.isFavorite
-  });
-
   return (
     <>
-      {isPremium && <Premium/>}
+      {isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={ `${'place-card__bookmark-button button'} ${userFavorites.isFavorite && 'place-card__bookmark-button--active'}` } type="button"
-            onClick= {() => {
-              setUserFavorites({
-                isFavorite: !userFavorites.isFavorite
-              });
-            }}
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <ButtonBookmark offer={offer} isBig={false}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

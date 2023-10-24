@@ -35,19 +35,6 @@ const TYPES = ['apartment', 'room', 'house', 'hotel'];
 
 const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-const offerInside = [
-  'Wi-Fi',
-  'Washing machine',
-  'Towels',
-  'Heating',
-  'Coffee machine',
-  'Baby seat',
-  'KitchenBaby seat',
-  'Dishwasher',
-  'Cabel TV',
-  'Fridge'
-];
-
 const RviewSymbolLenght = {
   Max: 300,
   Min: 50
@@ -77,6 +64,5 @@ export {
   CITIES,
   TITLES,
   TYPES,
-  IMAGES,
-  offerInside
+  IMAGES
 };
