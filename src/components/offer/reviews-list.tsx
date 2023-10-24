@@ -39,8 +39,8 @@ function ReviewsList() {
             </li>
           ))}
         </ul>
+        <RatingForm />
       </section>
-      <RatingForm />
     </>
   );
 }
