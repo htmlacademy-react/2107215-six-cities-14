@@ -6,12 +6,11 @@ type FavoritesProps = {
   offers: Offer[];
 }
 
-// eslint иначе не пропускал(() => {})()
 // стоит делать эти проверки на наличие свойств и элементов?
 function FavoritesList({offers}: FavoritesProps): JSX.Element | null {
   const favoriteslocations = (!offers?.length) ? null : (
     <ul className="favorites__list">
-      {CITIES?.map((item) => (() => {
+      {CITIES?.map((item) => {
         const filterCards = offers.filter((el) => el.city.name === item && el.isFavorite);
         return (filterCards?.length) ?
           <li key={item} className="favorites__locations-items">
@@ -26,7 +25,7 @@ function FavoritesList({offers}: FavoritesProps): JSX.Element | null {
               <FavoritesOffers offers={filterCards} />
             </div>
           </li> : null;
-      })())}
+      })}
     </ul>);
   return favoriteslocations;
 }
