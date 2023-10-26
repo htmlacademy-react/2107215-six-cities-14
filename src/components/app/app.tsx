@@ -8,7 +8,7 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import {Offer} from '../../index/index';
+import {Offer} from '../../types/index';
 
 type AppProps = {
   offers: Offer[];

@@ -44,17 +44,15 @@ function RatingForm(): JSX.Element {
       className="reviews__form form"
       action="#"
       method="post"
-      onSubmit={(evt: FormEvent<HTMLFormElement>) => handleFormSubmit(evt)}
+      onSubmit={handleFormSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <Rating rating={formData.rating} onChange={(evt) => handleInputChange(evt)}/>
+      <Rating rating={formData.rating} onChange={handleInputChange}/>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
-        onChange={(evt) => {
-          handleTextAreaChange(evt);
-        }}
+        onChange={handleTextAreaChange}
         value={formData.review}
         placeholder="Tell how was your stay, what you like and what can be improved"
       >

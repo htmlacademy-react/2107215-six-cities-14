@@ -1,4 +1,4 @@
-import {Offer} from '../../index/index';
+import {Offer} from '../../types/index';
 import OfferCard from '../ui/offer-card';
 
 type FavoritesProps = {
@@ -9,7 +9,11 @@ function FavoritesOffers({offers}: FavoritesProps): (JSX.Element | null)[] | nul
   return (
     offers.map((item: Offer): JSX.Element|null => {
       const {images, isFavorite} = item;
-      return isFavorite ?
+      if (!isFavorite) {
+        return null;
+      }
+
+      return (
         <article key={item.id} className="favorites__card place-card">
           <div className="favorites__image-wrapper cities__image-wrapper place-card__image-wrapper">
             <a href="#">
@@ -18,7 +22,7 @@ function FavoritesOffers({offers}: FavoritesProps): (JSX.Element | null)[] | nul
           </div>
           <OfferCard offer={item}/>
         </article>
-        : null;
+      );
     })
   );
 }

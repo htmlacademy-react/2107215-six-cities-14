@@ -1,4 +1,4 @@
-import {Offer} from '../../index/index';
+import {Offer} from '../../types/index';
 import Offers from './offers';
 
 type OffersProps = {
@@ -6,11 +6,15 @@ type OffersProps = {
 }
 
 function OffersList({offers}: OffersProps): JSX.Element|null {
-  return offers?.length ?
+  if(!offers?.length) {
+    return null;
+  }
+
+  return (
     <div className="cities__places-list places__list tabs__content">
       <Offers offers={offers} />
     </div>
-    : null;
+  );
 }
 
 export default OffersList;

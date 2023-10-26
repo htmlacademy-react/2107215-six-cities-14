@@ -40,8 +40,6 @@ const RviewSymbolLenght = {
   Min: 50
 } as const;
 
-// куда писать тип для перечислений обьявленных как const?
-// type AppRouteEnum = typeof AppRoute[keyof typeof AppRoute];
 const AppRoute = {
   Login: '/login',
   Favorites: '/favorites',

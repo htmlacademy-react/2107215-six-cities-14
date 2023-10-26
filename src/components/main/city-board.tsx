@@ -1,6 +1,6 @@
-import PlacesList from './offers-list';
+import OffersList from './offers-list';
 import OffersMap from '../general/offers-map';
-import {Offer} from '../../index/index';
+import {Offer} from '../../types/index';
 
 type BoardProps = {
   offers: Offer[];
@@ -28,7 +28,7 @@ function CityBoard({offers}: BoardProps): JSX.Element {
               <li className="places__option" tabIndex={0}>Top rated first</li>
             </ul>
           </form>
-          <PlacesList offers={offers}/>
+          <OffersList offers={offers}/>
         </section>
         <OffersMap/>
       </div>

@@ -1,5 +1,5 @@
 import OfferCard from '../ui/offer-card';
-import {Offer} from '../../index/index';
+import {Offer} from '../../types/index';
 
 type OffersProps = {
   offers: Offer[];

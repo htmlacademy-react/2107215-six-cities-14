@@ -1,4 +1,4 @@
-import {Offer, Comment} from '../index/index';
+import {Offer, Comment} from '../types/index';
 import {CITIES, TYPES, DESCRIPTIONS, TITLES, IMAGES, COMMENTS} from '../const';
 import {getRandomInt, getRandomArrayElement, getRandomFloat} from '../utils/common';
 const AVATAR_URL = 'https://i.pravatar.cc/128';

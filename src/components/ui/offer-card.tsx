@@ -1,4 +1,4 @@
-import {Offer} from '../../index/offer';
+import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import ButtonBookmark from './button-bookmark';
 

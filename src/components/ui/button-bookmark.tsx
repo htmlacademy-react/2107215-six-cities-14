@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import {useState} from 'react';
-import {Offer} from '../../index/offer';
+import {Offer} from '../../types/offer';
 
 type ButtonBookmarkProp = {
   offer: Offer;
@@ -8,15 +8,13 @@ type ButtonBookmarkProp = {
 }
 
 function ButtonBookmark({offer, isBig}: ButtonBookmarkProp): JSX.Element {
-  const [userFavorites, setUserFavorites] = useState({
-    isFavorite: offer.isFavorite
-  });
+  const [isFavorites, setFavorites] = useState(offer.isFavorite);
 
   const btnClassName = cn('button', {
     'place-card__bookmark-button': !isBig,
-    'place-card__bookmark-button--active': userFavorites.isFavorite && !isBig,
+    'place-card__bookmark-button--active': isFavorites && !isBig,
     'offer__bookmark-button': isBig,
-    'offer__bookmark-button--active': userFavorites.isFavorite && isBig,
+    'offer__bookmark-button--active': isFavorites && isBig,
   });
 
   const svgClassName = cn({
@@ -27,9 +25,7 @@ function ButtonBookmark({offer, isBig}: ButtonBookmarkProp): JSX.Element {
   return (
     <button className={btnClassName} type="button"
       onClick= {() => {
-        setUserFavorites({
-          isFavorite: !userFavorites.isFavorite
-        });
+        setFavorites(!isFavorites);
       }}
     >
       <svg

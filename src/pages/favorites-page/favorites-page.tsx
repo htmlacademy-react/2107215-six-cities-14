@@ -1,6 +1,6 @@
 import Header from '../../components/general/header';
 import Nav from '../../components/general/nav';
-import {Offer} from '../../index/index';
+import {Offer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
 import FavoritesList from '../../components/favorite/favorites-list';
 
