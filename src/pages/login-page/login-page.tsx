@@ -1,8 +1,12 @@
-import CitiesInfo from '../../components/blocks/header';
+import CitiesInfo from '../../components/general/header';
+import {Helmet} from 'react-helmet-async';
 
 function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
+      <Helmet>
+        <title>{'6 cities - Login'}</title>
+      </Helmet>
       <CitiesInfo />
       <main className="page__main page__main--login">
         <div className="page__login-container container">

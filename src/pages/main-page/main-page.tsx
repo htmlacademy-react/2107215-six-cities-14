@@ -1,8 +1,9 @@
-import LocationsList from '../../components/blocks/locations-list';
-import CityBoard from '../../components/blocks/city-board';
-import CitiesInfo from '../../components/blocks/header';
-import Nav from '../../components/blocks/nav';
-import {Offer} from '../../types/types';
+import LocationsList from '../../components/main/locations-list';
+import CityBoard from '../../components/main/city-board';
+import CitiesInfo from '../../components/general/header';
+import Nav from '../../components/general/nav';
+import {Offer} from '../../types/index';
+import {Helmet} from 'react-helmet-async';
 
 type MainProps = {
   offers: Offer[];
@@ -11,6 +12,9 @@ type MainProps = {
 function MainPage({offers}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>{'6 cities'}</title>
+      </Helmet>
       <CitiesInfo>
         <Nav/>
       </CitiesInfo>

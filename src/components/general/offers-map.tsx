@@ -1,4 +1,4 @@
-function CardsMap(): JSX.Element {
+function OffersMap(): JSX.Element {
   return (
     <div className="cities__right-section">
       <section className="cities__map map"></section>
@@ -6,4 +6,4 @@ function CardsMap(): JSX.Element {
   );
 }
 
-export default CardsMap;
+export default OffersMap;

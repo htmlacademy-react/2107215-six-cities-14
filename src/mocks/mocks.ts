@@ -1,6 +1,7 @@
-import {Offer} from '../types/types';
-import {CITIES, TYPES, DESCRIPTIONS, TITLES, IMAGES} from '../const';
+import {Offer, Comment} from '../types/index';
+import {CITIES, TYPES, DESCRIPTIONS, TITLES, IMAGES, COMMENTS} from '../const';
 import {getRandomInt, getRandomArrayElement, getRandomFloat} from '../utils/common';
+const AVATAR_URL = 'https://i.pravatar.cc/128';
 
 function getCityOffer(index: number): Offer {
   return {
@@ -24,9 +25,7 @@ function getCityOffer(index: number): Offer {
       name: 'Angelina',
     },
     id: index,
-    images: [
-      getRandomArrayElement(IMAGES)
-    ],
+    images: Array.from({length: getRandomInt(0, 30)}, (): string => getRandomArrayElement(IMAGES)),
     isFavorite: !!getRandomInt(0, 1),
     isPremium: !!getRandomInt(0, 1),
     location: {
@@ -43,7 +42,23 @@ function getCityOffer(index: number): Offer {
   };
 }
 
-const offers: Offer[] = Array.from({length: 5}, (_, index: number): Offer => getCityOffer(index + 1));
+function getComment(index: number): Comment {
+  return {
+    comment: getRandomArrayElement(COMMENTS),
+    date: new Date('Oct 21, 2023 09:46:55'),
+    id: index,
+    rating: 4,
+    user: {
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+      id: index,
+      isPro: false,
+      name: 'Oliver.conner'
+    }
+  };
+}
 
-export default offers;
+const offers: Offer[] = Array.from({length: 5}, (_, index: number): Offer => getCityOffer(index + 1));
+const comments: Comment[] = Array.from({length: 3}, (_, index: number): Comment => getComment(index + 1));
+
+export {offers, comments};
 

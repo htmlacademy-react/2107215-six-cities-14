@@ -18,31 +18,47 @@ const IMAGES = [
   'https://14.react.pages.academy/static/offer/17.jpg',
   'https://14.react.pages.academy/static/offer/19.jpg',
   'https://14.react.pages.academy/static/offer/16.jpg',
-  'https://14.react.pages.academy/static/offer/9.jpg'
+  'https://14.react.pages.academy/static/offer/9.jpg',
+  'https://14.react.pages.academy/static/offer/5.jpg',
+  'https://14.react.pages.academy/static/offer/2.jpg',
+  'https://14.react.pages.academy/static/offer/11.jpg',
+  'https://14.react.pages.academy/static/offer/4.jpg',
+];
+
+const COMMENTS = [
+  'Home is amazing. It like staying in a museum. The rooms, furnishings and artworks are incredible. The views of My Vesuvius.',
+  'Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra.',
 ];
 
 const TYPES = ['apartment', 'room', 'house', 'hotel'];
 
 const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-enum AppRoute {
-  Login = '/login',
-  Favorites = '/favorites',
-  Offer = '/offer/:id',
-  Root = '/',
-}
+const RviewSymbolLenght = {
+  Max: 300,
+  Min: 50
+} as const;
+
+const AppRoute = {
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer',
+  Root: '/'
+} as const;
 
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
-  Login = 'LOGIN'
 }
 
 export {
   AppRoute,
   AuthorizationStatus,
+  RviewSymbolLenght,
   DESCRIPTIONS,
+  COMMENTS,
   CITIES,
   TITLES,
   TYPES,
