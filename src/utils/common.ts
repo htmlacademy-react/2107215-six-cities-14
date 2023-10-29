@@ -20,5 +20,13 @@ function getRandomFloat(min: number, max: number, decimals: number): number {
   return parseFloat(str);
 }
 
+function addPluralEnding(count: number) {
+  return count !== 1 ? 's' : '';
+}
 
-export { getRandomArrayElement, getRandomInt, getRandomFloat};
+function capitalize(str: string) {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+
+export { getRandomArrayElement, getRandomInt, getRandomFloat, addPluralEnding, capitalize};

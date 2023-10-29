@@ -9,12 +9,12 @@ const ratingReview = [
   {title: 'terribly', value: '1'},
 ];
 
-type RatingProp = {
+type TRatingProps = {
   rating: string;
-  onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
+  onInputChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Rating({rating, onChange}: RatingProp) {
+function Rating({rating, onInputChange}: TRatingProps) {
   return (
     <div className="reviews__rating-form form__rating">
       {ratingReview.map(({title, value}) => (
@@ -25,7 +25,7 @@ function Rating({rating, onChange}: RatingProp) {
             value={value}
             id={`${value}-stars`}
             type="radio"
-            onChange={onChange}
+            onChange={onInputChange}
             checked={rating === value}
           />
           <label

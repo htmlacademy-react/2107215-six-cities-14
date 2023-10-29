@@ -1,9 +1,9 @@
-import {Offer, Comment} from '../types/index';
+import {TOffer, TComment} from '../types/index';
 import {CITIES, TYPES, DESCRIPTIONS, TITLES, IMAGES, COMMENTS} from '../const';
 import {getRandomInt, getRandomArrayElement, getRandomFloat} from '../utils/common';
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-function getCityOffer(index: number): Offer {
+function getCityOffer(index: number): TOffer {
   return {
     bedrooms: getRandomInt(0, 20),
     city: {
@@ -42,7 +42,7 @@ function getCityOffer(index: number): Offer {
   };
 }
 
-function getComment(index: number): Comment {
+function getComment(index: number): TComment {
   return {
     comment: getRandomArrayElement(COMMENTS),
     date: new Date('Oct 21, 2023 09:46:55'),
@@ -57,8 +57,8 @@ function getComment(index: number): Comment {
   };
 }
 
-const offers: Offer[] = Array.from({length: 5}, (_, index: number): Offer => getCityOffer(index + 1));
-const comments: Comment[] = Array.from({length: 3}, (_, index: number): Comment => getComment(index + 1));
+const offers: TOffer[] = Array.from({length: 5}, (_, index: number): TOffer => getCityOffer(index + 1));
+const comments: TComment[] = Array.from({length: 3}, (_, index: number): TComment => getComment(index + 1));
 
 export {offers, comments};
 

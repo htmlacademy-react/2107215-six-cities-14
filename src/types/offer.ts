@@ -1,34 +1,40 @@
-type Location = {
+import {TUser} from '.';
+
+// в дальнейшем возможно сужение типа сделаю
+// export type TCity = {
+//   location: TLocation;
+//   name: CityName;
+// }
+
+export type TCity = {
+  location: TLocation;
+  name: string;
+}
+
+export type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
 }
 
-type Offer = {
-  bedrooms: number;
-  city: {
-    location: Location;
-    name: string;
-  };
-  description: string;
-    goods: string[];
-    host: {
-      avatarUrl: string;
-      id: number;
-      isPro: boolean;
-      name: string;
-  };
+export type TOfferPreview = {
+  city: TCity;
+  goods: string[];
   id: number;
-  images: string[];
   isFavorite: boolean;
   isPremium: boolean;
-  location: Location;
-  maxAdults: number;
+  location: TLocation;
   previewImage: string;
   price: number;
   rating: number;
   title: string;
   type: string;
-};
+}
 
-export {type Offer};
+export type TOffer = TOfferPreview & {
+  bedrooms: number;
+  description: string;
+  host: TUser;
+  images: string[];
+  maxAdults: number;
+}

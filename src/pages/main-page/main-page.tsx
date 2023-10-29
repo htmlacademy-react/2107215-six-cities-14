@@ -1,15 +1,15 @@
 import LocationsList from '../../components/main/locations-list';
-import CityBoard from '../../components/main/city-board';
+import CityBoard from '../../components/main/cities';
 import CitiesInfo from '../../components/general/header';
 import Nav from '../../components/general/nav';
-import {Offer} from '../../types/index';
+import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
 
-type MainProps = {
-  offers: Offer[];
+type TMainProps = {
+  offers: TOffer[];
 }
 
-function MainPage({offers}: MainProps): JSX.Element {
+function MainPage({offers}: TMainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>

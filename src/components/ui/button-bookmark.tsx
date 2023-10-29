@@ -1,13 +1,13 @@
 import cn from 'classnames';
 import {useState} from 'react';
-import {Offer} from '../../types/offer';
+import {TOfferPreview} from '../../types/offer';
 
-type ButtonBookmarkProp = {
-  offer: Offer;
+type TButtonBookmarkProp = {
+  offer: TOfferPreview;
   isBig?: boolean;
 }
 
-function ButtonBookmark({offer, isBig}: ButtonBookmarkProp): JSX.Element {
+function ButtonBookmark({offer, isBig}: TButtonBookmarkProp): JSX.Element {
   const [isFavorites, setFavorites] = useState(offer.isFavorite);
 
   const btnClassName = cn('button', {

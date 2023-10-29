@@ -1,19 +1,25 @@
-import FavoritesOffers from './favorites-offers';
-import {Offer} from '../../types/index';
-import {CITIES} from '../../const';
+import {TOffer, TOfferPreview} from '../../types/index';
+import OfferCard from '../ui/offer-card';
 
-type FavoritesProps = {
-  offers: Offer[];
+type TFavoritesProps = {
+  offers: TOffer[];
 }
 
-function FavoritesList({offers}: FavoritesProps) {
-  const favoritesCards: Offer[][] = [];
-  CITIES?.forEach((item) => {
-    const filterCards = offers.filter((el) => el.city.name === item && el.isFavorite);
-    if(filterCards.length !== 0) {
-      favoritesCards.push(filterCards);
+function getFavoritesByCity(favorites: TOfferPreview[]){
+  return favorites.reduce<{[key: string]: TOfferPreview[]}>((acc, curr) => {
+    const city = curr.city.name;
+
+    if(!(city in acc)) {
+      acc[city] = [];
     }
-  });
+
+    acc[city].push(curr);
+    return acc;
+  }, {});
+}
+
+function FavoritesList({offers}: TFavoritesProps) {
+  const favoritesByCity = getFavoritesByCity(offers);
 
   if (!offers?.length) {
     return null;
@@ -21,17 +27,19 @@ function FavoritesList({offers}: FavoritesProps) {
 
   return (
     <ul className="favorites__list">
-      {favoritesCards.map((item) => (
-        <li key={item[0].id} className="favorites__locations-items">
+      {Object.entries(favoritesByCity).map(([city, groupedFavorites]) => (
+        <li key={city} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
-                <span>{item[0].city.name}</span>
+                <span>{city}</span>
               </a>
             </div>
           </div>
           <div className="favorites__places">
-            <FavoritesOffers offers={item} />
+            {groupedFavorites.map((item) =>
+              <OfferCard offer={item} size={'small'} block={'favorites'}/>
+            )}
           </div>
         </li>
       ))}

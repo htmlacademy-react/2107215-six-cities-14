@@ -1,16 +1,9 @@
-type User = {
-  avatarUrl: string;
-  id: number;
-  isPro: boolean;
-  name: string;
-}
+import {TUser} from '.';
 
-type Comment = {
+export type TComment = {
   comment: string;
   date: Date;
   id: number;
   rating: number;
-  user: User;
+  user: TUser;
 }
-
-export {type Comment};

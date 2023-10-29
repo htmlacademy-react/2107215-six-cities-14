@@ -1,18 +1,28 @@
-import OffersList from './offers-list';
 import OffersMap from '../general/offers-map';
-import {Offer} from '../../types/index';
+import {TOfferPreview} from '../../types/index';
+import {addPluralEnding} from '../../utils/common'
+import OfferCard from '../ui/offer-card';
+import {useState} from 'react';
 
-type BoardProps = {
-  offers: Offer[];
+type TCitiesProps = {
+  offers: TOfferPreview[];
 }
 
-function CityBoard({offers}: BoardProps): JSX.Element {
+function Cities({offers}: TCitiesProps): JSX.Element | null {
+  const [activeOfferId, setActiveOfferId] = useState<TOfferPreview['id'] | null>(null);
+
+  const handleCardHover = (offerId: TOfferPreview['id'] | null) => setActiveOfferId(offerId);
+
+  if(!offers?.length) {
+    return null;
+  }
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">312 places to stay in Amsterdam</b>
+          <b className="places__found">{offers.length} place{addPluralEnding(offers.length)} to stay in Amsterdam</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -28,12 +38,21 @@ function CityBoard({offers}: BoardProps): JSX.Element {
               <li className="places__option" tabIndex={0}>Top rated first</li>
             </ul>
           </form>
-          <OffersList offers={offers}/>
+          <div className="cities__places-list places__list tabs__content">
+            {offers.map((item) =>
+              <OfferCard offer={item} onCardHover={handleCardHover} block={'cities'} size={'large'}/>
+            )}
+          </div>
         </section>
-        <OffersMap/>
+        <OffersMap
+          // block="cities"
+          // offers={}
+          // location={active.location}
+          // specialOfferId={hoverOfferId}
+        />
       </div>
     </div>
   );
 }
 
-export default CityBoard;
+export default Cities;
