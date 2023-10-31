@@ -1,38 +1,31 @@
+import cn from 'classnames';
+import {useState} from 'react';
+import {CityName} from '../../const'
+
 function LocationsList(): JSX.Element {
+  const [activeItem, setActiveItem] = useState(3);
+
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Paris</span>
+          {Object.entries(CityName).map(([_, item], id) =>
+          <li key={item} className="locations__item">
+            <a
+              className={cn(
+                'locations__item-link tabs__item',
+                {'tabs__item--active': activeItem === id}
+              )}
+              href="#"
+              onClick={(evt: React.MouseEvent<HTMLElement>) => {
+                evt.preventDefault();
+                setActiveItem(id);
+              }}
+              >
+              <span>{item}</span>
             </a>
           </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Cologne</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Brussels</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item tabs__item--active">
-              <span>Amsterdam</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Hamburg</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Dusseldorf</span>
-            </a>
-          </li>
+          )}
         </ul>
       </section>
     </div>

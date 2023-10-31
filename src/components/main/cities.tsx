@@ -1,8 +1,10 @@
 import OffersMap from '../general/offers-map';
 import {TOfferPreview} from '../../types/index';
+import LocationsList from '../../components/main/locations-list';
 import {addPluralEnding} from '../../utils/common'
 import OfferCard from '../ui/offer-card';
 import {useState} from 'react';
+
 
 type TCitiesProps = {
   offers: TOfferPreview[];
@@ -18,6 +20,8 @@ function Cities({offers}: TCitiesProps): JSX.Element | null {
   }
 
   return (
+    <>
+    <LocationsList />
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
@@ -45,13 +49,15 @@ function Cities({offers}: TCitiesProps): JSX.Element | null {
           </div>
         </section>
         <OffersMap
-          // block="cities"
-          // offers={}
+          block="cities"
+          offers={offers}
+          selectedPoint={activeOfferId}
           // location={active.location}
           // specialOfferId={hoverOfferId}
         />
       </div>
     </div>
+    </>
   );
 }
 
