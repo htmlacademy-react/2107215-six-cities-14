@@ -4,6 +4,7 @@ import LocationsList from '../../components/main/locations-list';
 import {addPluralEnding} from '../../utils/common'
 import OfferCard from '../ui/offer-card';
 import {useState} from 'react';
+import {CityProvider} from '../../context/city/city-provader';
 
 
 type TCitiesProps = {
@@ -48,13 +49,18 @@ function Cities({offers}: TCitiesProps): JSX.Element | null {
             )}
           </div>
         </section>
-        <OffersMap
-          block="cities"
-          offers={offers}
-          selectedPoint={activeOfferId}
-          // location={active.location}
-          // specialOfferId={hoverOfferId}
-        />
+        <div className="cities__right-section">
+          <CityProvider>
+            <OffersMap
+              block="cities"
+              offers={offers}
+              size={'large'}
+              activeOfferId={activeOfferId}
+              // location={active.location}
+              // specialOfferId={hoverOfferId}
+            />
+          </CityProvider>
+        </div>
       </div>
     </div>
     </>

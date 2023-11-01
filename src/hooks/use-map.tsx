@@ -3,7 +3,7 @@ import leaflet from 'leaflet';
 import {Map, TileLayer} from 'leaflet';
 import {TCity} from '../types/index';
 
-function useMap(mapRef: MutableRefObject<HTMLElement | null>, {city}: {city: TCity}): Map | null {
+function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: TCity): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 

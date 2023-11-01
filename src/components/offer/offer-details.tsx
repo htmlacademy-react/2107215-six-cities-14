@@ -1,6 +1,7 @@
 import {TOffer} from '../../types/index';
 import ReviewsList from '../../components/offer/reviews-list';
 import ButtonBookmark from '../../components/ui/button-bookmark';
+import {getRatingWidth} from '../../utils/utils';
 
 const offerInside = [
   'Wi-Fi',
@@ -31,14 +32,14 @@ function OfferDetails({offer}: TOfferDetailsProps) {
             <h1 className="offer__name">
               {offer.title}
             </h1>
-            <ButtonBookmark offer={offer} isBig />
+            <ButtonBookmark offer={offer} islarge />
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
-              <span style={{ width: '80%' }} />
+              <span style={{ width: `${getRatingWidth(offer.rating)}%` }} />
               <span className="visually-hidden">Rating</span>
             </div>
-            <span className="offer__rating-value rating__value">4.8</span>
+            <span className="offer__rating-value rating__value">{offer.rating}</span>
           </div>
           <ul className="offer__features">
             <li className="offer__feature offer__feature--entire">
@@ -52,7 +53,7 @@ function OfferDetails({offer}: TOfferDetailsProps) {
             </li>
           </ul>
           <div className="offer__price">
-            <b className="offer__price-value">&euro;120</b>
+            <b className="offer__price-value">&euro;{offer.price}</b>
             <span className="offer__price-text">&nbsp;night</span>
           </div>
           <div className="offer__inside">
@@ -61,7 +62,7 @@ function OfferDetails({offer}: TOfferDetailsProps) {
               {offerInside.map((item) => (
                 <li key={item} className="offer__inside-item">
                   {item}
-                  </li>
+                </li>
               ))}
             </ul>
           </div>

@@ -55,7 +55,7 @@ function OfferCard({offer, size='large', block, onCardHover} : TOffersProps): JS
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <ButtonBookmark offer={offer} isBig={false}/>
+          <ButtonBookmark offer={offer} islarge={false}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

@@ -4,22 +4,22 @@ import {TOfferPreview} from '../../types/offer';
 
 type TButtonBookmarkProp = {
   offer: TOfferPreview;
-  isBig?: boolean;
+  islarge?: boolean;
 }
 
-function ButtonBookmark({offer, isBig}: TButtonBookmarkProp): JSX.Element {
+function ButtonBookmark({offer, islarge}: TButtonBookmarkProp): JSX.Element {
   const [isFavorites, setFavorites] = useState(offer.isFavorite);
 
   const btnClassName = cn('button', {
-    'place-card__bookmark-button': !isBig,
-    'place-card__bookmark-button--active': isFavorites && !isBig,
-    'offer__bookmark-button': isBig,
-    'offer__bookmark-button--active': isFavorites && isBig,
+    'place-card__bookmark-button': !islarge,
+    'place-card__bookmark-button--active': isFavorites && !islarge,
+    'offer__bookmark-button': islarge,
+    'offer__bookmark-button--active': isFavorites && islarge,
   });
 
   const svgClassName = cn({
-    'place-card__bookmark-icon': !isBig,
-    'offer__bookmark-icon': isBig,
+    'place-card__bookmark-icon': !islarge,
+    'offer__bookmark-icon': islarge,
   });
 
   return (
@@ -30,8 +30,8 @@ function ButtonBookmark({offer, isBig}: TButtonBookmarkProp): JSX.Element {
     >
       <svg
         className={svgClassName}
-        width={isBig ? '31' : '18'}
-        height={isBig ? '33' : '19'}
+        width={islarge ? '31' : '18'}
+        height={islarge ? '33' : '19'}
       >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>

@@ -33,7 +33,7 @@ export const COMMENTS = [
 
 export const TYPES = ['apartment', 'room', 'house', 'hotel'];
 
-export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+// export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const RviewSymbolLenght = {
   Max: 300,
@@ -54,7 +54,6 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-// Пока временно это тут
 export enum CityName {
   Paris = 'Paris',
   Cologne = 'Cologne',

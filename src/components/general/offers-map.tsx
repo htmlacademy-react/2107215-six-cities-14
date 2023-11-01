@@ -1,51 +1,54 @@
-// import {Icon, Marker, layerGroup} from 'leaflet';
 import {useRef, useEffect} from 'react';
 import {Marker, layerGroup, Icon} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {TOfferPreview} from '../../types';
 import useMap from '../../hooks/use-map';
-import {CITY} from '../../mocks/mocks';
+import {useCity} from '../../hooks/use-city';
+
+type TMapSize = 'small' | 'large';
 
 type TOffersMapProps = {
   block: string;
   offers: TOfferPreview[];
-  selectedPoint: TOfferPreview['id'] | null;
+  activeOfferId?: TOfferPreview['id'] | null;
+  size: TMapSize;
 }
 
-const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-
-const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
-
 const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconUrl: `img/pin.svg`,
+  iconSize: [30, 40],
+  iconAnchor: [15, 40]
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconUrl: `img/pin-active.svg`,
+  iconSize: [30, 40],
+  iconAnchor: [15, 40]
 });
 
-function OffersMap({block, offers, selectedPoint}: TOffersMapProps): JSX.Element {
+const sizeMap: Record<TMapSize, {height: string}> = {
+  small: {height: '579'},
+  large: {height: '100%'}
+};
+
+function OffersMap({block, offers, size='large', activeOfferId}: TOffersMapProps): JSX.Element {
+  const {city} = useCity();
   const mapRef = useRef(null);
-  const map = useMap(mapRef, CITY);
+  const map = useMap(mapRef, city);
+  const currentOffers = (activeOfferId === undefined ? offers.slice(0, 3) : offers);
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((point) => {
+      currentOffers.forEach((offer) => {
         const marker = new Marker({
-          lat: point.city.location.latitude,
-          lng: point.city.location.longitude,
+          lat: offer.city.location.latitude,
+          lng: offer.city.location.longitude,
         });
 
         marker
           .setIcon(
-            selectedPoint !== null && point.id === selectedPoint
+            activeOfferId !== null && offer.id === activeOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -56,12 +59,10 @@ function OffersMap({block, offers, selectedPoint}: TOffersMapProps): JSX.Element
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, offers, activeOfferId]);
 
   return (
-    <div className="cities__right-section">
-      <section className={`${block}${'__map map'}`} style={{height: '100%'}} ref={mapRef}></section>
-    </div>
+    <section className={`${block}${'__map map'}`} style={{...sizeMap[size]}} ref={mapRef}></section>
   );
 }
 
