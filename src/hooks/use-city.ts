@@ -5,7 +5,7 @@ export function useCity() {
   const cityContexData = useContext<TCityContexType>(CityContext);
 
   if(!cityContexData) {
-    throw new Error('useOffers must be used within OfferContext')
+    throw new Error('useOffers must be used within OfferContext');
   }
 
   return cityContexData;

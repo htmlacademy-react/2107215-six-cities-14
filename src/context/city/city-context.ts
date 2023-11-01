@@ -1,6 +1,6 @@
-import {createContext} from "react";
-import {TCity} from "../../types";
-import {city} from "../../mocks/mocks";
+import {createContext} from 'react';
+import {TCity} from '../../types';
+import {city} from '../../mocks/mocks';
 
 export type TCityContexType = {
   city: TCity;

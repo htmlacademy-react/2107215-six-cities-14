@@ -19,7 +19,7 @@ function OfferPage({offers}: TOfferProps) {
   const offerById = offers.find((item) => item.id === params);
 
   if(!offerById) {
-    return <Navigate to={AppRoute.NotFound} />
+    return <Navigate to={AppRoute.NotFound} />;
   }
 
   return (
@@ -49,9 +49,9 @@ function OfferPage({offers}: TOfferProps) {
               block="offer"
               offers={offers}
               size={'small'}
-            // selectedPoint={activeOfferId}
-          // location={active.location}
-          // specialOfferId={hoverOfferId}
+              // selectedPoint={activeOfferId}
+              // location={active.location}
+              // specialOfferId={hoverOfferId}
             />
           </CityProvider>
         </section>

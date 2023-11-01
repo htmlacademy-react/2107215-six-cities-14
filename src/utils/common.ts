@@ -12,14 +12,6 @@ function getRandomInt (min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getRandomFloat(min: number, max: number, decimals: number): number {
-  const str = (Math.random() * (max - min) + min).toFixed(
-    decimals,
-  );
-
-  return parseFloat(str);
-}
-
 function addPluralEnding(count: number) {
   return count !== 1 ? 's' : '';
 }
@@ -29,4 +21,4 @@ function capitalize(str: string) {
 }
 
 
-export { getRandomArrayElement, getRandomInt, getRandomFloat, addPluralEnding, capitalize};
+export { getRandomArrayElement, getRandomInt, addPluralEnding, capitalize};

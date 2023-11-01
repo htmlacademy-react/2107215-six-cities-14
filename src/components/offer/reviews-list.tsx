@@ -1,14 +1,14 @@
 import RatingForm from '../../components/offer/rating-form';
 import {comments} from '../../mocks/mocks';
 import {getDate, getRatingWidth} from '../../utils/utils';
-import {addPluralEnding} from '../../utils/common'
+import {addPluralEnding} from '../../utils/common';
 
 function ReviewsList() {
   return (
     <section className="offer__reviews reviews">
-      <h2 className="reviews__title">Review{addPluralEnding(comments.length)} &middot; <span className="reviews__amount">{comments.length}</span></h2>
+      <h2 className="reviews__title">Review{addPluralEnding(comments.length)} &middot; <span className="reviews__amount">{comments.length <= 10 ? comments.length : 10}</span></h2>
       <ul className="reviews__list">
-        {comments.map(({user, ...prop}) => (
+        {comments.slice(0, 10).map(({user, ...prop}) => (
           <li key={prop.id} className="reviews__item">
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">

@@ -9,4 +9,4 @@ function getRatingWidth(rating = 0) {
   return Math.round(rating) * 20;
 }
 
-export {getDate, getRatingWidth}
+export {getDate, getRatingWidth};

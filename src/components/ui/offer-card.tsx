@@ -19,7 +19,7 @@ const sizeMap: Record<TCardImageSize, {width: string; height: string}> = {
   large: {width: '260', height: '200'}
 };
 
-function OfferCard({offer, size='large', block, onCardHover} : TOffersProps): JSX.Element {
+function OfferCard({offer, size = 'large', block, onCardHover} : TOffersProps): JSX.Element {
   const {id, isPremium, price, title, rating, type, previewImage } = offer;
 
   function handleMouseEnter() {
@@ -31,24 +31,25 @@ function OfferCard({offer, size='large', block, onCardHover} : TOffersProps): JS
   }
 
   return (
-    <article key={id}
+    <article
       className={`${block}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-    <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-      <Link to={`${AppRoute.Offer}/${id}`}>
-        <img
-          className="place-card__image"
-          src={previewImage}
-          {...sizeMap[size]}
-          alt={title}/>
-      </Link>
-    </div>
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            {...sizeMap[size]}
+            alt={title}
+          />
+        </Link>
+      </div>
       {isPremium &&
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>}
+          <div className="place-card__mark">
+            <span>Premium</span>
+          </div>}
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">

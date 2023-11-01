@@ -15,13 +15,13 @@ type TOffersMapProps = {
 }
 
 const defaultCustomIcon = new Icon({
-  iconUrl: `img/pin.svg`,
+  iconUrl: 'img/pin.svg',
   iconSize: [30, 40],
   iconAnchor: [15, 40]
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: `img/pin-active.svg`,
+  iconUrl: 'img/pin-active.svg',
   iconSize: [30, 40],
   iconAnchor: [15, 40]
 });
@@ -31,7 +31,7 @@ const sizeMap: Record<TMapSize, {height: string}> = {
   large: {height: '100%'}
 };
 
-function OffersMap({block, offers, size='large', activeOfferId}: TOffersMapProps): JSX.Element {
+function OffersMap({block, offers, size = 'large', activeOfferId}: TOffersMapProps): JSX.Element {
   const {city} = useCity();
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -59,7 +59,7 @@ function OffersMap({block, offers, size='large', activeOfferId}: TOffersMapProps
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, activeOfferId]);
+  }, [map, currentOffers, activeOfferId]);
 
   return (
     <section className={`${block}${'__map map'}`} style={{...sizeMap[size]}} ref={mapRef}></section>

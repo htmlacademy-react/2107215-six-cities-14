@@ -4,13 +4,13 @@ import {getRandomInt, getRandomArrayElement} from '../utils/common';
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 
 const city: TCity = {
-    location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
-      zoom: 10
-    },
-    name: 'Amsterdam',
-}
+  location: {
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
+    zoom: 10
+  },
+  name: 'Amsterdam',
+};
 
 const locations: Record<number, {latitude: number; longitude: number}> = {
   1: {
@@ -33,7 +33,7 @@ const locations: Record<number, {latitude: number; longitude: number}> = {
     latitude: 52.3509553943508,
     longitude: 4.85309666406198
   },
-}
+};
 
 function getCityOffer(index: number): TOffer {
   return {
@@ -88,7 +88,7 @@ function getComment(index: number): TComment {
 }
 
 const offers: TOffer[] = Array.from({length: 5}, (_, index: number): TOffer => getCityOffer(index + 1));
-const comments: TComment[] = Array.from({length: 3}, (_, index: number): TComment => getComment(index + 1));
+const comments: TComment[] = Array.from({length: 5}, (_, index: number): TComment => getComment(index + 1));
 
 export {offers, comments, city};
 

@@ -38,7 +38,7 @@ function FavoritesList({offers}: TFavoritesProps) {
           </div>
           <div className="favorites__places">
             {groupedFavorites.map((item) =>
-              <OfferCard offer={item} size={'small'} block={'favorites'}/>
+              <OfferCard key={item.id} offer={item} size={'small'} block={'favorites'}/>
             )}
           </div>
         </li>

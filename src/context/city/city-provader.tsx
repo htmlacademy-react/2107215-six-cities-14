@@ -1,5 +1,5 @@
 import {city} from '../../mocks/mocks';
-import {CityContext} from './city-context'
+import {CityContext} from './city-context';
 
 type TOfferProviderProps = {
   children: React.ReactNode;
