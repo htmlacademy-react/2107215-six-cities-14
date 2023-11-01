@@ -1,10 +1,10 @@
-import OffersMap from '../general/offers-map';
-import {TOfferPreview} from '../../types/index';
-import LocationsList from '../../components/main/locations-list';
-import {addPluralEnding} from '../../utils/common';
-import OfferCard from '../ui/offer-card';
+import OffersMap from './offers-map';
+import {TOfferPreview} from '../types/index';
+import LocationsList from './locations-list';
+import {addPluralEnding} from '../utils/common';
+import OfferCard from './ui/offer-card';
 import {useState} from 'react';
-import {CityProvider} from '../../context/city/city-provader';
+import {CityProvider} from '../context/city/city-provader';
 
 
 type TCitiesProps = {

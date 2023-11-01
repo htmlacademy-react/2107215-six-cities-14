@@ -1,7 +1,7 @@
-import RatingForm from '../../components/offer/rating-form';
-import {comments} from '../../mocks/mocks';
-import {getDate, getRatingWidth} from '../../utils/utils';
-import {addPluralEnding} from '../../utils/common';
+import RatingForm from './rating-form';
+import {comments} from '../mocks/mocks';
+import {getDate, getRatingWidth} from '../utils/utils';
+import {addPluralEnding} from '../utils/common';
 
 function ReviewsList() {
   return (

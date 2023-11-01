@@ -1,9 +1,9 @@
 import {useRef, useEffect} from 'react';
 import {Marker, layerGroup, Icon} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {TOfferPreview} from '../../types';
-import useMap from '../../hooks/use-map';
-import {useCity} from '../../hooks/use-city';
+import {TOfferPreview} from '../types';
+import useMap from '../hooks/use-map';
+import {useCity} from '../hooks/use-city';
 
 type TMapSize = 'small' | 'large';
 

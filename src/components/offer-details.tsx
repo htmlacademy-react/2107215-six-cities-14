@@ -1,7 +1,7 @@
-import {TOffer} from '../../types/index';
-import ReviewsList from '../../components/offer/reviews-list';
-import ButtonBookmark from '../../components/ui/button-bookmark';
-import {getRatingWidth} from '../../utils/utils';
+import {TOffer} from '../types/index';
+import ReviewsList from './reviews-list';
+import ButtonBookmark from './ui/button-bookmark';
+import {getRatingWidth} from '../utils/utils';
 
 const offerInside = [
   'Wi-Fi',

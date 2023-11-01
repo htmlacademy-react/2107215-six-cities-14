@@ -1,14 +1,14 @@
 import {useParams} from 'react-router-dom';
-import Header from '../../components/general/header';
-import Nav from '../../components/general/nav';
+import Header from '../../components/header';
+import Nav from '../../components/nav';
 import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
 import {AppRoute} from '../../const';
 import {Navigate} from 'react-router-dom';
-import OfferDetails from '../../components/offer/offer-details';
+import OfferDetails from '../../components/offer-details';
 import {CityProvider} from '../../context/city/city-provader';
-import OffersMap from '../../components/general/offers-map';
-import NearOffers from '../../components/offer/near-offers';
+import OffersMap from '../../components/offers-map';
+import NearOffers from '../../components/near-offers';
 
 type TOfferProps = {
   offers: TOffer[];

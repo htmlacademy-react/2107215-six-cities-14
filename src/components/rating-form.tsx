@@ -1,6 +1,6 @@
 import {FormEvent, useState} from 'react';
 import {ChangeEvent} from 'react';
-import {RviewSymbolLenght} from '../../const';
+import {RviewSymbolLenght} from '../const';
 import Rating from './rating';
 
 function RatingForm(): JSX.Element {
