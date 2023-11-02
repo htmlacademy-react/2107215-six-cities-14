@@ -1,5 +1,5 @@
-import {TOffer, TOfferPreview} from '../types/index';
-import OfferCard from './ui/offer-card';
+import {TOffer, TOfferPreview} from '../../types/index';
+import OfferCard from '../ui/offer-card';
 
 type TFavoritesProps = {
   offers: TOffer[];

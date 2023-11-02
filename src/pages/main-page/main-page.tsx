@@ -1,6 +1,6 @@
-import Cities from '../../components/cities';
-import CitiesInfo from '../../components/header';
-import Nav from '../../components/nav';
+import Cities from '../../components/cities/cities';
+import CitiesInfo from '../../components/header/header';
+import Nav from '../../components/nav/nav';
 import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
 

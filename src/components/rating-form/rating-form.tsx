@@ -1,7 +1,7 @@
 import {FormEvent, useState} from 'react';
 import {ChangeEvent} from 'react';
-import {RviewSymbolLenght} from '../const';
-import Rating from './rating';
+import {RviewSymbolLenght} from '../../const';
+import Rating from '../rating/rating';
 
 function RatingForm(): JSX.Element {
   const [formData, setFormData] = useState({

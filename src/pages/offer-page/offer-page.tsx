@@ -1,14 +1,14 @@
 import {useParams} from 'react-router-dom';
-import Header from '../../components/header';
-import Nav from '../../components/nav';
+import Header from '../../components/header/header';
+import Nav from '../../components/nav/nav';
 import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
 import {AppRoute} from '../../const';
 import {Navigate} from 'react-router-dom';
-import OfferDetails from '../../components/offer-details';
+import OfferDetails from '../../components/offer-details/offer-details';
 import {CityProvider} from '../../context/city/city-provader';
-import OffersMap from '../../components/offers-map';
-import NearOffers from '../../components/near-offers';
+import OffersMap from '../../components/offers-map/offers-map';
+import NearOffers from '../../components/near-offers/near-offers';
 
 type TOfferProps = {
   offers: TOffer[];
@@ -48,10 +48,6 @@ function OfferPage({offers}: TOfferProps) {
             <OffersMap
               block="offer"
               offers={offers}
-              size={'small'}
-              // selectedPoint={activeOfferId}
-              // location={active.location}
-              // specialOfferId={hoverOfferId}
             />
           </CityProvider>
         </section>

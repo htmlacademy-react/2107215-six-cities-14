@@ -1,8 +1,8 @@
-import Header from '../../components/header';
-import Nav from '../../components/nav';
+import Header from '../../components/header/header';
+import Nav from '../../components/nav/nav';
 import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
-import FavoritesList from '../../components/favorites-list';
+import FavoritesList from '../../components/favorites-list/favorites-list';
 
 type TFavoritesProps = {
   offers: TOffer[];

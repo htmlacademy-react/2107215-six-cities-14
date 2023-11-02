@@ -1,4 +1,4 @@
-import CitiesInfo from '../../components/header';
+import CitiesInfo from '../../components/header/header';
 import {Helmet} from 'react-helmet-async';
 
 function LoginPage(): JSX.Element {

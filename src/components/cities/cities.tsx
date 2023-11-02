@@ -1,11 +1,10 @@
-import OffersMap from './offers-map';
-import {TOfferPreview} from '../types/index';
-import LocationsList from './locations-list';
-import {addPluralEnding} from '../utils/common';
-import OfferCard from './ui/offer-card';
+import OffersMap from '../offers-map/offers-map';
+import {TOfferPreview} from '../../types/index';
+import LocationsList from '../locations-list/locations-list';
+import {addPluralEnding} from '../../utils/common';
+import OfferCard from '../ui/offer-card';
 import {useState} from 'react';
-import {CityProvider} from '../context/city/city-provader';
-
+import {CityProvider} from '../../context/city/city-provader';
 
 type TCitiesProps = {
   offers: TOfferPreview[];
@@ -54,10 +53,7 @@ function Cities({offers}: TCitiesProps): JSX.Element | null {
               <OffersMap
                 block="cities"
                 offers={offers}
-                size={'large'}
                 activeOfferId={activeOfferId}
-                // location={active.location}
-                // specialOfferId={hoverOfferId}
               />
             </CityProvider>
           </div>

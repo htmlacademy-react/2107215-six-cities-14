@@ -1,4 +1,4 @@
-import Logo from './ui/logo/logo';
+import Logo from '../ui/logo/logo';
 import {PropsWithChildren} from 'react';
 
 function Header(props: PropsWithChildren): JSX.Element {

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import {useState} from 'react';
-import {CityName} from '../const';
+import {CityName} from '../../const';
 
 function LocationsList(): JSX.Element {
   const [activeItem, setActiveItem] = useState(3);

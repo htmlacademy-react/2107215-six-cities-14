@@ -1,5 +1,5 @@
-import OfferCard from './ui/offer-card';
-import {TOffer} from '../types';
+import OfferCard from '../ui/offer-card';
+import {TOffer} from '../../types';
 
 type TNearOfferProps = {
   offers: TOffer[];
