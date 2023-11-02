@@ -1,13 +1,14 @@
-import RatingForm from '../../components/offer/rating-form';
+import RatingForm from '../rating-form/rating-form';
 import {comments} from '../../mocks/mocks';
-import {getDate} from '../../utils/utils';
+import {getDate, getRatingWidth} from '../../utils/utils';
+import {addPluralEnding} from '../../utils/common';
 
 function ReviewsList() {
   return (
     <section className="offer__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+      <h2 className="reviews__title">Review{addPluralEnding(comments.length)} &middot; <span className="reviews__amount">{comments.length <= 10 ? comments.length : 10}</span></h2>
       <ul className="reviews__list">
-        {comments.map(({user, ...prop}) => (
+        {comments.slice(0, 10).map(({user, ...prop}) => (
           <li key={prop.id} className="reviews__item">
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">
@@ -26,7 +27,7 @@ function ReviewsList() {
             <div className="reviews__info">
               <div className="reviews__rating rating">
                 <div className="reviews__stars rating__stars">
-                  <span style={{ width: '80%' }} />
+                  <span style={{ width: `${getRatingWidth(prop.rating)}%`}} />
                   <span className="visually-hidden">Rating</span>
                 </div>
               </div>

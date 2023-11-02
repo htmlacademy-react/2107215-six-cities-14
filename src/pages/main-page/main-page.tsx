@@ -1,15 +1,15 @@
-import LocationsList from '../../components/main/locations-list';
-import CityBoard from '../../components/main/city-board';
-import CitiesInfo from '../../components/general/header';
-import Nav from '../../components/general/nav';
-import {Offer} from '../../types/index';
+import Cities from '../../components/cities/cities';
+import CitiesInfo from '../../components/header/header';
+import Nav from '../../components/nav/nav';
+import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
 
-type MainProps = {
-  offers: Offer[];
+type TMainProps = {
+  offers: TOffer[];
 }
 
-function MainPage({offers}: MainProps): JSX.Element {
+function MainPage({offers}: TMainProps): JSX.Element {
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -20,8 +20,7 @@ function MainPage({offers}: MainProps): JSX.Element {
       </CitiesInfo>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <LocationsList />
-        <CityBoard offers={offers}/>
+        <Cities offers={offers}/>
       </main>
     </div>
   );

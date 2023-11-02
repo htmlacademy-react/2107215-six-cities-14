@@ -1,14 +1,14 @@
-import Header from '../../components/general/header';
-import Nav from '../../components/general/nav';
-import {Offer} from '../../types/index';
+import Header from '../../components/header/header';
+import Nav from '../../components/nav/nav';
+import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
-import FavoritesList from '../../components/favorite/favorites-list';
+import FavoritesList from '../../components/favorites-list/favorites-list';
 
-type FavoritesProps = {
-  offers: Offer[];
+type TFavoritesProps = {
+  offers: TOffer[];
 }
 
-function FavoritePage({offers} :FavoritesProps): JSX.Element {
+function FavoritePage({offers}: TFavoritesProps): JSX.Element {
   return (
     <div className="page">
       <Helmet>

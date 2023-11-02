@@ -8,19 +8,19 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import {Offer} from '../../types/index';
+import {TOffer} from '../../types/index';
 
-type AppProps = {
-  offers: Offer[];
+type TAppProps = {
+  offers: TOffer[];
 }
 
-function App({offers}: AppProps): JSX.Element {
+function App({offers}: TAppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path={AppRoute.Root} element={<MainPage offers={offers} />} />
+          <Route path={AppRoute.Root} element={<MainPage offers={offers}/>} />
           <Route path={AppRoute.Login}
             element={
               <PrivateRoute
