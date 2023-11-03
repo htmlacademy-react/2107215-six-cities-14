@@ -1,3 +1,5 @@
+export const MAX_REVIEWS_COUNT = 10;
+
 export const DESCRIPTIONS = [
   'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
   'Design interior in most sympathetic area! Complitely renovated, well-equipped, cosy studio in idyllic, over 100 years old wooden house. Calm street, fast connection to center and airport.',
@@ -33,8 +35,6 @@ export const COMMENTS = [
 
 export const TYPES = ['apartment', 'room', 'house', 'hotel'];
 
-// export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-
 export const RviewSymbolLenght = {
   Max: 300,
   Min: 50
@@ -62,3 +62,5 @@ export enum CityName {
   Hamburg = 'Hamburg',
   Dusseldorf = 'Dusseldorf'
 }
+
+

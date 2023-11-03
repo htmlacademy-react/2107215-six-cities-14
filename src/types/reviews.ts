@@ -1,8 +1,8 @@
 import {TUser} from '.';
 
-export type TComment = {
+export type TReviews = {
   comment: string;
-  date: Date;
+  date: string;
   id: number;
   rating: number;
   user: TUser;

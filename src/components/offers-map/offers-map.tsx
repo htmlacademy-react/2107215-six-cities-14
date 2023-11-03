@@ -1,34 +1,39 @@
 import {useRef, useEffect} from 'react';
 import {Marker, layerGroup, Icon} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {TOfferPreview} from '../../types';
+import {TOfferPreview, TLocation} from '../../types';
 import useMap from '../../hooks/use-map';
-import {useCity} from '../../hooks/use-city';
 
-type TOffersMapProps = {
+type TMapProps = {
   block: string;
   offers: TOfferPreview[];
   activeOfferId?: TOfferPreview['id'] | null;
+  location: TLocation;
 }
 
 const defaultCustomIcon = new Icon({
   iconUrl: 'img/pin.svg',
-  iconSize: [30, 40],
-  iconAnchor: [15, 40]
+  iconSize: [28, 40],
+  iconAnchor: [14, 40]
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: 'img/pin-active.svg',
-  iconSize: [30, 40],
-  iconAnchor: [15, 40]
+  iconSize: [28, 40],
+  iconAnchor: [14, 40]
 });
 
-function OffersMap({block, offers, activeOfferId}: TOffersMapProps): JSX.Element {
-  const {city} = useCity();
+function OffersMap({block, offers, activeOfferId, location}: TMapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, location);
 
   const currentOffers = (activeOfferId === undefined ? offers.slice(0, 3) : offers);
+
+  useEffect(() => {
+    if(map) {
+      map.setView([location.latitude, location.longitude], location.zoom);
+    }
+  }, [map, location]);
 
   useEffect(() => {
     if (map) {
@@ -55,7 +60,18 @@ function OffersMap({block, offers, activeOfferId}: TOffersMapProps): JSX.Element
   }, [map, currentOffers, activeOfferId]);
 
   return (
-    <section className={`${block}${'__map map'}`} ref={mapRef}></section>
+    <section
+      className={`${block}${'__map map'}`}
+      style={{
+        height: '100%',
+        minHeight: '500px',
+        width: '100%',
+        maxWidth: '1144px',
+        margin: '0 auto',
+      }}
+      ref={mapRef}
+    >
+    </section>
   );
 }
 

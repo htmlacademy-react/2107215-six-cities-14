@@ -1,14 +1,19 @@
 import RatingForm from '../rating-form/rating-form';
-import {comments} from '../../mocks/mocks';
-import {getDate, getRatingWidth} from '../../utils/utils';
+import {reviews} from '../../mocks/mocks';
+import {formatDate, getRatingWidth} from '../../utils/utils';
 import {addPluralEnding} from '../../utils/common';
+import {MAX_REVIEWS_COUNT} from '../../const';
 
 function ReviewsList() {
+  const reviewToRender = [...reviews]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, MAX_REVIEWS_COUNT);
+
   return (
     <section className="offer__reviews reviews">
-      <h2 className="reviews__title">Review{addPluralEnding(comments.length)} &middot; <span className="reviews__amount">{comments.length <= 10 ? comments.length : 10}</span></h2>
+      <h2 className="reviews__title">Review{addPluralEnding(reviews.length)} &middot; <span className="reviews__amount">{reviewToRender.length}</span></h2>
       <ul className="reviews__list">
-        {comments.slice(0, 10).map(({user, ...prop}) => (
+        {reviewToRender.map(({user, ...prop}) => (
           <li key={prop.id} className="reviews__item">
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">
@@ -34,7 +39,7 @@ function ReviewsList() {
               <p className="reviews__text">
                 {prop.comment}
               </p>
-              <time className="reviews__time" dateTime={`${new Date(prop.date).toISOString()}`}>{`${getDate(prop.date)}`}</time>
+              <time className="reviews__time" dateTime={prop.date}>{formatDate(prop.date)}</time>
             </div>
           </li>
         ))}
