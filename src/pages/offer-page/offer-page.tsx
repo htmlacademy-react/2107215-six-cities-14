@@ -6,9 +6,9 @@ import {Helmet} from 'react-helmet-async';
 import {AppRoute} from '../../const';
 import {Navigate} from 'react-router-dom';
 import OfferDetails from '../../components/offer-details/offer-details';
-import {CityProvider} from '../../context/city/city-provader';
 import OffersMap from '../../components/offers-map/offers-map';
 import NearOffers from '../../components/near-offers/near-offers';
+import {cityMap} from '../../mocks/mocks';
 
 type TOfferProps = {
   offers: TOffer[];
@@ -17,10 +17,13 @@ type TOfferProps = {
 function OfferPage({offers}: TOfferProps) {
   const params = Number(useParams().offerId);
   const offerById = offers.find((item) => item.id === params);
+  const activeCity = cityMap;
 
   if(!offerById) {
     return <Navigate to={AppRoute.NotFound} />;
   }
+
+  const currentImages = offerById.images.slice(0, 6);
 
   return (
     <div className="page">
@@ -34,7 +37,7 @@ function OfferPage({offers}: TOfferProps) {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offerById.images.slice(0, 6).map((src): JSX.Element => (
+              {currentImages.map((src): JSX.Element => (
                 <div key={src} className="offer__image-wrapper">
                   <a href="#">
                     <img className="offer__image" src={src} alt="Photo studio" />
@@ -44,12 +47,11 @@ function OfferPage({offers}: TOfferProps) {
             </div>
           </div>
           <OfferDetails offer={offerById} />
-          <CityProvider>
-            <OffersMap
-              block="offer"
-              offers={offers}
-            />
-          </CityProvider>
+          <OffersMap
+            block="offer"
+            offers={offers}
+            location={activeCity.location}
+          />
         </section>
         <div className="container">
           <NearOffers offers={offers}/>

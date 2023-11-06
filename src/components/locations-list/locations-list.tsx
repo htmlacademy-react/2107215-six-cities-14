@@ -4,12 +4,13 @@ import {CityName} from '../../const';
 
 function LocationsList(): JSX.Element {
   const [activeItem, setActiveItem] = useState(3);
+  const valueCity = Object.values(CityName);
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {Object.values(CityName).map((item, id) => (
+          {valueCity.map((item, id) => (
             <li key={item} className="locations__item">
               <a
                 className={cn(
