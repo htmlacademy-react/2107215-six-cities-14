@@ -9,7 +9,7 @@ import {getActiveCity} from '../../store/app-process/selectors';
 import {getSortedOffers} from '../../store/offers-data/selectors';
 import FormSorting from '../form-sorting/form-sorting';
 
-function Cities(): JSX.Element | null {
+function Cities(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<TOfferPreview['id'] | null>(null);
 
   const handleCardHover = (offerId: TOfferPreview['id'] | null) => setActiveOfferId(offerId);
