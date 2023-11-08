@@ -1,15 +1,12 @@
 import Cities from '../../components/cities/cities';
 import CitiesInfo from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
+import LocationsList from '../../components/locations-list/locations-list';
+// import {useAppSelector} from '../../hooks';
 
-type TMainProps = {
-  offers: TOffer[];
-}
 
-function MainPage({offers}: TMainProps): JSX.Element {
-
+function MainPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -20,7 +17,8 @@ function MainPage({offers}: TMainProps): JSX.Element {
       </CitiesInfo>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Cities offers={offers}/>
+        <LocationsList />
+        <Cities />
       </main>
     </div>
   );

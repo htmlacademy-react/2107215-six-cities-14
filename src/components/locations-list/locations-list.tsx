@@ -1,10 +1,13 @@
 import cn from 'classnames';
 import {useState} from 'react';
 import {CityName} from '../../const';
+import {useAppDispatch} from '../../hooks';
+import {changeCity} from '../../store/action';
 
 function LocationsList(): JSX.Element {
-  const [activeItem, setActiveItem] = useState(3);
+  const [activeItem, setActiveItem] = useState(0);
   const valueCity = Object.values(CityName);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="tabs">
@@ -20,6 +23,7 @@ function LocationsList(): JSX.Element {
                 href="#"
                 onClick={(evt: React.MouseEvent<HTMLElement>) => {
                   evt.preventDefault();
+                  dispatch(changeCity({activeCity: item}));
                   setActiveItem(id);
                 }}
               >

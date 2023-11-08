@@ -63,4 +63,19 @@ export enum CityName {
   Dusseldorf = 'Dusseldorf'
 }
 
+export enum NameSpace {
+  App = 'APP',
+  User = 'USER',
+  Offers = 'OFFERS',
+  Reviews = 'REVIEWS',
+  Favorites = 'FAVORITES',
+}
+
+export enum SortOption {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}
+
 

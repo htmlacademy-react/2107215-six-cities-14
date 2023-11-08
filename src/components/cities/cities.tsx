@@ -1,49 +1,36 @@
 import OffersMap from '../offers-map/offers-map';
 import {TOfferPreview} from '../../types/index';
-import LocationsList from '../locations-list/locations-list';
 import {addPluralEnding} from '../../utils/common';
 import OfferCard from '../ui/offer-card';
 import {useState} from 'react';
-import {cityMap} from '../../mocks/mocks';
+import {useAppSelector} from '../../hooks';
+import MainEmpty from '../main-emty/main-emty';
+import {getActiveCity} from '../../store/app-process/selectors';
+import {getSortedOffers} from '../../store/offers-data/selectors';
+import FormSorting from '../form-sorting/form-sorting';
 
-type TCitiesProps = {
-  offers: TOfferPreview[];
-}
-
-function Cities({offers}: TCitiesProps): JSX.Element | null {
+function Cities(): JSX.Element | null {
   const [activeOfferId, setActiveOfferId] = useState<TOfferPreview['id'] | null>(null);
-  const activeCity = cityMap;
+
   const handleCardHover = (offerId: TOfferPreview['id'] | null) => setActiveOfferId(offerId);
 
-  if(!offers?.length) {
-    return null;
+  const activeCity = useAppSelector(getActiveCity);
+  const currentOffers = useAppSelector(getSortedOffers);
+
+  if(!currentOffers.length) {
+    return <MainEmpty city={activeCity}/>
   }
 
   return (
     <>
-      <LocationsList />
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} place{addPluralEnding(offers.length)} to stay in Amsterdam{' '}{activeCity.name}</b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <span className="places__sorting-type" tabIndex={0}>
-                Popular
-                <svg className="places__sorting-arrow" width={7} height={4}>
-                  <use xlinkHref="#icon-arrow-select" />
-                </svg>
-              </span>
-              <ul className="places__options places__options--custom places__options--opened">
-                <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                <li className="places__option" tabIndex={0}>Price: low to high</li>
-                <li className="places__option" tabIndex={0}>Price: high to low</li>
-                <li className="places__option" tabIndex={0}>Top rated first</li>
-              </ul>
-            </form>
+            <b className="places__found">{currentOffers.length} place{addPluralEnding(currentOffers.length)} to stay in {' '}{activeCity}</b>
+            <FormSorting />
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((item) =>
+              {currentOffers?.map((item) =>
                 <OfferCard key={item.id} offer={item} onCardHover={handleCardHover} block={'cities'} size={'large'}/>
               )}
             </div>
@@ -51,9 +38,9 @@ function Cities({offers}: TCitiesProps): JSX.Element | null {
           <div className="cities__right-section">
             <OffersMap
               block="cities"
-              offers={offers}
+              offers={currentOffers}
               activeOfferId={activeOfferId}
-              location={activeCity.location}
+              location={currentOffers[0].city.location}
             />
           </div>
         </div>
