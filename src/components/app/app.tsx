@@ -20,7 +20,7 @@ function App({offers}: TAppProps): JSX.Element {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path={AppRoute.Root} element={<MainPage offers={offers}/>} />
+          <Route path={AppRoute.Root} element={<MainPage />} />
           <Route path={AppRoute.Login}
             element={
               <PrivateRoute
