@@ -29,28 +29,26 @@ const locationCities = {
     latitude:  51.225402,
     longitude: 6.776314,
   }
-}
+};
 
-const citiesMap: Record<string, TCity> = cities.reduce((acc, item, i) => {
-  return {
-    ...acc,
-    [item]: {
-      location: {
-        ...locationCities[item],
-        zoom: 13
-      },
-      name: cities[i],
-    }
+const citiesMap: Record<string, TCity> = cities.reduce((acc, item, i) => ({
+  ...acc,
+  [item]: {
+    location: {
+      ...locationCities[item],
+      zoom: 13
+    },
+    name: cities[i],
   }
-}, {});
+}), {});
 
 const cityMap: TCity = {
-    location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
-      zoom: 10
-    },
-    name: 'Amsterdam',
+  location: {
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
+    zoom: 10
+  },
+  name: 'Amsterdam',
 };
 
 const locations: Record<number, {latitude: number; longitude: number}> = {
@@ -76,7 +74,7 @@ const locations: Record<number, {latitude: number; longitude: number}> = {
   },
 };
 
-function getCityOffer(i: number): TOffer {
+function getCityOffer(index: number): TOffer {
   return {
     bedrooms: getRandomInt(0, 20),
     city: citiesMap[getRandomArrayElement(cities)],
@@ -86,11 +84,11 @@ function getCityOffer(i: number): TOffer {
     ],
     host: {
       avatarUrl: 'img/avatar-angelina.jpg',
-      id: i,
+      id: index,
       isPro: !!getRandomInt(0, 1),
       name: 'Angelina',
     },
-    id: i,
+    id: index,
     images: Array.from({length: getRandomInt(0, 30)}, (_, i: number): string => IMAGES[i++]),
     isFavorite: !!getRandomInt(0, 1),
     isPremium: !!getRandomInt(0, 1),
@@ -107,15 +105,15 @@ function getCityOffer(i: number): TOffer {
   };
 }
 
-function getReviews(i: number): TReviews {
+function getReviews(index: number): TReviews {
   return {
     comment: getRandomArrayElement(COMMENTS),
     date: `2023-${getRandomInt(0, 12).toString().padStart(2, '0')}-02T09:23:20.316Z`,
-    id: i,
+    id: index,
     rating: getRandomInt(0, 5),
     user: {
       avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
-      id: i,
+      id: index,
       isPro: false,
       name: 'Oliver.conner'
     }

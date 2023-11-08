@@ -23,7 +23,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveSortType, (state, action) => {
       state.activeSortType = action.payload.activeSortType;
-    })
+    });
 });
 
 export {reducer};

@@ -17,7 +17,7 @@ function MainEmpty({city}: MainEmptyProps): JSX.Element {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default MainEmpty;
