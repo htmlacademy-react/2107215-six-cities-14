@@ -1,10 +1,10 @@
 import {createSelector} from '@reduxjs/toolkit';
-import {State} from '../../types/state';
+import {TState} from '../../types/state';
 import {TOffer, TCity} from '../../types/index';
 import {sortByOption} from '../../utils/utils';
 import {getActiveCity, getActiveSortType} from '../app-process/selectors';
 
-export const getOffers = (state: State) => (
+export const getOffers = (state: TState) => (
   state.offers
 );
 

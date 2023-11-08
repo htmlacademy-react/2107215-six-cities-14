@@ -1,4 +1,4 @@
-import {State} from '../../types/index';
+import {TState} from '../../types/index';
 
-export const getActiveCity = (state: State): string => state.activeCity;
-export const getActiveSortType = (state: State): string => state.activeSortType;
+export const getActiveCity = (state: TState): string => state.activeCity;
+export const getActiveSortType = (state: TState): string => state.activeSortType;
