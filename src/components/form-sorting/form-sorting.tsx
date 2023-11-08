@@ -2,7 +2,7 @@
 import {SortOption} from "../../const";
 import {useAppSelector, useAppDispatch} from '../../hooks/';
 import {getActiveSortType} from '../../store/app-process/selectors';
-import OptionItem from "../sort-option/sort-option";
+import OptionItem from "../option-item/option-item";
 import {setActiveSortType} from '../../store/action';
 
 function FormSorting(): JSX.Element {
