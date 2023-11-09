@@ -19,6 +19,14 @@ function getRatingWidth(rating = 0) {
   return Math.round(rating) * 20;
 }
 
+function getRandomFloat(min: number, max: number, decimals: number): number {
+  const str = (Math.random() * (max - min) + min).toFixed(
+    decimals,
+  );
+
+  return parseFloat(str);
+}
+
 export const sortByOption = (offers: TOffer[], activeSortType: string) => {
   switch (activeSortType) {
     case SortOption.Popular:
@@ -34,4 +42,4 @@ export const sortByOption = (offers: TOffer[], activeSortType: string) => {
   }
 };
 
-export {formatDate, getRatingWidth};
+export {formatDate, getRatingWidth, getRandomFloat};

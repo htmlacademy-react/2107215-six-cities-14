@@ -1,6 +1,6 @@
 import {TOffer, TReviews, TCity} from '../types/index';
 import {TYPES, DESCRIPTIONS, TITLES, IMAGES, COMMENTS, CityName} from '../const';
-import {getRandomInt, getRandomArrayElement} from '../utils/common';
+import {getRandomInt, getRandomArrayElement, getRandomFloat} from '../utils/common';
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 const cities = Object.values(CityName);
 
@@ -51,30 +51,17 @@ const cityMap: TCity = {
   name: 'Amsterdam',
 };
 
-const locations: Record<number, {latitude: number; longitude: number}> = {
-  1: {
-    latitude: 52.3909553943508,
-    longitude: 4.85309666406198
-  },
-  2: {
-    latitude: 52.3609553943508,
-    longitude:  4.85309666406198
-  },
-  3: {
-    latitude: 52.3909553943508,
-    longitude: 4.929309666406198
-  },
-  4: {
-    latitude: 52.3809553943508,
-    longitude: 4.939309666406198
-  },
-  5: {
-    latitude: 52.3509553943508,
-    longitude: 4.85309666406198
-  },
-};
+function getLocations() {
+  return {
+    location: {
+      latitude: getRandomFloat(1, 54, 14),
+      longitude: getRandomFloat(1, 4, 14)
+    },
+  };
+}
 
 function getCityOffer(index: number): TOffer {
+  const {location} = getLocations();
   return {
     bedrooms: getRandomInt(0, 20),
     city: citiesMap[getRandomArrayElement(cities)],
@@ -93,7 +80,7 @@ function getCityOffer(index: number): TOffer {
     isFavorite: !!getRandomInt(0, 1),
     isPremium: !!getRandomInt(0, 1),
     location: {
-      ...locations[getRandomInt(1, 5)],
+      ...location,
       zoom: 8
     },
     maxAdults: getRandomInt(0, 10),
