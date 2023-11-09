@@ -71,11 +71,11 @@ export enum NameSpace {
   Favorites = 'FAVORITES',
 }
 
-export const SortOption = {
-  Popular: 'Popular',
-  LowToHigh: 'Price: low to high',
-  HighToLow:'Price: high to low',
-  TopRatedFirst: 'Top rated first',
-} as const;
+export enum SortOption {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}
 
 

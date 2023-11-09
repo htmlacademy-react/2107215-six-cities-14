@@ -24,11 +24,11 @@ export const sortByOption = (offers: TOffer[], activeSortType: string) => {
     case SortOption.Popular:
       return offers;
     case SortOption.LowToHigh:
-      return offers.sort((offerA, offerB) => offerA.price - offerB.price);
+      return offers.slice().sort((offerA, offerB) => offerA.price - offerB.price);
     case SortOption.HighToLow:
-      return offers.sort((offerA, offerB) => offerB.price - offerA.price);
+      return offers.slice().sort((offerA, offerB) => offerB.price - offerA.price);
     case SortOption.TopRatedFirst:
-      return offers.sort((offerA, offerB) => offerB.rating - offerA.rating);
+      return offers.slice().sort((offerA, offerB) => offerB.rating - offerA.rating);
     default:
       throw new Error(`Unknown activeSortType: ${activeSortType}`);
   }
