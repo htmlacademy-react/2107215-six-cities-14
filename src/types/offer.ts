@@ -20,7 +20,7 @@ export type TLocation = {
 export type TOfferPreview = {
   city: TCity;
   goods: string[];
-  id: number;
+  id: string;
   isFavorite: boolean;
   isPremium: boolean;
   location: TLocation;

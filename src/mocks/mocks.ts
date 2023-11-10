@@ -75,7 +75,7 @@ function getCityOffer(index: number): TOffer {
       isPro: !!getRandomInt(0, 1),
       name: 'Angelina',
     },
-    id: index,
+    id: index.toString(),
     images: Array.from({length: getRandomInt(0, 30)}, (_, i: number): string => IMAGES[i++]),
     isFavorite: !!getRandomInt(0, 1),
     isPremium: !!getRandomInt(0, 1),
