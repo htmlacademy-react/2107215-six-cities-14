@@ -27,7 +27,7 @@ function OffersMap({block, offers, activeOfferId, location}: TMapProps): JSX.Ele
   const mapRef = useRef(null);
   const map = useMap(mapRef, location);
 
-  const currentOffers = (activeOfferId === undefined ? offers.slice(0, 3) : offers);
+  // const currentOffers = (activeOfferId === undefined ? offers.slice(0, 3) : offers);
 
   useEffect(() => {
     if(map) {
@@ -38,7 +38,7 @@ function OffersMap({block, offers, activeOfferId, location}: TMapProps): JSX.Ele
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      currentOffers.forEach((offer) => {
+      offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
@@ -57,7 +57,7 @@ function OffersMap({block, offers, activeOfferId, location}: TMapProps): JSX.Ele
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, currentOffers, activeOfferId]);
+  }, [map, offers, activeOfferId]);
 
   return (
     <section

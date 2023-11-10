@@ -15,7 +15,7 @@ type TOfferProps = {
 }
 
 function OfferPage({offers}: TOfferProps) {
-  const params = Number(useParams().offerId);
+  const params = useParams().offerId;
   const offerById = offers.find((item) => item.id === params);
   const activeCity = cityMap;
 
