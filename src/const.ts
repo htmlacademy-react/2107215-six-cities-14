@@ -60,7 +60,7 @@ export enum CityName {
   Brussels = 'Brussels',
   Amsterdam = 'Amsterdam',
   Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf'
+  Dusseldorf = 'Dusseldorf',
 }
 
 export enum NameSpace {
@@ -69,13 +69,15 @@ export enum NameSpace {
   Offers = 'OFFERS',
   Reviews = 'REVIEWS',
   Favorites = 'FAVORITES',
+  NearPlaces = 'NEAR_PLACES',
+  Offer = 'OFFER',
 }
 
-export enum SortOption {
-  Popular = 'Popular',
-  LowToHigh = 'Price: low to high',
-  HighToLow = 'Price: high to low',
-  TopRatedFirst = 'Top rated first',
+export const SortOption = {
+  Popular: 'Popular',
+  LowToHigh: 'Price: low to high',
+  HighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
 }
 
 

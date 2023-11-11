@@ -8,7 +8,7 @@ import MainEmpty from '../main-emty/main-emty';
 import {getActiveCity} from '../../store/app-process/selectors';
 import {getSortedOffers} from '../../store/offers-data/selectors';
 import FormSorting from '../form-sorting/form-sorting';
-import { getActiveSortType } from '../../store/app-process/selectors';
+import {getActiveSortType} from '../../store/app-process/selectors';
 
 function Cities(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<TOfferPreview['id'] | null>(null);

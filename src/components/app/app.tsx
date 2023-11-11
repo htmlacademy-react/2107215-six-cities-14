@@ -41,7 +41,7 @@ function App({offers}: TAppProps): JSX.Element {
               </PrivateRoute>
             }
           />
-          <Route path={`${AppRoute.Offer}/:offerId`} element={<OfferPage offers={offers} />} />
+          <Route path={`${AppRoute.Offer}/:offerId`} element={<OfferPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

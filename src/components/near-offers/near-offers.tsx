@@ -1,16 +1,12 @@
 import OfferCard from '../ui/offer-card';
-import {TOffer} from '../../types';
-import {useMemo} from 'react';
+import {TOfferPreview} from '../../types';
 
 type TNearOfferProps = {
-  offers: TOffer[];
+  offers: TOfferPreview[];
 }
 
 function NearOffers({offers}: TNearOfferProps): JSX.Element {
-  const currentOffers = useMemo(
-    () => offers.slice(0, 3),
-    [offers]
-  );
+  const currentOffers = offers;
 
   return (
     <section className="near-places places">
