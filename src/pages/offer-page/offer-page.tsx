@@ -23,7 +23,7 @@ function OfferPage() {
 
   const offers = useAppSelector(getOffers);
   const currentOffer: TOffer | null = offers.find((offer) => offer.id === offerId) ?? null;
-  const nearPlacesToRender: TOfferPreview[] | [] = offers.filter((offer) => offer.id !== offerId)?.slice(0, MAX_NEAR_PLACES_COUNT);
+  const nearPlacesToRender: TOfferPreview[] | [] = offers.filter((offer) => offer.id !== offerId).slice(0, MAX_NEAR_PLACES_COUNT);
 
   // const dispatch = useAppDispatch();
 
