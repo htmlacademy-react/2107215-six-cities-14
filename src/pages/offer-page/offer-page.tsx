@@ -23,7 +23,7 @@ function OfferPage() {
 
   const offers = useAppSelector(getOffers);
   const currentOffer: TOffer | null = offers.find((offer) => offer.id === offerId) ?? null;
-  const nearPlacesToRender: TOfferPreview[] | null = offers.filter((offer) => offer.id !== offerId).slice(0, MAX_NEAR_PLACES_COUNT) ?? null;
+  const nearPlacesToRender: TOfferPreview[] | [] = offers.filter((offer) => offer.id !== offerId)?.slice(0, MAX_NEAR_PLACES_COUNT);
 
   // const dispatch = useAppDispatch();
 
@@ -54,7 +54,7 @@ function OfferPage() {
   // const currentOffer = useAppSelector(getActiveOffer);
   // const nearPlacesToRender = useAppSelector(getNearPlaces).slice(0, MAX_NEAR_PLACES_COUNT);
 
-  if(currentOffer === null || nearPlacesToRender === null) {
+  if(currentOffer === null) {
     // return null;
     return <Navigate to={AppRoute.NotFound} />;
   }
