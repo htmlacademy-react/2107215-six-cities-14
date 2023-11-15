@@ -71,7 +71,7 @@ function getCityOffer(index: number): TOffer {
     ],
     host: {
       avatarUrl: 'img/avatar-angelina.jpg',
-      id: index,
+      id: index.toString(),
       isPro: !!getRandomInt(0, 1),
       name: 'Angelina',
     },
@@ -96,11 +96,11 @@ function getReviews(index: number): TReviews {
   return {
     comment: getRandomArrayElement(COMMENTS),
     date: `2023-${getRandomInt(0, 12).toString().padStart(2, '0')}-02T09:23:20.316Z`,
-    id: index,
+    id: index.toString(),
     rating: getRandomInt(0, 5),
     user: {
       avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
-      id: index,
+      id: index.toString(),
       isPro: false,
       name: 'Oliver.conner'
     }
