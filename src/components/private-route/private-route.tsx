@@ -1,11 +1,10 @@
 import {Navigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
-
-type AppRouteEnum = typeof AppRoute[keyof typeof AppRoute];
+import {TAppRoute} from '../../types/index';
+import {AuthorizationStatus} from '../../const';
 
 type PrivateRouteProps = {
   restrictedFor: AuthorizationStatus;
-  redirectTo: AppRouteEnum;
+  redirectTo: TAppRoute;
   children: JSX.Element;
 }
 
@@ -14,12 +13,12 @@ function PrivatedRoute({
   redirectTo,
   children,
 }: PrivateRouteProps) {
-  const authorizationStatus = AuthorizationStatus.NoAuth;
+  const authorizationStatus = AuthorizationStatus.Auth;
 
   return restrictedFor === authorizationStatus ? (
-    <Navigate to={redirectTo} />
-  ) : (
     children
+  ) : (
+    <Navigate to={redirectTo} />
   );
 }
 

@@ -37,7 +37,7 @@ function OfferCard({offer, size = 'large', block, onCardHover} : TOffersProps): 
       onMouseLeave={handleMouseLeave}
     >
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Offer}/${id}`}>
+        <Link to={`${AppRoute.Offers}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -66,7 +66,7 @@ function OfferCard({offer, size = 'large', block, onCardHover} : TOffersProps): 
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Offers}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{capitalize(type)}</p>
       </div>

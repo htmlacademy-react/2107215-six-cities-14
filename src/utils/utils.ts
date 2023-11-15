@@ -1,5 +1,5 @@
 import {SortOption} from '../const';
-import {TOffer, TOfferPreview, TSorting} from '../types/index';
+import {TOffer} from '../types/index';
 
 function formatDate (dateString: string): string {
   const date = new Date(Date.parse(dateString));
@@ -27,19 +27,6 @@ function getRandomFloat(min: number, max: number, decimals: number): number {
   return parseFloat(str);
 }
 
-
-
-// const sorting: Record<TSorting, (offers: TOfferPreview[]) => TOfferPreview[]> = {
-//   Popular: (offers: TOfferPreview[]) => offers.slice(),
-//   HighToLow: (offers: TOfferPreview[]) => offers.slice().sort((offerA, offerB) => offerB.price - offerA.price),
-//   LowToHigh: (offers: TOfferPreview[]) => offers.slice().sort((offerA, offerB) => offerA.price - offerB.price),
-//   TopRatedFirst: (offers: TOfferPreview[]) => offers.slice().sort((offerA, offerB) => offerB.rating - offerA.rating),
-// }
-
-// export const sortByOption = (offers: TOffer[], activeSortType: string) => {
-//   sorting
-// };
-
 function sortByOption (offers: TOffer[], activeSortType: string) {
   switch (activeSortType) {
     case SortOption.Popular:
@@ -53,6 +40,6 @@ function sortByOption (offers: TOffer[], activeSortType: string) {
     default:
       throw new Error(`Unknown activeSortType: ${activeSortType}`);
   }
-};
+}
 
 export {formatDate, getRatingWidth, getRandomFloat, sortByOption};

@@ -1,57 +1,77 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, setActiveSortType, dropOffer, fetchFavorites, fetchNearPlaces, fetchOffers, fetchOffer} from './action';
-import {offers} from '../mocks/mocks';
-import {CityName, SortOption} from '../const';
+import {changeCity, setActiveSortType, fetchFavorites, fetchOffers, fetchNearPlaces, requireAuthorization, dropOffer, setOffersDataLoadingStatus} from './action';
 import {TOffer, TOfferPreview, TReviews} from '../types';
+import {AuthorizationStatus, Status, CityName, SortOption} from '../const';
+import {
+  fetchActiveOfferAction
+} from './api-actions';
 
 type Data = {
   activeCity: string;
   offers: TOffer[];
   activeSortType: string;
-  // nearPlaces: TOfferPreview[];
-  // activeOffer: TOffer | null;
+  nearPlaces: TOfferPreview[];
+  activeOffer: TOffer | null;
   favorites: TOfferPreview[];
   reviews: TReviews[];
+  authorizationStatus: AuthorizationStatus;
+  isDataLoading: boolean;
+  statusOffer: Status;
 };
 
 const initialState: Data = {
   activeCity: CityName.Paris,
-  offers,
+  offers: [],
   activeSortType: SortOption.Popular,
-  // nearPlaces: [],
-  // activeOffer: null,
+  nearPlaces: [],
+  activeOffer: null,
   favorites: [],
   reviews: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isDataLoading: false,
+  statusOffer: Status.Idle,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    // .addCase(fetchOffer, (state, action) => {
-    //   state.activeOffer = offers.find((offer) => offer.id === action.payload) ?? null;
-    // })
     .addCase(changeCity, (state, action) => {
       state.activeCity = action.payload.activeCity;
     })
     .addCase(setActiveSortType, (state, action) => {
       state.activeSortType = action.payload.activeSortType;
     })
-    // .addCase(fetchNearPlaces, (state, action) => {
-    //   state.nearPlaces = offers.filter((offer) => offer.id !== action.payload);
-    // })
-    // .addCase(dropOffer, (state) => {
-    //   state.activeOffer = null;
-    //   state.nearPlaces = [];
-    // })
+    .addCase(fetchNearPlaces, (state, action) => {
+      state.nearPlaces = state.offers.filter((offer) => offer.id !== action.payload);
+    })
+    .addCase(dropOffer, (state) => {
+      state.activeOffer = null;
+      state.nearPlaces = [];
+    })
     .addCase(fetchFavorites, (state) => {
       state.favorites = state.offers.filter((offer) => offer.isFavorite);
     })
-
+    .addCase(fetchOffers, (state, action) => {
+      state.offers = action.payload;
+    })
     // .addCase(fetchReviews, (state) => {
     //   state.reviews = reviews;
     // })
-        // .addCase(fetchOffers, (state) => {
-    //   state.offers = offers;
-    // })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isDataLoading = action.payload;
+    })
+    .addCase(fetchActiveOfferAction.pending, (state) => {
+      state.statusOffer = Status.Loading;
+    })
+    .addCase(fetchActiveOfferAction.fulfilled, (state, action) => {
+      state.activeOffer = action.payload;
+      state.statusOffer = Status.Success;
+    })
+    .addCase(fetchActiveOfferAction.rejected, (state) => {
+      state.statusOffer = Status.Error;
+    });
 });
 
 export {reducer};

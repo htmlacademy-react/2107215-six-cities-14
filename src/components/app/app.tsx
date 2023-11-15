@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {HelmetProvider} from 'react-helmet-async';
 import MainPage from '../../pages/main-page/main-page';
@@ -8,43 +8,61 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import {TOffer} from '../../types/index';
+import {useAppSelector} from '../../hooks';
+import {getAuthStatus} from '../../store/user-process/selectors';
+import {getDataLoading} from '../../store/app-process/selectors';
+import Loading from '../loading/loading';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
-type TAppProps = {
-  offers: TOffer[];
-}
+// type TAppProps = {
+//   offers: TOffer[];
+// }
 
-function App({offers}: TAppProps): JSX.Element {
+function App(): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const isDataLoading = useAppSelector(getDataLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isDataLoading) {
+    return (
+      <Loading />
+    );
+  }
+
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <ScrollToTop />
         <Routes>
-          <Route path={AppRoute.Root} element={<MainPage />} />
-          <Route path={AppRoute.Login}
-            element={
-              <PrivateRoute
-                restrictedFor={AuthorizationStatus.Auth}
-                redirectTo={AppRoute.Root}
-              >
-                <LoginPage />
-              </PrivateRoute>
-            }
+          <Route
+            path={AppRoute.Root}
+            element={<MainPage />}
           />
-          <Route path={AppRoute.Favorites}
+          <Route
+            path={AppRoute.Login}
+            element={<LoginPage />}
+          />
+          <Route
+            path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                restrictedFor={AuthorizationStatus.Auth}
+                restrictedFor={authorizationStatus}
                 redirectTo={AppRoute.Login}
               >
-                <FavoritePage offers={offers} />
+                <FavoritePage />
               </PrivateRoute>
             }
           />
-          <Route path={`${AppRoute.Offer}/:offerId`} element={<OfferPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route
+            path={`${AppRoute.Offers}/:offerId`}
+            element={<OfferPage />}
+          />
+          <Route
+            path="*"
+            element={<NotFoundPage />}
+          />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

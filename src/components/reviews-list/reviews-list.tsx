@@ -3,8 +3,16 @@ import {reviews} from '../../mocks/mocks';
 import {formatDate, getRatingWidth} from '../../utils/utils';
 import {addPluralEnding} from '../../utils/common';
 import {MAX_REVIEWS_COUNT} from '../../const';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import {AuthorizationStatus} from '../../const';
+import {useAppSelector} from '../../hooks';
+import {getActiveOffer} from '../../store/offers-data/selectors';
 
 function ReviewsList() {
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const offer = useAppSelector(getActiveOffer);
+  const isAuthReview = (authorizationStatus === AuthorizationStatus.Auth && offer !== null) && <RatingForm offerId={offer.id} />;
+
   const reviewToRender = [...reviews]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_REVIEWS_COUNT);
@@ -44,7 +52,8 @@ function ReviewsList() {
           </li>
         ))}
       </ul>
-      <RatingForm />
+      {isAuthReview}
+      {/* <RatingForm /> */}
     </section>
   );
 }

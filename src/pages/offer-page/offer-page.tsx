@@ -1,62 +1,47 @@
 import {useParams} from 'react-router-dom';
-// import {useEffect} from 'react';
+import {useEffect} from 'react';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import {TOffer, TOfferPreview} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
-import {AppRoute} from '../../const';
-import {Navigate} from 'react-router-dom';
 import OfferDetails from '../../components/offer-details/offer-details';
 import OffersMap from '../../components/offers-map/offers-map';
 import NearOffers from '../../components/near-offers/near-offers';
-import {cityMap} from '../../mocks/mocks';
-// import {useAppDispatch} from '../../hooks';
-import {getOffers} from '../../store/offers-data/selectors';
-import {useAppSelector} from '../../hooks';
-// import {fetchOffer, fetchNearPlaces, dropOffer} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getActiveOffer, getNearPlaces, getStatusOffer} from '../../store/offers-data/selectors';
+import {fetchNearPlaces, dropOffer} from '../../store/action';
+import {fetchActiveOfferAction} from '../../store/api-actions';
+import {Status} from '../../const';
+import Loading from '../../components/loading/loading';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 const MAX_NEAR_PLACES_COUNT = 3;
 
 function OfferPage() {
   const {offerId} = useParams();
-  const activeCity = cityMap;
 
-  const offers = useAppSelector(getOffers);
-  const currentOffer: TOffer | null = offers.find((offer) => offer.id === offerId) ?? null;
-  const nearPlacesToRender: TOfferPreview[] | [] = offers.filter((offer) => offer.id !== offerId).slice(0, MAX_NEAR_PLACES_COUNT);
+  const dispatch = useAppDispatch();
 
-  // const dispatch = useAppDispatch();
+  useEffect(() => {
+    if(offerId) {
+      dispatch(fetchActiveOfferAction(offerId));
+      dispatch(fetchNearPlaces(offerId));
+    }
 
-  // let currentOffer = null;
-  // let nearPlacesToRender = null;
+    return () => {
+      dispatch(dropOffer());
+    };
+  }, [offerId, dispatch]);
 
-  // if(offerId) {
-  //   currentOffer = useAppSelector(getOfferById(offerId));
-  //   nearPlacesToRender = useAppSelector(getNearPlacesToRender(offerId, MAX_NEAR_PLACES_COUNT));
-  // }
+  const currentOffer = useAppSelector(getActiveOffer);
+  const nearPlacesToRender = useAppSelector(getNearPlaces).slice(0, MAX_NEAR_PLACES_COUNT);
+  const status = useAppSelector(getStatusOffer);
 
-  // const currentOffer = offers.find((item) => item.id === offerId);
+  if (currentOffer === null || status === Status.Idle || status === Status.Loading) {
+    return <Loading />;
+  }
 
-  // с ретро...............
-
-  // useEffect(() => {
-  //   if(offerId) {
-  //     dispatch(fetchOffer(offerId));
-  //     dispatch(fetchNearPlaces(offerId));
-  //   }
-
-  //   return () => {
-  //     dispatch(dropOffer());
-  //   };
-  // }, [offerId, dispatch]);
-
-
-  // const currentOffer = useAppSelector(getActiveOffer);
-  // const nearPlacesToRender = useAppSelector(getNearPlaces).slice(0, MAX_NEAR_PLACES_COUNT);
-
-  if(currentOffer === null) {
-    // return null;
-    return <Navigate to={AppRoute.NotFound} />;
+  if (status === Status.Error) {
+    return <NotFoundPage />;
   }
 
   const currentImages = currentOffer.images.slice(0, 6);
@@ -86,7 +71,7 @@ function OfferPage() {
           <OffersMap
             block="offer"
             offers={nearPlacesToRender}
-            location={activeCity.location}
+            location={currentOffer.city.location}
           />
         </section>
         <div className="container">

@@ -3,18 +3,23 @@ import {TState} from '../../types/state';
 import {TOffer, TCity, TOfferPreview} from '../../types/index';
 import {sortByOption} from '../../utils/utils';
 import {getActiveCity, getActiveSortType} from '../app-process/selectors';
+import {Status} from '../../const';
 
 export const getOffers = (state: TState): TOffer[] => (
   state.offers
 );
 
-// export const getNearPlaces = (state: TState): TOfferPreview[] => (
-//   state.nearPlaces
-// )
+export const getNearPlaces = (state: TState): TOfferPreview[] => (
+  state.nearPlaces
+);
 
-// export const getActiveOffer = (state: TState): TOffer | null => (
-//   state.activeOffer
-// )
+export const getActiveOffer = (state: TState): TOffer | null => (
+  state.activeOffer
+);
+
+export const getStatusOffer = (state: TState): Status => (
+  state.statusOffer
+);
 
 export const getFilteredOffers = createSelector(
   [getOffers, getActiveCity],
@@ -27,13 +32,3 @@ export const getSortedOffers = createSelector(
   [getFilteredOffers, getActiveSortType],
   (offers: TOffer[], activeSortType: string): TOffer[] => sortByOption(offers, activeSortType)
 );
-
-// export const getOfferById = (offerId: string) => createSelector(
-//   getOffers,
-//   (offers: TOffer[]): TOffer | null => offers.find((offer) => offer.id === offerId) ?? null
-// );
-
-// export const getNearPlacesToRender =(offerId: string, number: number) => createSelector(
-//   getOffers,
-//   (offers: TOfferPreview[]): TOfferPreview[] => offers.filter((offer) => offer.id !== offerId).slice(0, number)
-// );
