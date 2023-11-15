@@ -41,9 +41,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setActiveSortType, (state, action) => {
       state.activeSortType = action.payload.activeSortType;
     })
-    // .addCase(fetchNearPlaces, (state, action) => {
-    //   state.nearPlaces = state.offers.filter((offer) => offer.id !== action.payload);
-    // })
     .addCase(dropOffer, (state) => {
       state.activeOffer = null;
       state.nearPlaces = [];
