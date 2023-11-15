@@ -1,14 +1,9 @@
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 
-type TFavoritesProps = {
-  offers: TOffer[];
-}
-
-function FavoritePage({offers}: TFavoritesProps): JSX.Element {
+function FavoritePage(): JSX.Element {
   return (
     <div className="page">
       <Helmet>
@@ -21,7 +16,7 @@ function FavoritePage({offers}: TFavoritesProps): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesList offers={offers} />
+            <FavoritesList />
           </section>
         </div>
       </main>

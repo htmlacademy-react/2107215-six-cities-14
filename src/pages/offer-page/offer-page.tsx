@@ -1,29 +1,48 @@
 import {useParams} from 'react-router-dom';
+import {useEffect} from 'react';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import {TOffer} from '../../types/index';
 import {Helmet} from 'react-helmet-async';
-import {AppRoute} from '../../const';
-import {Navigate} from 'react-router-dom';
 import OfferDetails from '../../components/offer-details/offer-details';
 import OffersMap from '../../components/offers-map/offers-map';
 import NearOffers from '../../components/near-offers/near-offers';
-import {cityMap} from '../../mocks/mocks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getActiveOffer, getNearPlaces, getStatusOffer} from '../../store/offers-data/selectors';
+import {dropOffer} from '../../store/action';
+import {fetchActiveOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
+import {Status, MAX_NEAR_PLACES_COUNT} from '../../const';
+import Loading from '../../components/loading/loading';
+import NotFoundPage from '../not-found-page/not-found-page';
 
-type TOfferProps = {
-  offers: TOffer[];
-}
+function OfferPage() {
+  const {offerId} = useParams();
 
-function OfferPage({offers}: TOfferProps) {
-  const params = useParams().offerId;
-  const offerById = offers.find((item) => item.id === params);
-  const activeCity = cityMap;
+  const dispatch = useAppDispatch();
 
-  if(!offerById) {
-    return <Navigate to={AppRoute.NotFound} />;
+  useEffect(() => {
+    if(offerId) {
+      dispatch(fetchActiveOfferAction(offerId));
+      dispatch(fetchOffersNearbyAction(offerId));
+    }
+
+    return () => {
+      dispatch(dropOffer());
+    };
+  }, [offerId, dispatch]);
+
+  const currentOffer = useAppSelector(getActiveOffer);
+  const nearPlacesToRender = useAppSelector(getNearPlaces).slice(0, MAX_NEAR_PLACES_COUNT);
+  const status = useAppSelector(getStatusOffer);
+
+  if (currentOffer === null || status === Status.Idle || status === Status.Loading) {
+    return <Loading />;
   }
 
-  const currentImages = offerById.images.slice(0, 6);
+  if (status === Status.Error) {
+    return <NotFoundPage />;
+  }
+
+  const currentImages = currentOffer.images.slice(0, 6);
 
   return (
     <div className="page">
@@ -46,15 +65,15 @@ function OfferPage({offers}: TOfferProps) {
               ))}
             </div>
           </div>
-          <OfferDetails offer={offerById} />
+          <OfferDetails offer={currentOffer} />
           <OffersMap
             block="offer"
-            offers={offers}
-            location={activeCity.location}
+            offers={nearPlacesToRender}
+            location={currentOffer.city.location}
           />
         </section>
         <div className="container">
-          <NearOffers offers={offers}/>
+          <NearOffers offers={nearPlacesToRender}/>
         </div>
       </main>
     </div>

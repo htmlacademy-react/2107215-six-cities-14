@@ -2,16 +2,34 @@ import {FormEvent, useState} from 'react';
 import {ChangeEvent} from 'react';
 import {RviewSymbolLenght} from '../../const';
 import Rating from '../rating/rating';
+import {TReviewData} from '../../types/index';
+import {postReviewAction} from '../../store/api-actions';
+import {useAppDispatch} from '../../hooks';
 
-function RatingForm(): JSX.Element {
+type RatingFormProps = {
+  offerId: string;
+}
+
+function RatingForm({offerId}: RatingFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     rating: '',
     review: '',
     isValid: false,
   });
 
+  const onSubmit = (reviewData: TReviewData) => {
+    dispatch(postReviewAction(reviewData));
+  };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    onSubmit({
+      id: offerId,
+      rating: Number(formData.rating),
+      comment: formData.review,
+    });
+
     setFormData({
       rating: '',
       review: '',

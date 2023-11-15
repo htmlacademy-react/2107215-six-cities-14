@@ -1,9 +1,7 @@
-import {TOffer, TOfferPreview} from '../../types/index';
+import {TOfferPreview} from '../../types/index';
 import OfferCard from '../ui/offer-card';
-
-type TFavoritesProps = {
-  offers: TOffer[];
-}
+import {useAppSelector} from '../../hooks';
+import {getFavoritesOffers} from '../../store/favorites-data/selectors';
 
 function getFavoritesByCity(favorites: TOfferPreview[]){
   return favorites.reduce<{[key: string]: TOfferPreview[]}>((acc, curr) => {
@@ -18,10 +16,11 @@ function getFavoritesByCity(favorites: TOfferPreview[]){
   }, {});
 }
 
-function FavoritesList({offers}: TFavoritesProps) {
-  const favoritesByCity = getFavoritesByCity(offers);
+function FavoritesList() {
+  const favorites = useAppSelector(getFavoritesOffers);
+  const favoritesByCity = getFavoritesByCity(favorites);
 
-  if (!offers?.length) {
+  if (!favorites?.length) {
     return null;
   }
 
