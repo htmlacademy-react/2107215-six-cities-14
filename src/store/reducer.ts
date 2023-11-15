@@ -1,16 +1,17 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, setActiveSortType, fetchFavorites, fetchOffers, fetchNearPlaces, requireAuthorization, dropOffer, setOffersDataLoadingStatus} from './action';
+import {changeCity, setActiveSortType, fetchFavorites, fetchOffers, requireAuthorization, dropOffer, setOffersDataLoadingStatus} from './action';
 import {TOffer, TOfferPreview, TReviews} from '../types';
 import {AuthorizationStatus, Status, CityName, SortOption} from '../const';
 import {
-  fetchActiveOfferAction
+  fetchActiveOfferAction,
+  fetchOffersNearbyAction
 } from './api-actions';
 
 type Data = {
   activeCity: string;
   offers: TOffer[];
   activeSortType: string;
-  nearPlaces: TOfferPreview[];
+  nearPlaces: TOffer[];
   activeOffer: TOffer | null;
   favorites: TOfferPreview[];
   reviews: TReviews[];
@@ -40,9 +41,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setActiveSortType, (state, action) => {
       state.activeSortType = action.payload.activeSortType;
     })
-    .addCase(fetchNearPlaces, (state, action) => {
-      state.nearPlaces = state.offers.filter((offer) => offer.id !== action.payload);
-    })
+    // .addCase(fetchNearPlaces, (state, action) => {
+    //   state.nearPlaces = state.offers.filter((offer) => offer.id !== action.payload);
+    // })
     .addCase(dropOffer, (state) => {
       state.activeOffer = null;
       state.nearPlaces = [];
@@ -71,7 +72,11 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchActiveOfferAction.rejected, (state) => {
       state.statusOffer = Status.Error;
+    })
+    .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
+      state.nearPlaces = action.payload;
     });
+
 });
 
 export {reducer};

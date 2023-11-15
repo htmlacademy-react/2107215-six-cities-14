@@ -7,8 +7,6 @@ export const changeCity = createAction<{activeCity: string}>(`${NameSpace.Offers
 
 export const setActiveSortType = createAction<{activeSortType: string}>(`${NameSpace.Offers}/setActiveSortType`);
 
-export const fetchNearPlaces = createAction<TOffer['id']>(`${NameSpace.NearPlaces}/fetchNearPlaces`);
-
 export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);
 
 export const fetchFavorites = createAction(`${NameSpace.Favorites}/fetchFavorites`);

@@ -51,6 +51,18 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const fetchOffersNearbyAction = createAsyncThunk<TOffer[], string, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  `${NameSpace.Data}/fetchOffersNearby`,
+  async (offerId, {extra: api}) => {
+    const { data } = await api.get<TOffer[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`);
+    return data;
+  }
+);
+
 export const loginAction = createAsyncThunk<void, TAuthData, {
   dispatch: TAppDispatch;
   state: TState;

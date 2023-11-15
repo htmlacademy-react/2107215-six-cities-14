@@ -8,13 +8,11 @@ import OffersMap from '../../components/offers-map/offers-map';
 import NearOffers from '../../components/near-offers/near-offers';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getActiveOffer, getNearPlaces, getStatusOffer} from '../../store/offers-data/selectors';
-import {fetchNearPlaces, dropOffer} from '../../store/action';
-import {fetchActiveOfferAction} from '../../store/api-actions';
-import {Status} from '../../const';
+import {dropOffer} from '../../store/action';
+import {fetchActiveOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
+import {Status, MAX_NEAR_PLACES_COUNT} from '../../const';
 import Loading from '../../components/loading/loading';
 import NotFoundPage from '../not-found-page/not-found-page';
-
-const MAX_NEAR_PLACES_COUNT = 3;
 
 function OfferPage() {
   const {offerId} = useParams();
@@ -24,7 +22,7 @@ function OfferPage() {
   useEffect(() => {
     if(offerId) {
       dispatch(fetchActiveOfferAction(offerId));
-      dispatch(fetchNearPlaces(offerId));
+      dispatch(fetchOffersNearbyAction(offerId));
     }
 
     return () => {

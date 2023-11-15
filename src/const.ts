@@ -2,6 +2,8 @@ export const MAX_REVIEWS_COUNT = 10;
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
+export const MAX_NEAR_PLACES_COUNT = 3;
+
 export const DESCRIPTIONS = [
   'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
   'Design interior in most sympathetic area! Complitely renovated, well-equipped, cosy studio in idyllic, over 100 years old wooden house. Calm street, fast connection to center and airport.',
@@ -88,7 +90,8 @@ export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments'
+  Comments = '/comments',
+  Nearby = '/nearby',
 }
 
 export enum Status {
