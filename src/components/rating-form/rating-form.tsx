@@ -92,7 +92,7 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         {/* <ButtonFormSubmit /> */}
-        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.rating || !formData.isValid || statusPost === Status.Loading}>{statusPost === Status.Loading ? 'loading' : 'Submit'}</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.rating || !formData.isValid || statusPost === Status.Loading || statusPost === Status.Error}>{statusPost === Status.Loading ? 'loading' : 'Submit'}</button>
       </div>
     </form>
   );
