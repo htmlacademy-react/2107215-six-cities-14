@@ -1,18 +1,16 @@
 import {useAppSelector} from '../../hooks';
-import {getAuthStatus} from '../../store/user-process/selectors';
-import {AuthorizationStatus} from '../../const';
+import {isAuth} from '../../store/user-process/selectors';
 import AuthNavUser from './auth-nav-user/auth-nav-user';
 import NotAuthNavUser from './not-auth-nav-user/not-auth-nav-user';
 import {useMemo} from 'react';
 
 function Nav(): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthStatus);
-  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
-  const getCurrentHeaderItem = useMemo(
-    () => (isAuth) ? AuthNavUser : NotAuthNavUser,
-    [isAuth]
-  );
+  const authorizationStatus = useAppSelector(isAuth);
 
+  const getCurrentHeaderItem = useMemo(
+    () => (authorizationStatus) ? AuthNavUser : NotAuthNavUser,
+    [authorizationStatus]
+  );
 
   return (
     <nav className="header__nav">

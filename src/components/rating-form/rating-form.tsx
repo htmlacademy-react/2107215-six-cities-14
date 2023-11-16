@@ -4,13 +4,19 @@ import {RviewSymbolLenght} from '../../const';
 import Rating from '../rating/rating';
 import {TReviewData} from '../../types/index';
 import {postReviewAction} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getStatusPost} from '../../store/reviews-data/selectors';
+import {Status} from '../../const';
+import styles from './rating-form.module.css';
+import {useEffect} from 'react';
 
 type RatingFormProps = {
   offerId: string;
 }
 
 function RatingForm({offerId}: RatingFormProps): JSX.Element {
+  const statusPost = useAppSelector(getStatusPost);
+
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     rating: '',
@@ -24,18 +30,24 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
     onSubmit({
       id: offerId,
       rating: Number(formData.rating),
       comment: formData.review,
     });
-
-    setFormData({
-      rating: '',
-      review: '',
-      isValid: false,
-    });
   };
+
+  useEffect(() => {
+    if(statusPost === Status.Success) {
+      setFormData({
+        rating: '',
+        review: '',
+        isValid: false,
+      });
+    }
+  }, [statusPost]);
+
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
@@ -59,7 +71,7 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
 
   return (
     <form
-      className="reviews__form form"
+      className={`reviews__form form ${(statusPost === Status.Error) && styles.shake}`}
       action="#"
       method="post"
       onSubmit={handleFormSubmit}
@@ -79,7 +91,8 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.rating || !formData.isValid}>Submit</button>
+        {/* <ButtonFormSubmit /> */}
+        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.rating || !formData.isValid || statusPost === Status.Loading}>{statusPost === Status.Loading ? 'loading' : 'Submit'}</button>
       </div>
     </form>
   );

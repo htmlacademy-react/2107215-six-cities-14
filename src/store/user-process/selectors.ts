@@ -5,9 +5,10 @@ import {TState} from '../../types/state';
 export const getAuthStatus = (state: TState): AuthorizationStatus => (
   state.authorizationStatus
 );
-// export const getUser = (state: TState): TUser | null => (
-//   state.user
-// );
+
+export const isAuth = (state: TState): boolean => (
+  state.authorizationStatus === AuthorizationStatus.Auth
+);
 // export const getStatusLogin = (state: TState): string => (
 //   state.statusLogin
 // );

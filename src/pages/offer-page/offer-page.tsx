@@ -7,12 +7,15 @@ import OfferDetails from '../../components/offer-details/offer-details';
 import OffersMap from '../../components/offers-map/offers-map';
 import NearOffers from '../../components/near-offers/near-offers';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getActiveOffer, getNearPlaces, getStatusOffer} from '../../store/offers-data/selectors';
+import {getActiveOffer, getSlicedNearPlaces, getStatusOffer} from '../../store/offers-data/selectors';
+import {isAuth} from '../../store/user-process/selectors';
 import {dropOffer} from '../../store/action';
-import {fetchActiveOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
-import {Status, MAX_NEAR_PLACES_COUNT} from '../../const';
+import {fetchActiveOfferAction, fetchOffersNearbyAction, fetchReviewsAction} from '../../store/api-actions';
+import {Status} from '../../const';
 import Loading from '../../components/loading/loading';
 import NotFoundPage from '../not-found-page/not-found-page';
+import RatingForm from '../../components/rating-form/rating-form';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 
 function OfferPage() {
   const {offerId} = useParams();
@@ -23,6 +26,7 @@ function OfferPage() {
     if(offerId) {
       dispatch(fetchActiveOfferAction(offerId));
       dispatch(fetchOffersNearbyAction(offerId));
+      dispatch(fetchReviewsAction(offerId));
     }
 
     return () => {
@@ -31,8 +35,9 @@ function OfferPage() {
   }, [offerId, dispatch]);
 
   const currentOffer = useAppSelector(getActiveOffer);
-  const nearPlacesToRender = useAppSelector(getNearPlaces).slice(0, MAX_NEAR_PLACES_COUNT);
+  const nearPlacesToRender = useAppSelector(getSlicedNearPlaces);
   const status = useAppSelector(getStatusOffer);
+  const authorizationStatus = useAppSelector(isAuth);
 
   if (currentOffer === null || status === Status.Idle || status === Status.Loading) {
     return <Loading />;
@@ -65,7 +70,11 @@ function OfferPage() {
               ))}
             </div>
           </div>
-          <OfferDetails offer={currentOffer} />
+          <OfferDetails offer={currentOffer}>
+            <ReviewsList>
+              {authorizationStatus && <RatingForm offerId={currentOffer.id}/>}
+            </ReviewsList>
+          </OfferDetails>
           <OffersMap
             block="offer"
             offers={nearPlacesToRender}
@@ -73,7 +82,7 @@ function OfferPage() {
           />
         </section>
         <div className="container">
-          <NearOffers offers={nearPlacesToRender}/>
+          <NearOffers nearPlacesToRender={nearPlacesToRender}/>
         </div>
       </main>
     </div>

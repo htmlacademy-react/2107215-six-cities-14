@@ -1,9 +1,8 @@
 import {createSelector} from '@reduxjs/toolkit';
-import {TState} from '../../types/state';
-import {TOffer, TCity, TOfferPreview} from '../../types/index';
+import {TOffer, TCity, TOfferPreview, TState} from '../../types/index';
 import {sortByOption} from '../../utils/utils';
 import {getActiveCity, getActiveSortType} from '../app-process/selectors';
-import {Status} from '../../const';
+import {Status, MAX_NEAR_PLACES_COUNT} from '../../const';
 
 export const getOffers = (state: TState): TOffer[] => (
   state.offers
@@ -31,4 +30,11 @@ export const getFilteredOffers = createSelector(
 export const getSortedOffers = createSelector(
   [getFilteredOffers, getActiveSortType],
   (offers: TOffer[], activeSortType: string): TOffer[] => sortByOption(offers, activeSortType)
+);
+
+export const getSlicedNearPlaces = createSelector(
+  [getNearPlaces],
+  (nearPlaces: TOfferPreview[]): TOfferPreview[] => (
+    nearPlaces.slice(0, MAX_NEAR_PLACES_COUNT)
+  )
 );

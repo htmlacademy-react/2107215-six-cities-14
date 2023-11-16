@@ -1,7 +1,7 @@
 import {TOffer} from '../../types/index';
-import ReviewsList from '../reviews-list/reviews-list';
 import ButtonBookmark from '../ui/button-bookmark';
 import {getRatingWidth} from '../../utils/utils';
+import {PropsWithChildren} from 'react';
 
 const offerInside = [
   'Wi-Fi',
@@ -16,11 +16,11 @@ const offerInside = [
   'Fridge',
 ];
 
-type TOfferDetailsProps = {
+type TOfferDetailsProps = PropsWithChildren<{
   offer: TOffer;
-}
+}>
 
-function OfferDetails({offer}: TOfferDetailsProps) {
+function OfferDetails({children, offer}: TOfferDetailsProps) {
   const {description, host, type, bedrooms, maxAdults, price, rating, isPremium, title} = offer;
   return (
     <div className="offer__container container">
@@ -89,12 +89,9 @@ function OfferDetails({offer}: TOfferDetailsProps) {
             <p className="offer__text">
               {description}
             </p>
-            {/* <p className="offer__text">
-              An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-            </p> */}
           </div>
         </div>
-        <ReviewsList />
+        {children}
       </div>
     </div>
   );

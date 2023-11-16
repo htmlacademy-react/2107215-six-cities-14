@@ -2,17 +2,16 @@ import OfferCard from '../ui/offer-card';
 import {TOfferPreview} from '../../types';
 
 type TNearOfferProps = {
-  offers: TOfferPreview[];
+  nearPlacesToRender: TOfferPreview[];
 }
 
-function NearOffers({offers}: TNearOfferProps): JSX.Element {
-  const currentOffers = offers;
+function NearOffers({nearPlacesToRender}: TNearOfferProps): JSX.Element {
 
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {currentOffers.map((item) =>
+        {nearPlacesToRender.map((item) =>
           <OfferCard key={item.id} offer={item} block={'near-places'} size={'large'}/>
         )}
       </div>

@@ -1,7 +1,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {TAppDispatch, TState} from '../types/state.js';
-import {TOffer, TReviews, TReviewData} from '../types/index.js';
+import {TOffer, TReviews, TReviewData, TOfferPreview} from '../types/index.js';
 import {fetchOffers, requireAuthorization, setOffersDataLoadingStatus, redirectToRoute} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
@@ -51,14 +51,14 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchOffersNearbyAction = createAsyncThunk<TOffer[], string, {
+export const fetchOffersNearbyAction = createAsyncThunk<TOfferPreview[], string, {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.Data}/fetchOffersNearby`,
   async (offerId, {extra: api}) => {
-    const { data } = await api.get<TOffer[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`);
+    const { data } = await api.get<TOfferPreview[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`);
     return data;
   }
 );
@@ -77,15 +77,27 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
   },
 );
 
-export const postReviewAction = createAsyncThunk<TReviews, TReviewData, {
+export const fetchReviewsAction = createAsyncThunk<TReviews[], string, {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.Data}/review`,
-  async ({id, rating, comment}, {extra: api}) => {
-    const {data} = await api.post<TReviews>(`${APIRoute.Comments}/${id}`, {comment, rating});
+  async (offerId, {extra: api}) => {
+    const {data} = await api.get<TReviews[]>(`${APIRoute.Comments}/${offerId}`);
     return data;
+  },
+);
+
+export const postReviewAction = createAsyncThunk<void, TReviewData, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  `${NameSpace.Data}/postReview`,
+  async ({id, rating, comment}, {dispatch, extra: api}) => {
+    await api.post<TReviews>(`${APIRoute.Comments}/${id}`, {comment, rating});
+    dispatch(fetchReviewsAction(id));
   },
 );
 

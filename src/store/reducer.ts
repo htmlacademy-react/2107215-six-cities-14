@@ -4,20 +4,23 @@ import {TOffer, TOfferPreview, TReviews} from '../types';
 import {AuthorizationStatus, Status, CityName, SortOption} from '../const';
 import {
   fetchActiveOfferAction,
-  fetchOffersNearbyAction
+  fetchOffersNearbyAction,
+  fetchReviewsAction,
+  postReviewAction
 } from './api-actions';
 
 type Data = {
   activeCity: string;
   offers: TOffer[];
   activeSortType: string;
-  nearPlaces: TOffer[];
+  nearPlaces: TOfferPreview[];
   activeOffer: TOffer | null;
   favorites: TOfferPreview[];
   reviews: TReviews[];
   authorizationStatus: AuthorizationStatus;
   isDataLoading: boolean;
   statusOffer: Status;
+  statusPost: Status;
 };
 
 const initialState: Data = {
@@ -31,6 +34,7 @@ const initialState: Data = {
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoading: false,
   statusOffer: Status.Idle,
+  statusPost: Status.Idle,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -51,9 +55,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers, (state, action) => {
       state.offers = action.payload;
     })
-    // .addCase(fetchReviews, (state) => {
-    //   state.reviews = reviews;
-    // })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
@@ -72,8 +73,17 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
       state.nearPlaces = action.payload;
+    })
+    .addCase(fetchReviewsAction.fulfilled, (state, action) => {
+      state.reviews = action.payload;
+      state.statusPost = Status.Success;
+    })
+    .addCase(postReviewAction.pending, (state) => {
+      state.statusPost = Status.Loading;
+    })
+    .addCase(postReviewAction.rejected, (state) => {
+      state.statusPost = Status.Error;
     });
-
 });
 
 export {reducer};

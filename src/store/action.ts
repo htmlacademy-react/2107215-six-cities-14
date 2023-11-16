@@ -1,7 +1,7 @@
 import {NameSpace} from '../const';
 import {createAction} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../const';
-import {TOffer, TAppRoute} from '../types/index';
+import {TOffer, TAppRoute, TReviews} from '../types/index';
 
 export const changeCity = createAction<{activeCity: string}>(`${NameSpace.Offers}/changeCity`);
 
@@ -21,6 +21,8 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 export const setOffersDataLoadingStatus = createAction<boolean>('data/setDataLoadingStatus');
 
 export const redirectToRoute = createAction<TAppRoute>('redirectToRoute');
+
+export const loading = createAction<TReviews>('loading');
 
 // export const loadCurrentOffer = (offer: TOffer) => ({
 //   type: NameSpace.Offer,

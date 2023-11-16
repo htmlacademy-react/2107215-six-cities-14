@@ -1,25 +1,20 @@
-import RatingForm from '../rating-form/rating-form';
-import {reviews} from '../../mocks/mocks';
 import {formatDate, getRatingWidth} from '../../utils/utils';
 import {addPluralEnding} from '../../utils/common';
 import {MAX_REVIEWS_COUNT} from '../../const';
-import { getAuthStatus } from '../../store/user-process/selectors';
-import {AuthorizationStatus} from '../../const';
+import {PropsWithChildren} from 'react';
+import {getReviewsOffer} from '../../store/reviews-data/selectors';
 import {useAppSelector} from '../../hooks';
-import {getActiveOffer} from '../../store/offers-data/selectors';
 
-function ReviewsList() {
-  const authorizationStatus = useAppSelector(getAuthStatus);
-  const offer = useAppSelector(getActiveOffer);
-  const isAuthReview = (authorizationStatus === AuthorizationStatus.Auth && offer !== null) && <RatingForm offerId={offer.id} />;
+function ReviewsList({children}: PropsWithChildren) {
+  const reviewsOffer = useAppSelector(getReviewsOffer);
 
-  const reviewToRender = [...reviews]
+  const reviewToRender = [...reviewsOffer]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, MAX_REVIEWS_COUNT);
 
   return (
     <section className="offer__reviews reviews">
-      <h2 className="reviews__title">Review{addPluralEnding(reviews.length)} &middot; <span className="reviews__amount">{reviewToRender.length}</span></h2>
+      <h2 className="reviews__title">Review{addPluralEnding(reviewsOffer.length)} &middot; <span className="reviews__amount">{reviewToRender.length}</span></h2>
       <ul className="reviews__list">
         {reviewToRender.map(({user, ...prop}) => (
           <li key={prop.id} className="reviews__item">
@@ -52,8 +47,7 @@ function ReviewsList() {
           </li>
         ))}
       </ul>
-      {isAuthReview}
-      {/* <RatingForm /> */}
+      {children}
     </section>
   );
 }
