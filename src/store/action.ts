@@ -1,9 +1,9 @@
-import {NameSpace} from '../const';
+import {NameSpace, CityName} from '../const';
 import {createAction} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../const';
-import {TOffer, TAppRoute, TReviews} from '../types/index';
+import {TOffer, TAppRoute} from '../types/index';
 
-export const changeCity = createAction<{activeCity: string}>(`${NameSpace.Offers}/changeCity`);
+export const changeCity = createAction<{activeCity: CityName}>(`${NameSpace.Offers}/changeCity`);
 
 export const setActiveSortType = createAction<{activeSortType: string}>(`${NameSpace.Offers}/setActiveSortType`);
 
@@ -22,7 +22,7 @@ export const setOffersDataLoadingStatus = createAction<boolean>('data/setDataLoa
 
 export const redirectToRoute = createAction<TAppRoute>('redirectToRoute');
 
-export const loading = createAction<TReviews>('loading');
+// export const loading = createAction<TReviews>('loading');
 
 // export const loadCurrentOffer = (offer: TOffer) => ({
 //   type: NameSpace.Offer,

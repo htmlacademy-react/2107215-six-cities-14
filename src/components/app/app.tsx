@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {HelmetProvider} from 'react-helmet-async';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
@@ -10,24 +10,11 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import {useAppSelector} from '../../hooks';
 import {getAuthStatus} from '../../store/user-process/selectors';
-import {getDataLoading} from '../../store/app-process/selectors';
-import Loading from '../loading/loading';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-// type TAppProps = {
-//   offers: TOffer[];
-// }
-
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthStatus);
-  const isDataLoading = useAppSelector(getDataLoading);
-
-  if (authorizationStatus === AuthorizationStatus.Unknown || isDataLoading) {
-    return (
-      <Loading />
-    );
-  }
 
   return (
     <HelmetProvider>

@@ -10,10 +10,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getActiveOffer, getSlicedNearPlaces, getStatusOffer} from '../../store/offers-data/selectors';
 import {isAuth} from '../../store/user-process/selectors';
 import {dropOffer} from '../../store/action';
-import {fetchActiveOfferAction, fetchOffersNearbyAction, fetchReviewsAction} from '../../store/api-actions';
+import {fetchActiveOfferAction, fetchNearPlacesAction, fetchReviewsAction} from '../../store/api-actions';
 import {Status} from '../../const';
 import Loading from '../../components/loading/loading';
-import NotFoundPage from '../not-found-page/not-found-page';
 import RatingForm from '../../components/rating-form/rating-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 
@@ -25,7 +24,7 @@ function OfferPage() {
   useEffect(() => {
     if(offerId) {
       dispatch(fetchActiveOfferAction(offerId));
-      dispatch(fetchOffersNearbyAction(offerId));
+      dispatch(fetchNearPlacesAction(offerId));
       dispatch(fetchReviewsAction(offerId));
     }
 
@@ -39,12 +38,15 @@ function OfferPage() {
   const status = useAppSelector(getStatusOffer);
   const authorizationStatus = useAppSelector(isAuth);
 
-  if (currentOffer === null || status === Status.Idle || status === Status.Loading) {
-    return <Loading />;
-  }
-
-  if (status === Status.Error) {
-    return <NotFoundPage />;
+  if (currentOffer === null || status === Status.Loading) {
+    return (
+      <div className="page">
+        <Helmet>
+          <title>{'6 cities - Offer'}</title>
+        </Helmet>
+        <Loading />
+      </div>
+    );
   }
 
   const currentImages = currentOffer.images.slice(0, 6);

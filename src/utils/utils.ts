@@ -1,5 +1,5 @@
 import {SortOption} from '../const';
-import {TOffer} from '../types/index';
+import {TOfferPreview} from '../types/index';
 
 function formatDate (dateString: string): string {
   const date = new Date(Date.parse(dateString));
@@ -27,7 +27,7 @@ function getRandomFloat(min: number, max: number, decimals: number): number {
   return parseFloat(str);
 }
 
-function sortByOption (offers: TOffer[], activeSortType: string) {
+function sortByOption (offers: TOfferPreview[], activeSortType: string) {
   switch (activeSortType) {
     case SortOption.Popular:
       return offers;

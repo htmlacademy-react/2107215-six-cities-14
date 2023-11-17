@@ -1,19 +1,23 @@
 import Header from '../../components/header/header';
 import {Helmet} from 'react-helmet-async';
 import {useRef, FormEvent} from 'react';
-import {Navigate } from 'react-router-dom';
+import {Navigate, Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {getAuthStatus} from '../../store/user-process/selectors';
-import { AppRoute, AuthorizationStatus} from '../../const';
+import {isAuth} from '../../store/user-process/selectors';
+import {AppRoute, CityName} from '../../const';
+import {changeCity} from '../../store/action';
 
 function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(getAuthStatus);
+  const authorizationStatus = useAppSelector(isAuth);
 
-  if (authorizationStatus === AuthorizationStatus.Auth) {
+  const citiesValues = Object.values(CityName);
+  const randomCity = citiesValues[Math.floor(Math.random() * citiesValues.length)];
+
+  if (authorizationStatus) {
     return (
       <Navigate to={AppRoute.Root} />
     );
@@ -54,7 +58,6 @@ function LoginPage(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
-
                   required
                 />
               </div>
@@ -73,15 +76,19 @@ function LoginPage(): JSX.Element {
                 className="login__submit form__submit button"
                 type="submit"
               >
-                Sign in
+                  Sign in
               </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Root}
+                onClick={() => dispatch(changeCity({activeCity: randomCity}))}
+              >
+                <span>{randomCity}</span>
+              </Link>
             </div>
           </section>
         </div>

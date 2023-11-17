@@ -7,15 +7,15 @@ import {useMemo} from 'react';
 function Nav(): JSX.Element {
   const authorizationStatus = useAppSelector(isAuth);
 
-  const getCurrentHeaderItem = useMemo(
-    () => (authorizationStatus) ? AuthNavUser : NotAuthNavUser,
+  const currentHeaderItem = useMemo(
+    () => (authorizationStatus) ? <AuthNavUser/> : <NotAuthNavUser/>,
     [authorizationStatus]
   );
 
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
-        {getCurrentHeaderItem()}
+        {currentHeaderItem}
       </ul>
     </nav>
   );

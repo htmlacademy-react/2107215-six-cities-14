@@ -1,26 +1,32 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, setActiveSortType, fetchFavorites, fetchOffers, requireAuthorization, dropOffer, setOffersDataLoadingStatus} from './action';
-import {TOffer, TOfferPreview, TReviews} from '../types';
+import {changeCity, setActiveSortType, fetchFavorites, dropOffer} from './action';
+import {TUserData, TOffer, TOfferPreview, TReviews} from '../types';
 import {AuthorizationStatus, Status, CityName, SortOption} from '../const';
 import {
   fetchActiveOfferAction,
-  fetchOffersNearbyAction,
+  fetchNearPlacesAction,
   fetchReviewsAction,
-  postReviewAction
+  postReviewAction,
+  fetchOffersAction,
+  checkAuthAction,
+  loginAction,
+  logoutAction
 } from './api-actions';
 
 type Data = {
-  activeCity: string;
-  offers: TOffer[];
+  activeCity: CityName;
+  offers: TOfferPreview[];
   activeSortType: string;
   nearPlaces: TOfferPreview[];
   activeOffer: TOffer | null;
   favorites: TOfferPreview[];
   reviews: TReviews[];
   authorizationStatus: AuthorizationStatus;
-  isDataLoading: boolean;
   statusOffer: Status;
   statusPost: Status;
+  statusOffers: Status;
+  statusLogin: Status;
+  user: TUserData | null;
 };
 
 const initialState: Data = {
@@ -32,9 +38,11 @@ const initialState: Data = {
   favorites: [],
   reviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
-  isDataLoading: false,
   statusOffer: Status.Idle,
   statusPost: Status.Idle,
+  statusOffers: Status.Idle,
+  statusLogin: Status.Idle,
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -47,20 +55,24 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(dropOffer, (state) => {
       state.activeOffer = null;
-      state.nearPlaces = [];
+      // state.nearPlaces = [];
     })
     .addCase(fetchFavorites, (state) => {
       state.favorites = state.offers.filter((offer) => offer.isFavorite);
     })
-    .addCase(fetchOffers, (state, action) => {
+    .addCase(fetchOffersAction.fulfilled, (state, action) => {
       state.offers = action.payload;
+      state.statusOffers = Status.Success;
     })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
+    .addCase(fetchOffersAction.pending, (state) => {
+      state.statusOffers = Status.Loading;
     })
-    .addCase(setOffersDataLoadingStatus, (state, action) => {
-      state.isDataLoading = action.payload;
-    })
+    // .addCase(requireAuthorization, (state, action) => {
+    //   state.authorizationStatus = action.payload;
+    // })
+    // .addCase(setOffersDataLoadingStatus, (state, action) => {
+    //   state.isDataLoading = action.payload;
+    // })
     .addCase(fetchActiveOfferAction.pending, (state) => {
       state.statusOffer = Status.Loading;
     })
@@ -71,7 +83,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchActiveOfferAction.rejected, (state) => {
       state.statusOffer = Status.Error;
     })
-    .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
+    .addCase(fetchNearPlacesAction.fulfilled, (state, action) => {
       state.nearPlaces = action.payload;
     })
     .addCase(fetchReviewsAction.fulfilled, (state, action) => {
@@ -83,6 +95,46 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(postReviewAction.rejected, (state) => {
       state.statusPost = Status.Error;
+    })
+    .addCase(postReviewAction.fulfilled, (state, action) => {
+      state.reviews.push(action.payload);
+      state.statusPost = Status.Success;
+    })
+    // .addCase(dropReview.fulfilled, (state) => {
+    //   state.statusPost = Status.Idle;
+    // })
+
+    .addCase(loginAction.rejected, (state) => {
+      state.statusLogin = Status.Error;
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(loginAction.pending, (state) => {
+      state.statusLogin = Status.Loading;
+    })
+    .addCase(loginAction.fulfilled, (state, action) => {
+      state.statusLogin = Status.Success;
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(logoutAction.pending, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    // .addCase(dropLogin, (state) => {
+    //   state.statusLogin = RequestStatus.Idle;
+    // })
+    .addCase(checkAuthAction.rejected, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(checkAuthAction.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(checkAuthAction.pending, (state) => {
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.Unknown;
     });
 });
 
