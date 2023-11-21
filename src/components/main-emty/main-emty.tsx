@@ -1,8 +1,8 @@
-type MainEmptyProps = {
+type TMainEmptyProps = {
   city: string;
 }
 
-function MainEmpty({city}: MainEmptyProps): JSX.Element {
+function MainEmpty({city}: TMainEmptyProps): JSX.Element {
   return (
     <div className="cities">
       <div className="cities__places-container cities__places-container--empty container">
@@ -12,9 +12,7 @@ function MainEmpty({city}: MainEmptyProps): JSX.Element {
             <p className="cities__status-description">We could not find any property available at the moment in {city}</p>
           </div>
         </section>
-        <div className="cities__right-section">
-          <section className="cities__map map"></section>
-        </div>
+        <div className="cities__right-section"></div>
       </div>
     </div>
   );

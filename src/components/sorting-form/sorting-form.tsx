@@ -1,10 +1,10 @@
 
 import {SortOption} from '../../const';
-import {useAppSelector, useAppDispatch} from '../../hooks/';
+import {useAppSelector, useAppDispatch} from '../../hooks';
 import {getActiveSortType} from '../../store/app-process/selectors';
-import {TSorting} from '../../types/sorting';
+import {TSorting} from '../../types/index';
 import OptionItem from '../option-item/option-item';
-import {setActiveSortType} from '../../store/action';
+import {setActiveSortType} from '../../store/app-process/app-process';
 import {useState} from 'react';
 import cn from 'classnames';
 
@@ -67,7 +67,7 @@ function FormSorting(): JSX.Element {
             option={option}
             isActive={option === activeSortType}
             onOptionClick={() => {
-              dispatch(setActiveSortType({activeSortType: option}));
+              dispatch(setActiveSortType(option));
               handleTypeClick();
             }}
           />

@@ -18,11 +18,8 @@ function getFavoritesByCity(favorites: TOfferPreview[]){
 
 function FavoritesList() {
   const favorites = useAppSelector(getFavoritesOffers);
-  const favoritesByCity = getFavoritesByCity(favorites);
 
-  if (!favorites?.length) {
-    return null;
-  }
+  const favoritesByCity = getFavoritesByCity(favorites);
 
   return (
     <ul className="favorites__list">

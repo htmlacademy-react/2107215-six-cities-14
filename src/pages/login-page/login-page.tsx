@@ -4,20 +4,20 @@ import {useRef, FormEvent} from 'react';
 import {Navigate, Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {isAuth} from '../../store/user-process/selectors';
+import {getIsAuthorized} from '../../store/user-process/selectors';
 import {AppRoute, CityName} from '../../const';
-import {changeCity} from '../../store/action';
+import {changeActiveCity} from '../../store/app-process/app-process';
 
 function LoginPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(isAuth);
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
   const citiesValues = Object.values(CityName);
   const randomCity = citiesValues[Math.floor(Math.random() * citiesValues.length)];
 
-  if (authorizationStatus) {
+  if (isAuthorized) {
     return (
       <Navigate to={AppRoute.Root} />
     );
@@ -85,7 +85,7 @@ function LoginPage(): JSX.Element {
               <Link
                 className="locations__item-link"
                 to={AppRoute.Root}
-                onClick={() => dispatch(changeCity({activeCity: randomCity}))}
+                onClick={() => dispatch(changeActiveCity(randomCity))}
               >
                 <span>{randomCity}</span>
               </Link>

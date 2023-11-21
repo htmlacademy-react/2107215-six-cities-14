@@ -68,15 +68,13 @@ export enum CityName {
 }
 
 export enum NameSpace {
-  // App = 'APP',
+  App = 'APP',
   User = 'USER',
   Offers = 'OFFERS',
   Reviews = 'REVIEWS',
   Favorites = 'FAVORITES',
   NearPlaces = 'NEAR_PLACES',
   Offer = 'OFFER',
-  Login = 'LOGIN',
-  Data = 'DATA'
 }
 
 export const SortOption = {
@@ -92,11 +90,21 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/comments',
   NearPlaces = '/nearby',
+  Favorite = '/favorite',
 }
 
-export enum Status {
+export enum RequestStatus {
   Idle = 'idle',
   Loading = 'loading',
   Success = 'success',
   Error = 'error',
 }
+
+export const ErrorCause = {
+  FetchOffers: 'FETCH_OFFERS',
+  FetchActiveOffer: 'FETCH_OFFERS',
+  FetchNearPlaces: 'FETCH_NEAR_PLACES',
+  FetchReviews: 'FETCH_REVIEWS',
+  FetchFavorites: 'FETCH_FAVORITES',
+  Unknown: 'UNKNOWN',
+} as const;

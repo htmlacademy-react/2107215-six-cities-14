@@ -40,14 +40,3 @@
   border-radius: 5px;
   animation: reviewsErrorText 0.6s;
 }
-
-@keyframes reviewsErrorText {
-  0%,
-  100% {
-    transform: scale3d(1);
-  }
-
-  50% {
-    transform: scale3d(1, 0.8, 0);
-  }
-}

@@ -6,7 +6,7 @@ import {TReviewData} from '../../types/index';
 import {postReviewAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getStatusPost} from '../../store/reviews-data/selectors';
-import {Status} from '../../const';
+import {RequestStatus} from '../../const';
 import styles from './rating-form.module.css';
 
 type RatingFormProps = {
@@ -38,7 +38,7 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
   };
 
   useEffect(() => {
-    if(statusPost === Status.Success) {
+    if(statusPost === RequestStatus.Success) {
       setFormData({
         rating: '',
         review: '',
@@ -70,12 +70,12 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
 
   return (
     <form
-      className={`reviews__form form ${(statusPost === Status.Error) && styles.formShake} ${(statusPost === Status.Loading) && styles.formUnavailable}`}
+      className={`reviews__form form ${(statusPost === RequestStatus.Error) && styles.formShake} ${(statusPost === RequestStatus.Loading) && styles.formUnavailable}`}
       action="#"
       method="post"
       onSubmit={handleFormSubmit}
     >
-      {statusPost === Status.Error && (
+      {statusPost === RequestStatus.Error && (
         <div className='reviews__error'>
           <p className={`${styles.reviewsErrorText}`}>
             Failed to post review. Please try again!
@@ -92,14 +92,14 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
         onChange={handleTextAreaChange}
         value={formData.review}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        disabled={statusPost === Status.Loading}
+        disabled={statusPost === RequestStatus.Loading}
       >
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.rating || !formData.isValid || statusPost === Status.Loading}>{statusPost === Status.Loading ? 'loading' : 'Submit'}</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.rating || !formData.isValid || statusPost === RequestStatus.Loading}>{statusPost === RequestStatus.Loading ? 'loading' : 'Submit'}</button>
       </div>
     </form>
   );

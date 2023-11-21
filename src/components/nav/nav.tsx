@@ -1,15 +1,15 @@
 import {useAppSelector} from '../../hooks';
-import {isAuth} from '../../store/user-process/selectors';
+import {getIsAuthorized} from '../../store/user-process/selectors';
 import AuthNavUser from './auth-nav-user/auth-nav-user';
 import NotAuthNavUser from './not-auth-nav-user/not-auth-nav-user';
 import {useMemo} from 'react';
 
 function Nav(): JSX.Element {
-  const authorizationStatus = useAppSelector(isAuth);
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
   const currentHeaderItem = useMemo(
-    () => (authorizationStatus) ? <AuthNavUser/> : <NotAuthNavUser/>,
-    [authorizationStatus]
+    () => (isAuthorized) ? <AuthNavUser/> : <NotAuthNavUser/>,
+    [isAuthorized]
   );
 
   return (

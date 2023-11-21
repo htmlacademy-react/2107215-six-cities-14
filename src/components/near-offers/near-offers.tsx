@@ -5,7 +5,11 @@ type TNearOfferProps = {
   nearPlacesToRender: TOfferPreview[];
 }
 
-function NearOffers({nearPlacesToRender}: TNearOfferProps): JSX.Element {
+function NearOffers({nearPlacesToRender}: TNearOfferProps): JSX.Element | null {
+
+  if(!nearPlacesToRender.length) {
+    return null;
+  }
 
   return (
     <section className="near-places places">

@@ -1,8 +1,8 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {TAppDispatch, TState} from '../types/state.js';
-import {TOffer, TReviews, TReviewData, TOfferPreview} from '../types/index.js';
-import {setOffersDataLoadingStatus, redirectToRoute} from './action';
+import {TOffer, TReviews, TReviewData, TOfferPreview, TFavoriteData} from '../types/index.js';
+import {redirectToRoute} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AppRoute} from '../const';
 import {TAuthData} from '../types/auth-data';
@@ -15,10 +15,8 @@ type TExtra = {
 
 export const fetchOffersAction = createAsyncThunk<TOfferPreview[], undefined, TExtra>(
   `${NameSpace.Offers}/fetchOffers`,
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersDataLoadingStatus(true));
+  async (_arg, {extra: api}) => {
     const {data} = await api.get<TOfferPreview[]>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
     return data;
   },
 );
@@ -52,11 +50,27 @@ export const fetchReviewsAction = createAsyncThunk<TReviews[], TOffer['id'], TEx
 );
 
 export const postReviewAction = createAsyncThunk<TReviews, TReviewData, TExtra>(
-  `${NameSpace.Data}/postReview`,
+  `${NameSpace.Reviews}/postReview`,
   async ({id, rating, comment}, {extra: api}) => {
     const {data} = await api.post<TReviews>(`${APIRoute.Reviews}/${id}`, {comment, rating});
     return data;
   },
+);
+
+export const fetchFavoritesAction = createAsyncThunk<TOfferPreview[], undefined, TExtra>(
+  `${NameSpace.Favorites}/fetchFavorites`,
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<TOfferPreview[]>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const changeFavoriteStatusAction = createAsyncThunk<TOffer, TFavoriteData, TExtra>(
+  `${NameSpace.Favorites}/postFavorite`,
+  async ({ id, status }, { extra: api }) => {
+    const { data } = await api.post<TOffer>(`${APIRoute.Favorite}/${id}/${status}`);
+    return data;
+  }
 );
 
 export const loginAction = createAsyncThunk<TUserData, TAuthData, {

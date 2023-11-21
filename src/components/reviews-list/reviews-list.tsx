@@ -16,7 +16,7 @@ function ReviewsList({children}: PropsWithChildren) {
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">Review{addPluralEnding(reviewsOffer.length)} &middot; <span className="reviews__amount">{reviewToRender.length}</span></h2>
       <ul className="reviews__list">
-        {reviewToRender.map(({user, ...prop}) => (
+        {reviewToRender?.map(({user, ...prop}) => (
           <li key={prop.id} className="reviews__item">
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">

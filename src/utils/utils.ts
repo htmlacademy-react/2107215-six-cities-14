@@ -30,7 +30,7 @@ function getRandomFloat(min: number, max: number, decimals: number): number {
 function sortByOption (offers: TOfferPreview[], activeSortType: string) {
   switch (activeSortType) {
     case SortOption.Popular:
-      return offers;
+      return offers.slice();
     case SortOption.LowToHigh:
       return offers.slice().sort((offerA, offerB) => offerA.price - offerB.price);
     case SortOption.HighToLow:

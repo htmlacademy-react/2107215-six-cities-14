@@ -1,20 +1,27 @@
 import cn from 'classnames';
-import {useState} from 'react';
 import {TOfferPreview} from '../../types/offer';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getIsAuthorized} from '../../store/user-process/selectors';
+import {useNavigate} from 'react-router-dom';
+import {changeFavoriteStatusAction} from '../../store/api-actions';
+import {AppRoute} from '../../const';
 
-type TButtonBookmarkProp = {
+type TButtonBookmarkProps = {
   offer: TOfferPreview;
   islarge?: boolean;
 }
 
-function ButtonBookmark({offer, islarge}: TButtonBookmarkProp): JSX.Element {
-  const [isFavorites, setFavorites] = useState(offer.isFavorite);
+function ButtonBookmark({offer : {isFavorite, id: offerId}, islarge}: TButtonBookmarkProps): JSX.Element {
+
+  const isAuthorized = useAppSelector(getIsAuthorized);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const btnClassName = cn('button', {
     'place-card__bookmark-button': !islarge,
-    'place-card__bookmark-button--active': isFavorites && !islarge,
+    'place-card__bookmark-button--active': isFavorite && !islarge,
     'offer__bookmark-button': islarge,
-    'offer__bookmark-button--active': isFavorites && islarge,
+    'offer__bookmark-button--active': isFavorite && islarge,
   });
 
   const svgClassName = cn({
@@ -22,11 +29,20 @@ function ButtonBookmark({offer, islarge}: TButtonBookmarkProp): JSX.Element {
     'offer__bookmark-icon': islarge,
   });
 
+  const onFavoritesBtnClick = () => {
+    if (!isAuthorized) {
+      navigate(AppRoute.Login);
+    }
+
+    dispatch(changeFavoriteStatusAction({
+      id: offerId,
+      status: Number(!isFavorite)
+    }));
+  };
+
   return (
     <button className={btnClassName} type="button"
-      onClick= {() => {
-        setFavorites(!isFavorites);
-      }}
+      onClick={onFavoritesBtnClick}
     >
       <svg
         className={svgClassName}

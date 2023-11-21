@@ -8,3 +8,4 @@ export * from './user-data.ts';
 export * from './app-route.ts';
 export * from './review-data.ts';
 export * from './token';
+export * from './favorite-data.ts';

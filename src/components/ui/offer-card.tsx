@@ -1,5 +1,6 @@
 import {TOfferPreview} from '../../types/offer';
 import {Link} from 'react-router-dom';
+import {memo} from 'react';
 import {AppRoute} from '../../const';
 import ButtonBookmark from './button-bookmark';
 import {capitalize} from '../../utils/common';
@@ -19,7 +20,7 @@ const sizeMap: Record<TCardImageSize, {width: string; height: string}> = {
   large: {width: '260', height: '200'}
 };
 
-function OfferCard({offer, size = 'large', block, onCardHover} : TOffersProps): JSX.Element {
+const OfferCard = memo(function OfferCard({offer, size = 'large', block, onCardHover} : TOffersProps): JSX.Element {
   const {id, isPremium, price, title, rating, type, previewImage } = offer;
 
   function handleMouseEnter() {
@@ -72,6 +73,6 @@ function OfferCard({offer, size = 'large', block, onCardHover} : TOffersProps): 
       </div>
     </article>
   );
-}
+});
 
 export default OfferCard;

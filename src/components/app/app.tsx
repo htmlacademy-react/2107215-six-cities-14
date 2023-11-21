@@ -5,17 +5,12 @@ import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import FavoritePage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
-import PrivateRoute from '../private-route/private-route';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import {useAppSelector} from '../../hooks';
-import {getAuthStatus} from '../../store/user-process/selectors';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthStatus);
-
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -31,14 +26,7 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.Favorites}
-            element={
-              <PrivateRoute
-                restrictedFor={authorizationStatus}
-                redirectTo={AppRoute.Login}
-              >
-                <FavoritePage />
-              </PrivateRoute>
-            }
+            element={<FavoritePage />}
           />
           <Route
             path={`${AppRoute.Offers}/:offerId`}

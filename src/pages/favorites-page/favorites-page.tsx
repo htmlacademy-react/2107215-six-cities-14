@@ -2,8 +2,26 @@ import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import {Helmet} from 'react-helmet-async';
 import FavoritesList from '../../components/favorites-list/favorites-list';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import {useAppDispatch} from '../../hooks';
+import {useEffect} from 'react';
+// import {getIsAuthorized} from '../../store/user-process/selectors';
 
 function FavoritePage(): JSX.Element {
+  // const isAuthorized = useAppSelector(getIsAuthorized);
+
+  const dispatch = useAppDispatch();
+
+  // if (isAuthorized) {
+  //   return (
+  //     <Navigate to={AppRoute.Root} />
+  //   );
+  // }
+
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, [dispatch]);
+
   return (
     <div className="page">
       <Helmet>
