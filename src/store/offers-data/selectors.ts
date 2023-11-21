@@ -11,6 +11,10 @@ export const getNearPlaces = (state: TState): TOfferPreview[] => (
   state[NameSpace.Offers].nearPlaces
 );
 
+export const getNearPlacesStatus = (state: TState): RequestStatus => (
+  state[NameSpace.Offers].nearPlacesStatus
+);
+
 export const getActiveOffer = (state: TState): TOffer | null => (
   state[NameSpace.Offers].activeOffer
 );

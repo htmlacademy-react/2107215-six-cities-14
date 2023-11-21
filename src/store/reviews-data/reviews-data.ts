@@ -6,11 +6,13 @@ import {fetchReviewsAction, postReviewAction,} from '../api-actions';
 type TReviewsData = {
   reviews: TReviews[];
   statusPost: RequestStatus;
+  reviewsStatus: RequestStatus;
 };
 
 const initialState: TReviewsData = {
   reviews: [],
   statusPost: RequestStatus.Idle,
+  reviewsStatus: RequestStatus.Idle,
 };
 
 export const reviewsData = createSlice({
@@ -21,7 +23,10 @@ export const reviewsData = createSlice({
     builder
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
-        state.statusPost = RequestStatus.Success;
+        state.reviewsStatus = RequestStatus.Success;
+      })
+      .addCase(fetchReviewsAction.rejected, (state) => {
+        state.reviewsStatus = RequestStatus.Error;
       })
       .addCase(postReviewAction.pending, (state) => {
         state.statusPost = RequestStatus.Loading;

@@ -20,7 +20,7 @@ const sizeMap: Record<TCardImageSize, {width: string; height: string}> = {
   large: {width: '260', height: '200'}
 };
 
-const OfferCard = memo(function OfferCard({offer, size = 'large', block, onCardHover} : TOffersProps): JSX.Element {
+const OfferCard = memo(({offer, size = 'large', block, onCardHover} : TOffersProps): JSX.Element => {
   const {id, isPremium, price, title, rating, type, previewImage } = offer;
 
   function handleMouseEnter() {
@@ -74,5 +74,7 @@ const OfferCard = memo(function OfferCard({offer, size = 'large', block, onCardH
     </article>
   );
 });
+
+OfferCard.displayName = 'OfferCard';
 
 export default OfferCard;

@@ -11,6 +11,7 @@ import ErrorElement from '../../components/error-element/error-element';
 
 function MainPage(): JSX.Element {
   const fetchingStatus = useAppSelector(getFetchingStatus);
+  // useAppSelector(getOffers);
   const currentOffers = useAppSelector(getFilteredOffers);
 
   const isCurrentOffers = currentOffers?.length ? '' : 'page__main--index-empty';
@@ -24,7 +25,7 @@ function MainPage(): JSX.Element {
         <Loading />
       )}
       {fetchingStatus === RequestStatus.Error && (
-        <ErrorElement cause={ErrorCause.FetchOffers} />
+        <ErrorElement cause={ErrorCause.FetchOffers} isLarge />
       )}
       {fetchingStatus === RequestStatus.Success && (
         <>

@@ -2,6 +2,7 @@ import {TOffer} from '../../types/index';
 import ButtonBookmark from '../ui/button-bookmark';
 import {getRatingWidth} from '../../utils/utils';
 import {PropsWithChildren} from 'react';
+import {addPluralEnding} from '../../utils/common';
 
 const offerInside = [
   'Wi-Fi',
@@ -47,10 +48,10 @@ function OfferDetails({children, offer}: TOfferDetailsProps) {
             {type}
           </li>
           <li className="offer__feature offer__feature--bedrooms">
-            {bedrooms} Bedrooms
+            {`${bedrooms} Bedroom${addPluralEnding(bedrooms)}`}
           </li>
           <li className="offer__feature offer__feature--adults">
-            Max {maxAdults} adults
+            {`Max ${maxAdults} adult${addPluralEnding(maxAdults)}`}
           </li>
         </ul>
         <div className="offer__price">

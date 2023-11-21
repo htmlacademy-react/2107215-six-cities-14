@@ -4,12 +4,12 @@ import {useAppDispatch, useAppSelector} from '../../../hooks';
 import {AppRoute} from '../../../const';
 import {getUser} from '../../../store/user-process/selectors';
 import {getFavoritesOffers} from '../../../store/favorites-data/selectors';
+import {dropOffersFavorite} from '../../../store/offers-data/offers-data';
 
 function AuthNavUser() {
   const dispatch = useAppDispatch();
   const userEmail = useAppSelector(getUser);
   const favorites = useAppSelector(getFavoritesOffers);
-
 
   return (
     <>
@@ -26,6 +26,7 @@ function AuthNavUser() {
           className="header__nav-link"
           onClick={(evt) => {
             evt.preventDefault();
+            dispatch(dropOffersFavorite());
             dispatch(logoutAction());
           }}
         >

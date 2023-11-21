@@ -10,7 +10,7 @@ type OffersListProps = {
   onCardHover: (offerId: TOfferPreview['id'] | null) => void;
 }
 
-const OffersList = memo(function OffersList({onCardHover, offers}: OffersListProps): JSX.Element {
+const OffersList = memo(({onCardHover, offers}: OffersListProps): JSX.Element => {
   const activeSortType = useAppSelector(getActiveSortType);
 
   const currentSort = useMemo(
@@ -26,5 +26,7 @@ const OffersList = memo(function OffersList({onCardHover, offers}: OffersListPro
     </div>
   );
 });
+
+OffersList.displayName = 'OffersList';
 
 export default OffersList;

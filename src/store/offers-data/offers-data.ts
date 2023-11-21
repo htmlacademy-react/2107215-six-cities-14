@@ -11,9 +11,10 @@ import {
 type TOffersData = {
   offers: TOfferPreview[];
   nearPlaces: TOfferPreview[];
+  activeOffer: TOffer | null;
   offerStatus: RequestStatus;
   fetchingStatus: RequestStatus;
-  activeOffer: TOffer | null;
+  nearPlacesStatus: RequestStatus;
 };
 
 const initialState: TOffersData = {
@@ -22,6 +23,7 @@ const initialState: TOffersData = {
   activeOffer: null,
   offerStatus: RequestStatus.Idle,
   fetchingStatus: RequestStatus.Idle,
+  nearPlacesStatus: RequestStatus.Idle,
 };
 
 export const offersData = createSlice({
@@ -32,9 +34,11 @@ export const offersData = createSlice({
       state.activeOffer = null;
       state.nearPlaces = [];
     },
-    // dropOffersFavorite: (state) => {
-    //   state.offers.forEach((item) => item.isFavorite = false);
-    // }
+    dropOffersFavorite: (state) => {
+      state.offers.forEach((item) => {
+        item.isFavorite = false;
+      });
+    },
   },
   extraReducers(builder) {
     builder
@@ -60,6 +64,10 @@ export const offersData = createSlice({
       })
       .addCase(fetchNearPlacesAction.fulfilled, (state, action) => {
         state.nearPlaces = action.payload;
+        state.nearPlacesStatus = RequestStatus.Success;
+      })
+      .addCase(fetchNearPlacesAction.rejected, (state) => {
+        state.nearPlacesStatus = RequestStatus.Error;
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
         const updatedOffer = action.payload;
@@ -77,4 +85,4 @@ export const offersData = createSlice({
   }
 });
 
-export const {dropOffer} = offersData.actions;
+export const {dropOffer, dropOffersFavorite} = offersData.actions;

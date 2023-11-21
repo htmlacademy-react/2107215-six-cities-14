@@ -102,9 +102,8 @@ export enum RequestStatus {
 
 export const ErrorCause = {
   FetchOffers: 'FETCH_OFFERS',
-  FetchActiveOffer: 'FETCH_OFFERS',
+  FetchActiveOffer: 'FETCH_ACTIVE_OFFER',
   FetchNearPlaces: 'FETCH_NEAR_PLACES',
   FetchReviews: 'FETCH_REVIEWS',
   FetchFavorites: 'FETCH_FAVORITES',
-  Unknown: 'UNKNOWN',
 } as const;

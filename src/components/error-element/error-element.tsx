@@ -1,27 +1,32 @@
 import {useAppDispatch} from '../../hooks';
 import {ErrorCause} from '../../const';
-import {fetchOffersAction, fetchReviewsAction, fetchActiveOfferAction} from '../../store/api-actions';
+import {
+  fetchOffersAction,
+  fetchReviewsAction,
+  fetchActiveOfferAction,
+  fetchFavoritesAction,
+  fetchNearPlacesAction
+} from '../../store/api-actions';
 import {TOffer} from '../../types';
-// import {useNavigate} from "react-router-dom";
+import styles from './error-element.module.css';
 
 type TErrorProps = {
   cause: typeof ErrorCause[keyof typeof ErrorCause];
   offerId?: TOffer['id'];
+  isLarge?: boolean;
 }
 
 const ErrorMessage: Record<string, string> = {
   [ErrorCause.FetchOffers]: 'Could not fetch offers!',
   [ErrorCause.FetchActiveOffer]: 'Could not fetch offer!',
-  // [ErrorCause.FetchNearPlaces]: 'Could not fetch places nerby!',
-  // [ErrorCause.FetchReviews]: 'Could not fetch reviews!',
+  [ErrorCause.FetchNearPlaces]: 'Could not fetch places nerby!',
+  [ErrorCause.FetchReviews]: 'Could not fetch reviews!',
   [ErrorCause.FetchFavorites]: 'Could not fetch favorite offers!',
-  // [ErrorCause.Unknown]: 'Something went wrong!',
 };
 
-function ErrorElement({cause, offerId}: TErrorProps): JSX.Element {
+function ErrorElement({cause, offerId, isLarge}: TErrorProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  // что тут правильнее затипизировать?
   const ErrorFanction: Record<string, () => void> = {
     [ErrorCause.FetchOffers]: () => {
       dispatch(fetchOffersAction());
@@ -31,28 +36,35 @@ function ErrorElement({cause, offerId}: TErrorProps): JSX.Element {
         dispatch(fetchActiveOfferAction(offerId));
       }
     },
+    [ErrorCause.FetchNearPlaces]: () => {
+      if(offerId) {
+        dispatch(fetchNearPlacesAction(offerId));
+      }
+    }
+    ,
     [ErrorCause.FetchReviews]: () => {
       if(offerId) {
         dispatch(fetchReviewsAction(offerId));
       }
-    }
-    // [ErrorCause.FetchFavorites]: 'Could not fetch favorite offers!',
-    // [ErrorCause.Unknown]: () => navigate(0),
+    },
+    [ErrorCause.FetchFavorites]: () => {
+      dispatch(fetchFavoritesAction());
+    },
   };
 
   return (
-    <>
-      <p className="error__text">{ErrorMessage[cause]}</p>
+    <section className={`${styles.error} ${(isLarge) && styles.errorLarge}`}>
+      <p className={`${styles.errorText}`}>{ErrorMessage[cause]}</p>
       <button
         onClick={() => {
           ErrorFanction[cause]();
         }}
-        className="replay replay--error"
+        className={`${styles.replayError} ${(isLarge) && styles.replayErrorLarge}`}
         type="button"
       >
-        Попробовать ещё раз
+        try again
       </button>
-    </>
+    </section>
   );
 }
 

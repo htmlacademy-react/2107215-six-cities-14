@@ -7,7 +7,7 @@ import OfferDetails from '../../components/offer-details/offer-details';
 import OffersMap from '../../components/offers-map/offers-map';
 import NearOffers from '../../components/near-offers/near-offers';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getActiveOffer, getSlicedNearPlaces, getOfferStatus} from '../../store/offers-data/selectors';
+import {getActiveOffer, getSlicedNearPlaces, getOfferStatus, getNearPlacesStatus} from '../../store/offers-data/selectors';
 import {getIsAuthorized} from '../../store/user-process/selectors';
 import {dropOffer} from '../../store/offers-data/offers-data';
 import {fetchActiveOfferAction, fetchNearPlacesAction, fetchReviewsAction} from '../../store/api-actions';
@@ -15,7 +15,6 @@ import {RequestStatus, ErrorCause} from '../../const';
 import Loading from '../../components/loading/loading';
 import RatingForm from '../../components/rating-form/rating-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-// import NotFoundPage from '../not-found-page/not-found-page';
 import ErrorElement from '../../components/error-element/error-element';
 
 function OfferPage() {
@@ -37,21 +36,22 @@ function OfferPage() {
 
   const currentOffer = useAppSelector(getActiveOffer);
   const nearPlacesToRender = useAppSelector(getSlicedNearPlaces);
-  const statusOffer = useAppSelector(getOfferStatus);
+  const offerStatus = useAppSelector(getOfferStatus);
   const isAuthorized = useAppSelector(getIsAuthorized);
+  const nearPlacesStatus = useAppSelector(getNearPlacesStatus);
 
   return (
     <div className="page">
       <Helmet>
         <title>{'6 cities - Offer'}</title>
       </Helmet>
-      {(statusOffer === RequestStatus.Loading || currentOffer === null) && (
+      {(offerStatus === RequestStatus.Loading || currentOffer === null) && (
         <Loading />
       )}
-      {statusOffer === RequestStatus.Error && (
+      {offerStatus === RequestStatus.Error && (
         <ErrorElement cause={ErrorCause.FetchActiveOffer} offerId={offerId}/>
       )}
-      {(statusOffer === RequestStatus.Success && currentOffer !== null) && (
+      {(offerStatus === RequestStatus.Success && currentOffer !== null) && (
         <>
           <Header>
             <Nav/>
@@ -70,7 +70,7 @@ function OfferPage() {
                 </div>
               </div>
               <OfferDetails offer={currentOffer}>
-                <ReviewsList>
+                <ReviewsList offerId={currentOffer.id}>
                   {isAuthorized && <RatingForm offerId={currentOffer.id}/>}
                 </ReviewsList>
               </OfferDetails>
@@ -81,7 +81,12 @@ function OfferPage() {
               />
             </section>
             <div className="container">
-              <NearOffers nearPlacesToRender={nearPlacesToRender}/>
+              {nearPlacesStatus === RequestStatus.Error && (
+                <ErrorElement cause={ErrorCause.FetchNearPlaces} offerId={offerId}/>
+              )}
+              {nearPlacesStatus === RequestStatus.Success && (
+                <NearOffers nearPlacesToRender={nearPlacesToRender}/>
+              )}
             </div>
           </main>
         </>

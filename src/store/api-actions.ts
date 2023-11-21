@@ -29,11 +29,7 @@ export const fetchActiveOfferAction = createAsyncThunk<TOffer, TOffer['id'], TEx
   },
 );
 
-export const fetchNearPlacesAction = createAsyncThunk<TOfferPreview[], string, {
-  dispatch: TAppDispatch;
-  state: TState;
-  extra: AxiosInstance;
-}>(
+export const fetchNearPlacesAction = createAsyncThunk<TOfferPreview[], string, TExtra>(
   `${NameSpace.NearPlaces}/fetchNearPlaces`,
   async (offerId, {extra: api}) => {
     const { data } = await api.get<TOfferPreview[]>(`${APIRoute.Offers}/${offerId}${APIRoute.NearPlaces}`);
@@ -83,6 +79,8 @@ export const loginAction = createAsyncThunk<TUserData, TAuthData, {
     const {data} = await api.post<TUserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(redirectToRoute(AppRoute.Root));
+    dispatch(fetchFavoritesAction());
+    dispatch(fetchOffersAction());
     return data;
   },
 );
@@ -93,17 +91,15 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   `${NameSpace.User}/logout`,
-  async (_arg, {extra: api}) => {
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(redirectToRoute(AppRoute.Root));
     await api.delete(APIRoute.Logout);
+
     dropToken();
   },
 );
 
-export const checkAuthAction = createAsyncThunk<TUserData, undefined, {
-  dispatch: TAppDispatch;
-  state: TState;
-  extra: AxiosInstance;
-}>(
+export const checkAuthAction = createAsyncThunk<TUserData, undefined, TExtra>(
   `${NameSpace.User}/checkAuth`,
   async (_arg, {extra: api}) => {
     const { data } = await api.get<TUserData>(APIRoute.Login);
