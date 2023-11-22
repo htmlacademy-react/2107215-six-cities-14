@@ -8,13 +8,18 @@ import {getFilteredOffers, getFetchingStatus} from '../../store/offers-data/sele
 import {useAppSelector} from '../../hooks';
 import {RequestStatus, ErrorCause} from '../../const';
 import ErrorElement from '../../components/error-element/error-element';
+import {useMemo} from 'react';
 
 function MainPage(): JSX.Element {
   const fetchingStatus = useAppSelector(getFetchingStatus);
-  // useAppSelector(getOffers);
   const currentOffers = useAppSelector(getFilteredOffers);
 
   const isCurrentOffers = currentOffers?.length ? '' : 'page__main--index-empty';
+
+  const currentNav = useMemo(
+    () => <Nav />,
+    []
+  );
 
   return (
     <div className="page page--gray page--main">
@@ -30,7 +35,7 @@ function MainPage(): JSX.Element {
       {fetchingStatus === RequestStatus.Success && (
         <>
           <Header>
-            <Nav/>
+            {currentNav}
           </Header>
           <main className={`page__main page__main--index ${isCurrentOffers}`}>
             <h1 className="visually-hidden">Cities</h1>

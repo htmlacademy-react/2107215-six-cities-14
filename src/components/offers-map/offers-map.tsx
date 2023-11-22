@@ -78,7 +78,7 @@ function OffersMap({block, offers, activeOfferId, location}: TMapProps): JSX.Ele
         minHeight: '500px',
         width: '100%',
         maxWidth: '1144px',
-        margin: '0 auto',
+        margin: '0 auto 50px',
       }}
       ref={mapRef}
     >

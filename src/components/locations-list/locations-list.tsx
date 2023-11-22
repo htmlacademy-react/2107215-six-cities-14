@@ -3,8 +3,9 @@ import {CityName} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getActiveCity} from '../../store/app-process/selectors';
 import {changeActiveCity} from '../../store/app-process/app-process';
+import {memo} from 'react';
 
-function LocationsList(): JSX.Element {
+const LocationsList = memo((): JSX.Element => {
   const valueCity = Object.values(CityName);
   const activeCity = useAppSelector(getActiveCity);
 
@@ -35,6 +36,8 @@ function LocationsList(): JSX.Element {
       </section>
     </div>
   );
-}
+});
+
+LocationsList.displayName = 'LocationsList';
 
 export default LocationsList;

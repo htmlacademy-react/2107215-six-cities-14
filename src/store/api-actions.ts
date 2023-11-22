@@ -5,7 +5,7 @@ import {TOffer, TReviews, TReviewData, TOfferPreview, TFavoriteData} from '../ty
 import {redirectToRoute} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AppRoute} from '../const';
-import {TAuthData} from '../types/auth-data';
+import {TLoginData} from '../types/login-data.js';
 import {TUserData} from '../types/user-data';
 import {NameSpace} from '../const';
 
@@ -69,13 +69,13 @@ export const changeFavoriteStatusAction = createAsyncThunk<TOffer, TFavoriteData
   }
 );
 
-export const loginAction = createAsyncThunk<TUserData, TAuthData, {
+export const loginAction = createAsyncThunk<TUserData, TLoginData, {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.User}/login`,
-  async ({login: email, password}, {dispatch, extra: api}) => {
+  async ({email, password}, {dispatch, extra: api}) => {
     const {data} = await api.post<TUserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(redirectToRoute(AppRoute.Root));

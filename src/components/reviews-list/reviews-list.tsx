@@ -6,13 +6,14 @@ import {getReviewsOffer} from '../../store/reviews-data/selectors';
 import {useAppSelector} from '../../hooks';
 import {getReviewsStatus} from '../../store/reviews-data/selectors';
 import ErrorElement from '../../components/error-element/error-element';
-import { TOffer } from '../../types';
+import {TOffer} from '../../types';
+import {memo} from 'react';
 
 type ReviewsListProps = PropsWithChildren<{
   offerId: TOffer['id'];
 }>
 
-function ReviewsList({children, offerId}: ReviewsListProps) {
+const ReviewsList = memo(({children, offerId}: ReviewsListProps) => {
   const reviewsOffer = useAppSelector(getReviewsOffer);
   const reviewsStatus = useAppSelector(getReviewsStatus);
 
@@ -63,6 +64,8 @@ function ReviewsList({children, offerId}: ReviewsListProps) {
       {children}
     </section>
   );
-}
+});
+
+ReviewsList.displayName = 'ReviewsList';
 
 export default ReviewsList;

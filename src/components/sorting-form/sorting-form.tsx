@@ -5,11 +5,10 @@ import {getActiveSortType} from '../../store/app-process/selectors';
 import {TSorting} from '../../types/index';
 import OptionItem from '../option-item/option-item';
 import {setActiveSortType} from '../../store/app-process/app-process';
-import {useState} from 'react';
+import {useState, memo} from 'react';
 import cn from 'classnames';
 
-
-function FormSorting(): JSX.Element {
+const FormSorting = memo((): JSX.Element => {
   const activeSortType = useAppSelector(getActiveSortType);
   const dispatch = useAppDispatch();
   const [isOpened, setIsOpened] = useState(false);
@@ -75,6 +74,8 @@ function FormSorting(): JSX.Element {
       </ul>
     </form>
   );
-}
+});
+
+FormSorting.displayName = 'FormSorting';
 
 export default FormSorting;

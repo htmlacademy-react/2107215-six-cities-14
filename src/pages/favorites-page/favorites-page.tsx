@@ -14,7 +14,6 @@ import ErrorElement from '../../components/error-element/error-element';
 import {getFavoritesOffers} from '../../store/favorites-data/selectors';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 
-
 function FavoritePage(): JSX.Element {
   const dispatch = useAppDispatch();
   const isAuthorized = useAppSelector(getIsAuthorized);
@@ -31,7 +30,7 @@ function FavoritePage(): JSX.Element {
   }
 
   return (
-    <div className="page">
+    <div className={`page ${!isEmpty ? 'page--favorites-empty' : ''}`}>
       <Helmet>
         <title>{'6 cities - Favorite'}</title>
       </Helmet>
@@ -46,7 +45,7 @@ function FavoritePage(): JSX.Element {
           <Header>
             <Nav />
           </Header>
-          <main className={`page__main page__main--favorites ${!isEmpty && 'page__main--favorites-empty'}`}>
+          <main className={`page__main page__main--favorites ${!isEmpty ? 'page__main--favorites-empty' : ''}`}>
             {!isEmpty && <FavoritesEmpty/>}
             {isEmpty &&
           <div className="page__favorites-container container">

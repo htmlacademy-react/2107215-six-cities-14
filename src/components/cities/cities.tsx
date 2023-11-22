@@ -3,22 +3,22 @@ import {TOfferPreview} from '../../types/index';
 import {addPluralEnding} from '../../utils/common';
 import {useState, useCallback} from 'react';
 import MainEmpty from '../main-emty/main-emty';
-
 import SortingForm from '../sorting-form/sorting-form';
 import OffersList from '../offers-list/offers-list';
-
+import {getActiveCity} from '../../store/app-process/selectors';
+import {useAppSelector} from '../../hooks';
 
 type CitiesProps = {
   offers: TOfferPreview[];
 }
 
 function Cities({offers}: CitiesProps): JSX.Element {
+  const activeCity = useAppSelector(getActiveCity);
   const [activeOfferId, setActiveOfferId] = useState<TOfferPreview['id'] | null>(null);
 
   const handleCardHover = useCallback((offerId: TOfferPreview['id'] | null) => {
     setActiveOfferId(offerId);
   }, []);
-  const activeCity = offers[1].city.name;
 
 
   if(!offers.length) {

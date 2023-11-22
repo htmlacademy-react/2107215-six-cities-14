@@ -78,7 +78,7 @@ export const offersData = createSlice({
             offer.isFavorite = !offer.isFavorite;
           }
         });
-        if (state.activeOffer && state.activeOffer.id === updatedOffer.id) {
+        if (state.activeOffer?.id === updatedOffer.id) {
           state.activeOffer.isFavorite = !state.activeOffer.isFavorite;
         }
       });

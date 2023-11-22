@@ -5,13 +5,15 @@ import {getIsAuthorized} from '../../store/user-process/selectors';
 import {useNavigate} from 'react-router-dom';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
 import {AppRoute} from '../../const';
+import {memo} from 'react';
 
 type TButtonBookmarkProps = {
-  offer: TOfferPreview;
+  offerId: TOfferPreview['id'];
   islarge?: boolean;
+  isFavorite: boolean;
 }
 
-function ButtonBookmark({offer : {isFavorite, id: offerId}, islarge}: TButtonBookmarkProps): JSX.Element {
+const ButtonBookmark = memo(({isFavorite, offerId, islarge}: TButtonBookmarkProps): JSX.Element => {
 
   const isAuthorized = useAppSelector(getIsAuthorized);
   const navigate = useNavigate();
@@ -54,6 +56,8 @@ function ButtonBookmark({offer : {isFavorite, id: offerId}, islarge}: TButtonBoo
       <span className="visually-hidden">To bookmarks</span>
     </button>
   );
-}
+});
+
+ButtonBookmark.displayName = 'ButtonBookmark';
 
 export default ButtonBookmark;

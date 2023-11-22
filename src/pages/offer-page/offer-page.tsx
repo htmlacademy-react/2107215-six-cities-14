@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import {Helmet} from 'react-helmet-async';
@@ -8,13 +8,11 @@ import OffersMap from '../../components/offers-map/offers-map';
 import NearOffers from '../../components/near-offers/near-offers';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getActiveOffer, getSlicedNearPlaces, getOfferStatus, getNearPlacesStatus} from '../../store/offers-data/selectors';
-import {getIsAuthorized} from '../../store/user-process/selectors';
 import {dropOffer} from '../../store/offers-data/offers-data';
 import {fetchActiveOfferAction, fetchNearPlacesAction, fetchReviewsAction} from '../../store/api-actions';
 import {RequestStatus, ErrorCause} from '../../const';
 import Loading from '../../components/loading/loading';
-import RatingForm from '../../components/rating-form/rating-form';
-import ReviewsList from '../../components/reviews-list/reviews-list';
+
 import ErrorElement from '../../components/error-element/error-element';
 
 function OfferPage() {
@@ -37,8 +35,13 @@ function OfferPage() {
   const currentOffer = useAppSelector(getActiveOffer);
   const nearPlacesToRender = useAppSelector(getSlicedNearPlaces);
   const offerStatus = useAppSelector(getOfferStatus);
-  const isAuthorized = useAppSelector(getIsAuthorized);
+
   const nearPlacesStatus = useAppSelector(getNearPlacesStatus);
+
+  const currentNav = useMemo(
+    () => <Nav />,
+    []
+  );
 
   return (
     <div className="page">
@@ -54,7 +57,7 @@ function OfferPage() {
       {(offerStatus === RequestStatus.Success && currentOffer !== null) && (
         <>
           <Header>
-            <Nav/>
+            {currentNav}
           </Header>
           <main className="page__main page__main--offer">
             <section className="offer">
@@ -69,11 +72,7 @@ function OfferPage() {
                   ))}
                 </div>
               </div>
-              <OfferDetails offer={currentOffer}>
-                <ReviewsList offerId={currentOffer.id}>
-                  {isAuthorized && <RatingForm offerId={currentOffer.id}/>}
-                </ReviewsList>
-              </OfferDetails>
+              <OfferDetails offer={currentOffer} />
               <OffersMap
                 block="offer"
                 offers={nearPlacesToRender}

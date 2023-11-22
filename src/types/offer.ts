@@ -1,11 +1,5 @@
 import {TUser} from '.';
 
-// в дальнейшем возможно сужение типа сделаю
-// export type TCity = {
-//   location: TLocation;
-//   name: CityName;
-// }
-
 export type TCity = {
   location: TLocation;
   name: string;
