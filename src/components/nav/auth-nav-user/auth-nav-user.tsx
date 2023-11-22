@@ -6,7 +6,7 @@ import {getUser} from '../../../store/user-process/selectors';
 import {getFavoritesOffers} from '../../../store/favorites-data/selectors';
 import {dropOffersFavorite} from '../../../store/offers-data/offers-data';
 
-function AuthNavUser() {
+function AuthNavUser(): JSX.Element {
   const dispatch = useAppDispatch();
   const userEmail = useAppSelector(getUser);
   const favorites = useAppSelector(getFavoritesOffers);

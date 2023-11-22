@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../../const';
 
-function NotAuthNavUser() {
+function NotAuthNavUser(): JSX.Element {
   return (
     <li className="header__nav-item user">
       <Link

@@ -8,12 +8,13 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getStatusPost} from '../../store/reviews-data/selectors';
 import {RequestStatus} from '../../const';
 import styles from './rating-form.module.css';
+import {memo} from 'react';
 
 type RatingFormProps = {
   offerId: string;
 }
 
-function RatingForm({offerId}: RatingFormProps): JSX.Element {
+const RatingForm = memo(({offerId}: RatingFormProps): JSX.Element => {
   const statusPost = useAppSelector(getStatusPost);
 
   const dispatch = useAppDispatch();
@@ -68,9 +69,12 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
     });
   };
 
+  const formClassName = `reviews__form form ${(statusPost === RequestStatus.Error) && styles.formShake} ${(statusPost === RequestStatus.Loading) && styles.formUnavailable}`;
+  const btnDisabled = !formData.rating || !formData.isValid || statusPost === RequestStatus.Loading;
+
   return (
     <form
-      className={`reviews__form form ${(statusPost === RequestStatus.Error) && styles.formShake} ${(statusPost === RequestStatus.Loading) && styles.formUnavailable}`}
+      className={formClassName}
       action="#"
       method="post"
       onSubmit={handleFormSubmit}
@@ -99,10 +103,14 @@ function RatingForm({offerId}: RatingFormProps): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.rating || !formData.isValid || statusPost === RequestStatus.Loading}>{statusPost === RequestStatus.Loading ? 'loading' : 'Submit'}</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={btnDisabled}>
+          {statusPost === RequestStatus.Loading ? 'loading' : 'Submit'}
+        </button>
       </div>
     </form>
   );
-}
+});
+
+RatingForm.displayName = 'RatingForm';
 
 export default RatingForm;

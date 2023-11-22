@@ -21,7 +21,8 @@ function OfferPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if(offerId) {
+    let isMounted = true;
+    if(offerId && isMounted) {
       dispatch(fetchActiveOfferAction(offerId));
       dispatch(fetchNearPlacesAction(offerId));
       dispatch(fetchReviewsAction(offerId));
@@ -29,18 +30,23 @@ function OfferPage() {
 
     return () => {
       dispatch(dropOffer());
+      isMounted = false;
     };
   }, [offerId, dispatch]);
 
   const currentOffer = useAppSelector(getActiveOffer);
   const nearPlacesToRender = useAppSelector(getSlicedNearPlaces);
   const offerStatus = useAppSelector(getOfferStatus);
-
   const nearPlacesStatus = useAppSelector(getNearPlacesStatus);
 
-  const currentNav = useMemo(
-    () => <Nav />,
-    []
+  const currentOffers = useMemo(
+    () => {
+      if (currentOffer !== null) {
+        return [...nearPlacesToRender, currentOffer];
+      }
+      return null;
+    },
+    [currentOffer, nearPlacesToRender]
   );
 
   return (
@@ -54,10 +60,10 @@ function OfferPage() {
       {offerStatus === RequestStatus.Error && (
         <ErrorElement cause={ErrorCause.FetchActiveOffer} offerId={offerId}/>
       )}
-      {(offerStatus === RequestStatus.Success && currentOffer !== null) && (
+      {(offerStatus === RequestStatus.Success && currentOffer !== null && currentOffers !== null) && (
         <>
           <Header>
-            {currentNav}
+            <Nav />
           </Header>
           <main className="page__main page__main--offer">
             <section className="offer">
@@ -75,8 +81,9 @@ function OfferPage() {
               <OfferDetails offer={currentOffer} />
               <OffersMap
                 block="offer"
-                offers={nearPlacesToRender}
+                offers={currentOffers}
                 location={currentOffer.city.location}
+                activeOfferId={currentOffer.id}
               />
             </section>
             <div className="container">

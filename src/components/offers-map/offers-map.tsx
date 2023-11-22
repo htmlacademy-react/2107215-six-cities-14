@@ -51,24 +51,11 @@ function OffersMap({block, offers, activeOfferId, location}: TMapProps): JSX.Ele
           .addTo(markerLayer);
       });
 
-      if(block === 'offer') {
-        const markerCity = layerGroup().addTo(map);
-        const marker = new Marker({
-          lat: location.latitude,
-          lng: location.longitude,
-        });
-        marker
-          .setIcon(
-            currentCustomIcon
-          )
-          .addTo(markerCity);
-      }
-
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, activeOfferId, block, location]);
+  }, [map, offers, activeOfferId]);
 
   return (
     <section

@@ -16,11 +16,8 @@ function OfferDetails({offer}: TOfferDetailsProps) {
   const {currentMaxAdults, currentBedrooms, currentRating} = useDetailsMemo({offer});
   const isAuthorized = useAppSelector(getIsAuthorized);
 
-  const currentReviewsList = useMemo(
-    () => (
-      <ReviewsList offerId={id}>
-        {isAuthorized && <RatingForm offerId={id} />}
-      </ReviewsList>
+  const currentRatingForm = useMemo(
+    () => (isAuthorized && <RatingForm offerId={id} />
     ),
     [isAuthorized, id]
   );
@@ -96,7 +93,9 @@ function OfferDetails({offer}: TOfferDetailsProps) {
             </p>
           </div>
         </div>
-        {currentReviewsList}
+        <ReviewsList offerId={id}>
+          {currentRatingForm}
+        </ReviewsList>
       </div>
     </div>
   );
