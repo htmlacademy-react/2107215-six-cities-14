@@ -1,5 +1,5 @@
 import {SortOption} from '../const';
-import {TOffer} from '../types/index';
+import {TOfferPreview} from '../types/index';
 
 function formatDate (dateString: string): string {
   const date = new Date(Date.parse(dateString));
@@ -8,29 +8,14 @@ function formatDate (dateString: string): string {
   return `${month} ${year}`;
 }
 
-// function formatDate (date: string): string {
-//   return new Intl.DateTimeFormat('en-US', {
-//     month: 'long',
-//     year: 'numeric',
-//   }).format(new Date(date));
-// };
-
 function getRatingWidth(rating = 0) {
   return Math.round(rating) * 20;
 }
 
-function getRandomFloat(min: number, max: number, decimals: number): number {
-  const str = (Math.random() * (max - min) + min).toFixed(
-    decimals,
-  );
-
-  return parseFloat(str);
-}
-
-function sortByOption (offers: TOffer[], activeSortType: string) {
+function sortByOption (offers: TOfferPreview[], activeSortType: string) {
   switch (activeSortType) {
     case SortOption.Popular:
-      return offers;
+      return offers.slice();
     case SortOption.LowToHigh:
       return offers.slice().sort((offerA, offerB) => offerA.price - offerB.price);
     case SortOption.HighToLow:
@@ -42,4 +27,4 @@ function sortByOption (offers: TOffer[], activeSortType: string) {
   }
 }
 
-export {formatDate, getRatingWidth, getRandomFloat, sortByOption};
+export {formatDate, getRatingWidth, sortByOption};

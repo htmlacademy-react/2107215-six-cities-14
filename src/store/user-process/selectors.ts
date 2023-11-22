@@ -1,13 +1,22 @@
-import {AuthorizationStatus} from '../../const';
-import {TState} from '../../types/state';
-// import {TUser} from '../../types/user';
+import {AuthorizationStatus, RequestStatus, NameSpace} from '../../const';
+import {TState, TUserData} from '../../types/index';
+import {createSelector} from '@reduxjs/toolkit';
 
 export const getAuthStatus = (state: TState): AuthorizationStatus => (
-  state.authorizationStatus
+  state[NameSpace.User].authorizationStatus
 );
-// export const getUser = (state: TState): TUser | null => (
-//   state.user
-// );
-// export const getStatusLogin = (state: TState): string => (
-//   state.statusLogin
-// );
+
+export const getStatusLogin = (state: TState): RequestStatus => (
+  state[NameSpace.User].statusLogin
+);
+
+export const getUser = (state: TState): TUserData | null => (
+  state[NameSpace.User].user
+);
+
+export const getIsAuthorized = createSelector(
+  [getAuthStatus],
+  (authStatus: AuthorizationStatus): boolean => (
+    authStatus === AuthorizationStatus.Auth
+  )
+);

@@ -1,5 +1,8 @@
 import {Fragment} from 'react';
 import {ChangeEvent} from 'react';
+import {getStatusPost} from '../../store/reviews-data/selectors';
+import {RequestStatus} from '../../const';
+import {useAppSelector} from '../../hooks';
 
 const ratingReview = [
   {title: 'perfect', value: '5'},
@@ -15,6 +18,8 @@ type TRatingProps = {
 }
 
 function Rating({rating, onInputChange}: TRatingProps) {
+  const statusPost = useAppSelector(getStatusPost);
+
   return (
     <div className="reviews__rating-form form__rating">
       {ratingReview.map(({title, value}) => (
@@ -27,6 +32,7 @@ function Rating({rating, onInputChange}: TRatingProps) {
             type="radio"
             onChange={onInputChange}
             checked={rating === value}
+            disabled={statusPost === RequestStatus.Loading}
           />
           <label
             htmlFor={`${value}-stars`}

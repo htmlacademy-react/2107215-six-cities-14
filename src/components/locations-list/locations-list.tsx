@@ -1,11 +1,12 @@
 import cn from 'classnames';
 import {CityName} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeCity} from '../../store/action';
 import {getActiveCity} from '../../store/app-process/selectors';
+import {changeActiveCity} from '../../store/app-process/app-process';
+import {memo} from 'react';
 
-function LocationsList(): JSX.Element {
-  const valueCity: string[] = Object.values(CityName);
+const LocationsList = memo((): JSX.Element => {
+  const valueCity = Object.values(CityName);
   const activeCity = useAppSelector(getActiveCity);
 
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ function LocationsList(): JSX.Element {
                 href="#"
                 onClick={(evt: React.MouseEvent<HTMLElement>) => {
                   evt.preventDefault();
-                  dispatch(changeCity({activeCity: item}));
+                  dispatch(changeActiveCity(item));
                 }}
               >
                 <span>{item}</span>
@@ -35,6 +36,8 @@ function LocationsList(): JSX.Element {
       </section>
     </div>
   );
-}
+});
+
+LocationsList.displayName = 'LocationsList';
 
 export default LocationsList;

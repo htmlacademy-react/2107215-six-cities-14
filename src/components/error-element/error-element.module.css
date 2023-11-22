@@ -1,0 +1,40 @@
+.replayError {
+  background: linear-gradient(to top, #c9bf93, #eac10bd8);
+  border: 1px solid #67645b;
+  min-width: 12rem;
+  padding: 5px 20px;
+  cursor: pointer;
+  box-shadow:1px 3px 5px #55554b9e;
+  border-radius: 2px;
+}
+
+.errorLarge {
+  margin-top: 10rem;
+}
+
+.replayErrorLarge {
+  min-width: 17rem;
+  padding: 10px 20px;
+}
+
+.replayError:active {
+  background: #d3ae0bd8;
+  box-shadow: inset 0 1px 5px #55554b9e;
+}
+
+.replayError:hover {
+  background: #c3a20fd8;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+.errorText {
+  margin-bottom: 1.5rem;
+  padding: 0;
+  display: flex;
+}

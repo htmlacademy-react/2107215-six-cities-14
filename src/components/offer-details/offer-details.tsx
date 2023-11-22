@@ -1,27 +1,29 @@
 import {TOffer} from '../../types/index';
-import ReviewsList from '../reviews-list/reviews-list';
 import ButtonBookmark from '../ui/button-bookmark';
-import {getRatingWidth} from '../../utils/utils';
-
-const offerInside = [
-  'Wi-Fi',
-  'Washing machine',
-  'Towels',
-  'Heating',
-  'Coffee machine',
-  'Baby seat',
-  'KitchenBaby seat',
-  'Dishwasher',
-  'Cabel TV',
-  'Fridge',
-];
+import RatingForm from '../../components/rating-form/rating-form';
+import ReviewsList from '../../components/reviews-list/reviews-list';
+import {getIsAuthorized} from '../../store/user-process/selectors';
+import {useAppSelector} from '../../hooks';
+import {useMemo} from 'react';
+import useDetailsMemo from '../../hooks/use-details-memo';
 
 type TOfferDetailsProps = {
   offer: TOffer;
 }
 
 function OfferDetails({offer}: TOfferDetailsProps) {
-  const {description, host, type, bedrooms, maxAdults, price, rating, isPremium, title} = offer;
+  const {description, host, type, bedrooms, maxAdults, price, rating, isPremium, title, goods, isFavorite, id} = offer;
+  const {currentMaxAdults, currentBedrooms, currentRating} = useDetailsMemo({offer});
+  const isAuthorized = useAppSelector(getIsAuthorized);
+
+  const currentRatingForm = useMemo(
+    () => (isAuthorized && <RatingForm offerId={id} />
+    ),
+    [isAuthorized, id]
+  );
+
+  const isProAvatar = `${host.isPro ? 'offer__avatar-wrapper--pro ' : ''}`;
+
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
@@ -33,11 +35,11 @@ function OfferDetails({offer}: TOfferDetailsProps) {
           <h1 className="offer__name">
             {title}
           </h1>
-          <ButtonBookmark offer={offer} islarge />
+          <ButtonBookmark offerId={offer.id} isFavorite={isFavorite} islarge />
         </div>
         <div className="offer__rating rating">
           <div className="offer__stars rating__stars">
-            <span style={{ width: `${getRatingWidth(rating)}%` }} />
+            <span style={{ width: `${currentRating}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
           <span className="offer__rating-value rating__value">{rating}</span>
@@ -47,10 +49,10 @@ function OfferDetails({offer}: TOfferDetailsProps) {
             {type}
           </li>
           <li className="offer__feature offer__feature--bedrooms">
-            {bedrooms} Bedrooms
+            {`${bedrooms} Bedroom${currentBedrooms}`}
           </li>
           <li className="offer__feature offer__feature--adults">
-            Max {maxAdults} adults
+            {`Max ${maxAdults} adult${currentMaxAdults}`}
           </li>
         </ul>
         <div className="offer__price">
@@ -60,7 +62,7 @@ function OfferDetails({offer}: TOfferDetailsProps) {
         <div className="offer__inside">
           <h2 className="offer__inside-title">What&apos;s inside</h2>
           <ul className="offer__inside-list">
-            {offerInside.map((item) => (
+            {goods.map((item) => (
               <li key={item} className="offer__inside-item">
                 {item}
               </li>
@@ -70,7 +72,7 @@ function OfferDetails({offer}: TOfferDetailsProps) {
         <div className="offer__host">
           <h2 className="offer__host-title">Meet the host</h2>
           <div className="offer__host-user user">
-            <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+            <div className={`offer__avatar-wrapper ${isProAvatar}user__avatar-wrapper`}>
               <img className="offer__avatar user__avatar"
                 src={host.avatarUrl}
                 width={74}
@@ -82,19 +84,18 @@ function OfferDetails({offer}: TOfferDetailsProps) {
               {host.name}
             </span>
             <span className="offer__user-status">
-              {host.isPro}
+              {host.isPro && 'Pro'}
             </span>
           </div>
           <div className="offer__description">
             <p className="offer__text">
               {description}
             </p>
-            {/* <p className="offer__text">
-              An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-            </p> */}
           </div>
         </div>
-        <ReviewsList />
+        <ReviewsList offerId={id}>
+          {currentRatingForm}
+        </ReviewsList>
       </div>
     </div>
   );

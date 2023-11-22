@@ -27,8 +27,6 @@ function OffersMap({block, offers, activeOfferId, location}: TMapProps): JSX.Ele
   const mapRef = useRef(null);
   const map = useMap(mapRef, location);
 
-  // const currentOffers = (activeOfferId === undefined ? offers.slice(0, 3) : offers);
-
   useEffect(() => {
     if(map) {
       map.setView([location.latitude, location.longitude], location.zoom);
@@ -67,7 +65,7 @@ function OffersMap({block, offers, activeOfferId, location}: TMapProps): JSX.Ele
         minHeight: '500px',
         width: '100%',
         maxWidth: '1144px',
-        margin: '0 auto',
+        margin: '0 auto 50px',
       }}
       ref={mapRef}
     >

@@ -1,34 +1,43 @@
 import {createSelector} from '@reduxjs/toolkit';
-import {TState} from '../../types/state';
-import {TOffer, TCity, TOfferPreview} from '../../types/index';
-import {sortByOption} from '../../utils/utils';
-import {getActiveCity, getActiveSortType} from '../app-process/selectors';
-import {Status} from '../../const';
+import {TCity, TOfferPreview, TState} from '../../types/index';
+import {getActiveCity} from '../app-process/selectors';
+import {RequestStatus, MAX_NEAR_PLACES_COUNT, NameSpace} from '../../const';
 
-export const getOffers = (state: TState): TOffer[] => (
-  state.offers
+export const getOffers = (state: TState): TOfferPreview[] => (
+  state[NameSpace.Offers].offers
 );
 
 export const getNearPlaces = (state: TState): TOfferPreview[] => (
-  state.nearPlaces
+  state[NameSpace.Offers].nearPlaces
 );
 
-export const getActiveOffer = (state: TState): TOffer | null => (
-  state.activeOffer
+export const getNearPlacesStatus = (state: TState): RequestStatus => (
+  state[NameSpace.Offers].nearPlacesStatus
 );
 
-export const getStatusOffer = (state: TState): Status => (
-  state.statusOffer
+export const getOfferStatus = (state: TState): RequestStatus => (
+  state[NameSpace.Offers].offerStatus
+);
+
+export const getFetchingStatus = (state: TState): RequestStatus => (
+  state[NameSpace.Offers].fetchingStatus
 );
 
 export const getFilteredOffers = createSelector(
   [getOffers, getActiveCity],
-  (offers: TOffer[], activeCity: string | TCity): TOffer[] => (
+  (offers: TOfferPreview[], activeCity: string | TCity): TOfferPreview[] => (
     offers.filter((offer) => offer.city.name === activeCity)
   )
 );
 
-export const getSortedOffers = createSelector(
-  [getFilteredOffers, getActiveSortType],
-  (offers: TOffer[], activeSortType: string): TOffer[] => sortByOption(offers, activeSortType)
+export const getActiveOffer = createSelector(
+  (state: TState) => state[NameSpace.Offers],
+  (state) => state.activeOffer
+);
+
+export const getSlicedNearPlaces = createSelector(
+  [getNearPlaces],
+  (nearPlaces: TOfferPreview[]): TOfferPreview[] => (
+    nearPlaces.slice(0, MAX_NEAR_PLACES_COUNT)
+  )
 );

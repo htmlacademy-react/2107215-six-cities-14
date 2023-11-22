@@ -1,9 +1,6 @@
 import {TState} from '../../types/index';
+import {CityName, NameSpace} from '../../const';
 
-export const getActiveCity = (state: TState): string => state.activeCity;
+export const getActiveCity = (state: TState): CityName => state[NameSpace.App].activeCity;
 
-export const getActiveSortType = (state: TState): string => state.activeSortType;
-
-export const getDataLoading = (state: TState): boolean => (
-  state.isDataLoading
-);
+export const getActiveSortType = (state: TState): string => state[NameSpace.App].activeSortType;
