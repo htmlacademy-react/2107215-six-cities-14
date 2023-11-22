@@ -22,7 +22,15 @@ function FavoritePage(): JSX.Element {
   const isEmpty = favorites?.length;
 
   useEffect(() => {
-    dispatch(fetchFavoritesAction());
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchFavoritesAction());
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   if (!isAuthorized) {
