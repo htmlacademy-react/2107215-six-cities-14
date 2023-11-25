@@ -4,7 +4,6 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthCheckedStatus} from '../../store/user-process/selectors';
 import {useNavigate} from 'react-router-dom';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
-import {getDropFavorited} from '../../store/offers-data/selectors';
 import {AppRoute} from '../../const';
 import {memo, useState} from 'react';
 import {debounce} from '../../utils/utils';
@@ -17,13 +16,6 @@ type TButtonBookmarkProps = {
 
 const ButtonBookmark = memo(({isFavorite, offerId, islarge}: TButtonBookmarkProps): JSX.Element => {
   const [isFavorited, setIsFavorited] = useState(isFavorite);
-  const dropFavorited = useAppSelector(getDropFavorited);
-
-  if(dropFavorited) {
-    if(isFavorited) {
-      setIsFavorited(false);
-    }
-  }
 
   const isAuthorized = useAppSelector(getAuthCheckedStatus);
   const navigate = useNavigate();

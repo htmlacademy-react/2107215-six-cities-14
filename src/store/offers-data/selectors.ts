@@ -19,10 +19,6 @@ export const getOfferStatus = (state: TState): RequestStatus => (
   state[NameSpace.Offers].offerStatus
 );
 
-export const getDropFavorited = (state: TState): boolean => (
-  state[NameSpace.Offers].dropFavorited
-);
-
 export const getFetchingStatus = (state: TState): RequestStatus => (
   state[NameSpace.Offers].fetchingStatus
 );
