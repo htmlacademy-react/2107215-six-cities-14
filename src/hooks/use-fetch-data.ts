@@ -2,9 +2,9 @@ import {useAppDispatch} from '../hooks';
 import {useEffect} from 'react';
 import {fetchOffersAction} from '../store/api-actions';
 
-type TFetchOffers = ReturnType<typeof fetchOffersAction>
+type TFetchData = ReturnType<typeof fetchOffersAction>
 
-function useFetchData(fetchAction: () => TFetchOffers) {
+function useFetchData(fetchAction: () => TFetchData) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
