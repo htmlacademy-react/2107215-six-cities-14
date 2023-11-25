@@ -7,13 +7,12 @@ import {useAppSelector} from '../../hooks';
 import {getReviewsStatus} from '../../store/reviews-data/selectors';
 import ErrorElement from '../../components/error-element/error-element';
 import {TOffer} from '../../types';
-import {memo} from 'react';
 
 type ReviewsListProps = PropsWithChildren<{
   offerId: TOffer['id'];
 }>
 
-const ReviewsList = memo(({children, offerId}: ReviewsListProps) => {
+function ReviewsList ({children, offerId}: ReviewsListProps) {
   const reviewsOffer = useAppSelector(getReviewsOffer);
   const reviewsStatus = useAppSelector(getReviewsStatus);
 
@@ -23,7 +22,7 @@ const ReviewsList = memo(({children, offerId}: ReviewsListProps) => {
 
   return (
     <section className="offer__reviews reviews">
-      <h2 className="reviews__title">Review{addPluralEnding(reviewsOffer.length)} &middot; <span className="reviews__amount">{reviewToRender.length}</span></h2>
+      <h2 className="reviews__title">Review{addPluralEnding(reviewsOffer.length)} &middot; <span className="reviews__amount">{reviewsOffer.length}</span></h2>
       {reviewsStatus === RequestStatus.Error && (
         <ErrorElement cause={ErrorCause.FetchReviews} offerId={offerId}/>
       )}
@@ -64,8 +63,6 @@ const ReviewsList = memo(({children, offerId}: ReviewsListProps) => {
       {children}
     </section>
   );
-});
-
-ReviewsList.displayName = 'ReviewsList';
+}
 
 export default ReviewsList;

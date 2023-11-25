@@ -1,0 +1,22 @@
+.wrapper {
+  position: relative;
+}
+
+.wrapper input {
+  margin-bottom: 38px;
+  outline: none;
+}
+
+.error {
+  border: 1px solid #b22222;
+}
+
+.text {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 14px;
+  color: #b22222;
+}

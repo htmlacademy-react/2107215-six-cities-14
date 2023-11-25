@@ -41,10 +41,6 @@ export const createAPI = (): AxiosInstance => {
         browserHistory.push(AppRoute.NotFound);
       }
 
-      if (error.response?.status === StatusCodes.UNAUTHORIZED) {
-        toast.warn('unauthorized!');
-      }
-
       if (error.response?.status === StatusCodes.BAD_REQUEST) {
         const detailMessage = (error.response.data);
 

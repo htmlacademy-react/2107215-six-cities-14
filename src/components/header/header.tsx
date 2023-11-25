@@ -13,9 +13,7 @@ const Header = memo(({children}: PropsWithChildren): JSX.Element => (
       </div>
     </div>
   </header>
-),
-(oldProps, newProps) => oldProps.children !== newProps.children
-);
+));
 
 Header.displayName = 'Header';
 

@@ -3,6 +3,7 @@ import {ChangeEvent} from 'react';
 import {getStatusPost} from '../../store/reviews-data/selectors';
 import {RequestStatus} from '../../const';
 import {useAppSelector} from '../../hooks';
+import {memo} from 'react';
 
 const ratingReview = [
   {title: 'perfect', value: '5'},
@@ -17,7 +18,7 @@ type TRatingProps = {
   onInputChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Rating({rating, onInputChange}: TRatingProps) {
+const Rating = memo(({rating, onInputChange}: TRatingProps) => {
   const statusPost = useAppSelector(getStatusPost);
 
   return (
@@ -47,6 +48,8 @@ function Rating({rating, onInputChange}: TRatingProps) {
       ))}
     </div>
   );
-}
+});
+
+Rating.displayName = 'Rating';
 
 export default Rating;

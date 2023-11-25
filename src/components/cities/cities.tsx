@@ -7,13 +7,20 @@ import SortingForm from '../sorting-form/sorting-form';
 import OffersList from '../offers-list/offers-list';
 import {getActiveCity} from '../../store/app-process/selectors';
 import {useAppSelector} from '../../hooks';
+import {getFilteredOffers} from '../../store/offers-data/selectors';
 
 type CitiesProps = {
-  offers: TOfferPreview[];
+  onCityChange: (isLength: boolean) => void;
 }
 
-function Cities({offers}: CitiesProps): JSX.Element {
+function Cities({onCityChange}: CitiesProps): JSX.Element {
   const activeCity = useAppSelector(getActiveCity);
+  const offers = useAppSelector(getFilteredOffers);
+
+  if(offers.length === 0) {
+    onCityChange(true);
+  }
+
   const [activeOfferId, setActiveOfferId] = useState<TOfferPreview['id'] | null>(null);
 
   const handleCardHover = useCallback((offerId: TOfferPreview['id'] | null) => {
@@ -30,7 +37,7 @@ function Cities({offers}: CitiesProps): JSX.Element {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} place{addPluralEnding(offers.length)} to stay in {' '}{activeCity}</b>
+          <b className="places__found">{offers.length} place{addPluralEnding(offers.length)} to stay in {activeCity}</b>
           <SortingForm />
           <OffersList onCardHover={handleCardHover} offers={offers}/>
         </section>

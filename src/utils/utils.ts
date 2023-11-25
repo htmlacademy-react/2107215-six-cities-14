@@ -27,4 +27,16 @@ function sortByOption (offers: TOfferPreview[], activeSortType: string) {
   }
 }
 
-export {formatDate, getRatingWidth, sortByOption};
+function debounce (callback: () => void, timeoutDelay = 100) {
+  let timeoutId: NodeJS.Timeout;
+
+  return function() {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => callback(), timeoutDelay);
+  };
+}
+
+export {formatDate, getRatingWidth, sortByOption, debounce};

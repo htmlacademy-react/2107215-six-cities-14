@@ -4,16 +4,25 @@ import Nav from '../../components/nav/nav';
 import {Helmet} from 'react-helmet-async';
 import LocationsList from '../../components/locations-list/locations-list';
 import Loading from '../../components/loading/loading';
-import {getFilteredOffers, getFetchingStatus} from '../../store/offers-data/selectors';
+import {getFetchingStatus} from '../../store/offers-data/selectors';
+import {fetchOffersAction} from '../../store/api-actions';
 import {useAppSelector} from '../../hooks';
 import {RequestStatus, ErrorCause} from '../../const';
 import ErrorElement from '../../components/error-element/error-element';
+import {useCallback, useState} from 'react';
+import useFetchData from '../../hooks/use-fetch-data';
+
 
 function MainPage(): JSX.Element {
-  const fetchingStatus = useAppSelector(getFetchingStatus);
-  const currentOffers = useAppSelector(getFilteredOffers);
+  useFetchData(fetchOffersAction);
 
-  const isCurrentOffers = currentOffers?.length ? '' : 'page__main--index-empty';
+  const fetchingStatus = useAppSelector(getFetchingStatus);
+
+  const [isNoLength, setLengthOffers] = useState<boolean>(false);
+
+  const handleLengthOffers = useCallback((isLength: boolean) => {
+    setLengthOffers(isLength);
+  }, []);
 
   return (
     <div className="page page--gray page--main">
@@ -31,10 +40,10 @@ function MainPage(): JSX.Element {
           <Header>
             <Nav />
           </Header>
-          <main className={`page__main page__main--index ${isCurrentOffers}`}>
+          <main className={`page__main page__main--index ${isNoLength ? 'page__main--index-empty' : ''}`}>
             <h1 className="visually-hidden">Cities</h1>
             <LocationsList />
-            <Cities offers={currentOffers}/>
+            <Cities onCityChange={handleLengthOffers} />
           </main>
         </>
       )}

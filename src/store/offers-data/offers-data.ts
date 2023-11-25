@@ -5,7 +5,6 @@ import {
   fetchOffersAction,
   fetchActiveOfferAction,
   fetchNearPlacesAction,
-  changeFavoriteStatusAction,
 } from '../api-actions';
 
 type TOffersData = {
@@ -15,6 +14,7 @@ type TOffersData = {
   offerStatus: RequestStatus;
   fetchingStatus: RequestStatus;
   nearPlacesStatus: RequestStatus;
+  dropFavorited: boolean;
 };
 
 const initialState: TOffersData = {
@@ -24,6 +24,7 @@ const initialState: TOffersData = {
   offerStatus: RequestStatus.Idle,
   fetchingStatus: RequestStatus.Idle,
   nearPlacesStatus: RequestStatus.Idle,
+  dropFavorited: false,
 };
 
 export const offersData = createSlice({
@@ -34,11 +35,6 @@ export const offersData = createSlice({
       state.activeOffer = null;
       state.nearPlaces = [];
     },
-    dropOffersFavorite: (state) => {
-      state.offers.forEach((item) => {
-        item.isFavorite = false;
-      });
-    },
   },
   extraReducers(builder) {
     builder
@@ -48,6 +44,7 @@ export const offersData = createSlice({
       })
       .addCase(fetchOffersAction.pending, (state) => {
         state.fetchingStatus = RequestStatus.Loading;
+        state.dropFavorited = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.fetchingStatus = RequestStatus.Error;
@@ -68,21 +65,8 @@ export const offersData = createSlice({
       })
       .addCase(fetchNearPlacesAction.rejected, (state) => {
         state.nearPlacesStatus = RequestStatus.Error;
-      })
-      .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
-        const updatedOffer = action.payload;
-        const index = state.offers.findIndex((offer) => offer.id === updatedOffer.id);
-        state.offers[index].isFavorite = !state.offers[index].isFavorite;
-        state.nearPlaces.forEach((offer) => {
-          if (offer.id === updatedOffer.id) {
-            offer.isFavorite = !offer.isFavorite;
-          }
-        });
-        if (state.activeOffer?.id === updatedOffer.id) {
-          state.activeOffer.isFavorite = !state.activeOffer.isFavorite;
-        }
       });
   }
 });
 
-export const {dropOffer, dropOffersFavorite} = offersData.actions;
+export const {dropOffer} = offersData.actions;

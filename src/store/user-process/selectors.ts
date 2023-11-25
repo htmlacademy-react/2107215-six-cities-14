@@ -14,7 +14,7 @@ export const getUser = (state: TState): TUserData | null => (
   state[NameSpace.User].user
 );
 
-export const getIsAuthorized = createSelector(
+export const getAuthCheckedStatus = createSelector(
   [getAuthStatus],
   (authStatus: AuthorizationStatus): boolean => (
     authStatus === AuthorizationStatus.Auth

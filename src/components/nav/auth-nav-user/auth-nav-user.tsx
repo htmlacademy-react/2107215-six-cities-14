@@ -4,7 +4,6 @@ import {useAppDispatch, useAppSelector} from '../../../hooks';
 import {AppRoute} from '../../../const';
 import {getUser} from '../../../store/user-process/selectors';
 import {getFavoritesOffers} from '../../../store/favorites-data/selectors';
-import {dropOffersFavorite} from '../../../store/offers-data/offers-data';
 
 function AuthNavUser(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -18,7 +17,7 @@ function AuthNavUser(): JSX.Element {
           <div className="header__avatar-wrapper user__avatar-wrapper">
           </div>
           <span className="header__user-name user__name">{userEmail?.email}</span>
-          <span className="header__favorite-count">{favorites.length}</span>
+          <span className="header__favorite-count">{favorites.length > 0 ? favorites.length : 0}</span>
         </Link>
       </li>
       <li className="header__nav-item">
@@ -26,7 +25,6 @@ function AuthNavUser(): JSX.Element {
           className="header__nav-link"
           onClick={(evt) => {
             evt.preventDefault();
-            dispatch(dropOffersFavorite());
             dispatch(logoutAction());
           }}
         >

@@ -1,11 +1,13 @@
 import cn from 'classnames';
 import {TOfferPreview} from '../../types/offer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getIsAuthorized} from '../../store/user-process/selectors';
+import {getAuthCheckedStatus} from '../../store/user-process/selectors';
 import {useNavigate} from 'react-router-dom';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
+import {getDropFavorited} from '../../store/offers-data/selectors';
 import {AppRoute} from '../../const';
-import {memo} from 'react';
+import {memo, useState} from 'react';
+import {debounce} from '../../utils/utils';
 
 type TButtonBookmarkProps = {
   offerId: TOfferPreview['id'];
@@ -14,16 +16,24 @@ type TButtonBookmarkProps = {
 }
 
 const ButtonBookmark = memo(({isFavorite, offerId, islarge}: TButtonBookmarkProps): JSX.Element => {
+  const [isFavorited, setIsFavorited] = useState(isFavorite);
+  const dropFavorited = useAppSelector(getDropFavorited);
 
-  const isAuthorized = useAppSelector(getIsAuthorized);
+  if(dropFavorited) {
+    if(isFavorited) {
+      setIsFavorited(false);
+    }
+  }
+
+  const isAuthorized = useAppSelector(getAuthCheckedStatus);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const btnClassName = cn('button', {
     'place-card__bookmark-button': !islarge,
-    'place-card__bookmark-button--active': isFavorite && !islarge,
+    'place-card__bookmark-button--active': isFavorited && !islarge,
     'offer__bookmark-button': islarge,
-    'offer__bookmark-button--active': isFavorite && islarge,
+    'offer__bookmark-button--active': isFavorited && islarge,
   });
 
   const svgClassName = cn({
@@ -31,20 +41,26 @@ const ButtonBookmark = memo(({isFavorite, offerId, islarge}: TButtonBookmarkProp
     'offer__bookmark-icon': islarge,
   });
 
-  const onFavoritesBtnClick = () => {
+  function handleFavoritesBtnClick() {
     if (!isAuthorized) {
       navigate(AppRoute.Login);
     }
 
-    dispatch(changeFavoriteStatusAction({
-      id: offerId,
-      status: Number(!isFavorite)
-    }));
-  };
+    if(isAuthorized) {
+      setIsFavorited((prevState) => !prevState);
+
+      dispatch(changeFavoriteStatusAction({
+        id: offerId,
+        status: isFavorited ? 0 : 1
+      }));
+    }
+  }
 
   return (
-    <button className={btnClassName} type="button"
-      onClick={onFavoritesBtnClick}
+    <button
+      className={btnClassName}
+      type="button"
+      onClick={debounce(handleFavoritesBtnClick)}
     >
       <svg
         className={svgClassName}
