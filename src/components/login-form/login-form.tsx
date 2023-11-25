@@ -9,10 +9,7 @@ import {RequestStatus} from '../../const';
 import styles from './login-form.module.css';
 import cn from 'classnames';
 
-const formFields = {
-  email: 'E-mail',
-  password: 'Password'
-};
+const formFields = [['email', 'E-mail'], ['password', 'Password']];
 
 type TField = {
   value: string;
@@ -29,6 +26,7 @@ type TFormData = {
 function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const loginStatus = useAppSelector(getStatusLogin);
+
   const [formData, setFormData] = useState<TFormData>({
     email: {
       value: '',
@@ -78,7 +76,6 @@ function LoginForm(): JSX.Element {
 
   const isDasabledForm = !(formData.email.isValid && formData.password.isValid) || loginStatus === RequestStatus.Loading || loginStatus === RequestStatus.Error;
 
-  const formField = Object.entries(formFields);
   return (
     <form
       className="login__form form"
@@ -86,7 +83,7 @@ function LoginForm(): JSX.Element {
       method="post"
       onSubmit={handleSubmitForm}
     >
-      {formField.map(([name, label]) => {
+      {formFields.map(([name, label]) => {
         const wrapperClass = cn('login__input-wrapper form__input-wrapper', styles.wrapper);
         const inputClass = cn('login__input form__input', {
           [styles.error]: !formData[name].isValid && formData[name].hasValue
