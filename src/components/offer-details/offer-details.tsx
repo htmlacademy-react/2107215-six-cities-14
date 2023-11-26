@@ -2,9 +2,8 @@ import {TOffer} from '../../types/index';
 import ButtonBookmark from '../ui/button-bookmark';
 import RatingForm from '../../components/rating-form/rating-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import {getIsAuthorized} from '../../store/user-process/selectors';
+import {getAuthCheckedStatus} from '../../store/user-process/selectors';
 import {useAppSelector} from '../../hooks';
-import {useMemo} from 'react';
 import useDetailsMemo from '../../hooks/use-details-memo';
 
 type TOfferDetailsProps = {
@@ -14,13 +13,7 @@ type TOfferDetailsProps = {
 function OfferDetails({offer}: TOfferDetailsProps) {
   const {description, host, type, bedrooms, maxAdults, price, rating, isPremium, title, goods, isFavorite, id} = offer;
   const {currentMaxAdults, currentBedrooms, currentRating} = useDetailsMemo({offer});
-  const isAuthorized = useAppSelector(getIsAuthorized);
-
-  const currentRatingForm = useMemo(
-    () => (isAuthorized && <RatingForm offerId={id} />
-    ),
-    [isAuthorized, id]
-  );
+  const isAuthorized = useAppSelector(getAuthCheckedStatus);
 
   const isProAvatar = `${host.isPro ? 'offer__avatar-wrapper--pro ' : ''}`;
 
@@ -83,9 +76,10 @@ function OfferDetails({offer}: TOfferDetailsProps) {
             <span className="offer__user-name">
               {host.name}
             </span>
+            {host.isPro &&
             <span className="offer__user-status">
-              {host.isPro && 'Pro'}
-            </span>
+              Pro
+            </span>}
           </div>
           <div className="offer__description">
             <p className="offer__text">
@@ -94,7 +88,7 @@ function OfferDetails({offer}: TOfferDetailsProps) {
           </div>
         </div>
         <ReviewsList offerId={id}>
-          {currentRatingForm}
+          {isAuthorized && <RatingForm offerId={id} />}
         </ReviewsList>
       </div>
     </div>

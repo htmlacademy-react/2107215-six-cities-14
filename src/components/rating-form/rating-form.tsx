@@ -1,5 +1,4 @@
-import {FormEvent, useState} from 'react';
-import {ChangeEvent, useEffect} from 'react';
+import {FormEvent, useState, ChangeEvent, useEffect, memo, useCallback} from 'react';
 import {RviewSymbolLenght} from '../../const';
 import Rating from '../rating/rating';
 import {TReviewData} from '../../types/index';
@@ -8,7 +7,6 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getStatusPost} from '../../store/reviews-data/selectors';
 import {RequestStatus} from '../../const';
 import styles from './rating-form.module.css';
-import {memo} from 'react';
 
 type RatingFormProps = {
   offerId: string;
@@ -19,9 +17,12 @@ const RatingForm = memo(({offerId}: RatingFormProps): JSX.Element => {
 
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
-    rating: '',
     review: '',
     isValid: false,
+  });
+
+  const [ratingData, setRatingData] = useState({
+    rating: '',
   });
 
   const onSubmit = (reviewData: TReviewData) => {
@@ -33,7 +34,7 @@ const RatingForm = memo(({offerId}: RatingFormProps): JSX.Element => {
 
     onSubmit({
       id: offerId,
-      rating: Number(formData.rating),
+      rating: Number(ratingData.rating),
       comment: formData.review,
     });
   };
@@ -41,22 +42,24 @@ const RatingForm = memo(({offerId}: RatingFormProps): JSX.Element => {
   useEffect(() => {
     if(statusPost === RequestStatus.Success) {
       setFormData({
-        rating: '',
         review: '',
         isValid: false,
+      });
+
+      setRatingData({
+        rating: '',
       });
     }
   }, [statusPost]);
 
 
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = evt.target;
+  const handleInputChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
+    const {value} = evt.target;
 
-    setFormData({
-      ...formData,
-      [name]: value,
+    setRatingData({
+      rating: value,
     });
-  };
+  }, []);
 
   const handleTextAreaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
@@ -70,7 +73,7 @@ const RatingForm = memo(({offerId}: RatingFormProps): JSX.Element => {
   };
 
   const formClassName = `reviews__form form ${(statusPost === RequestStatus.Error) && styles.formShake} ${(statusPost === RequestStatus.Loading) && styles.formUnavailable}`;
-  const btnDisabled = !formData.rating || !formData.isValid || statusPost === RequestStatus.Loading;
+  const btnDisabled = !ratingData.rating || !formData.isValid || statusPost === RequestStatus.Loading;
 
   return (
     <form
@@ -88,7 +91,7 @@ const RatingForm = memo(({offerId}: RatingFormProps): JSX.Element => {
 
       )}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <Rating rating={formData.rating} onInputChange={handleInputChange}/>
+      <Rating rating={ratingData.rating} onInputChange={handleInputChange}/>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"

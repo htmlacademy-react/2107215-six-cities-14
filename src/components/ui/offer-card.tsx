@@ -61,7 +61,7 @@ const OfferCard = memo(({offer, size = 'large', block, onCardHover} : TOffersPro
           <div className="place-card__mark">
             <span>Premium</span>
           </div>}
-      <div className="place-card__info">
+      <div className={`${block === 'favorites' ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

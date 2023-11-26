@@ -85,14 +85,9 @@ export const loginAction = createAsyncThunk<TUserData, TLoginData, {
   },
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, {
-  dispatch: TAppDispatch;
-  state: TState;
-  extra: AxiosInstance;
-}>(
+export const logoutAction = createAsyncThunk<void, undefined, TExtra>(
   `${NameSpace.User}/logout`,
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(redirectToRoute(AppRoute.Root));
+  async (_arg, {extra: api}) => {
     await api.delete(APIRoute.Logout);
 
     dropToken();
