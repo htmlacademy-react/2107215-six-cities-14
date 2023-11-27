@@ -2,9 +2,7 @@ import cn from 'classnames';
 import {TOfferPreview} from '../../types/offer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getAuthCheckedStatus} from '../../store/user-process/selectors';
-import {useNavigate} from 'react-router-dom';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
-import {AppRoute} from '../../const';
 import {memo, useState} from 'react';
 import {debounce} from '../../utils/utils';
 
@@ -18,7 +16,6 @@ const ButtonBookmark = memo(({isFavorite, offerId, islarge}: TButtonBookmarkProp
   const [isFavorited, setIsFavorited] = useState(isFavorite);
 
   const isAuthorized = useAppSelector(getAuthCheckedStatus);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const btnClassName = cn('button', {
@@ -34,18 +31,14 @@ const ButtonBookmark = memo(({isFavorite, offerId, islarge}: TButtonBookmarkProp
   });
 
   function handleFavoritesBtnClick() {
-    if (!isAuthorized) {
-      navigate(AppRoute.Login);
-    }
-
     if(isAuthorized) {
       setIsFavorited((prevState) => !prevState);
-
-      dispatch(changeFavoriteStatusAction({
-        id: offerId,
-        status: isFavorited ? 0 : 1
-      }));
     }
+
+    dispatch(changeFavoriteStatusAction({
+      id: offerId,
+      status: isFavorited ? 0 : 1
+    }));
   }
 
   return (

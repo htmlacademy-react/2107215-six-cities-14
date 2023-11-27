@@ -12,7 +12,6 @@ import {dropOffer} from '../../store/offers-data/offers-data';
 import {fetchActiveOfferAction, fetchNearPlacesAction, fetchReviewsAction} from '../../store/api-actions';
 import {RequestStatus, ErrorCause} from '../../const';
 import Loading from '../../components/loading/loading';
-
 import ErrorElement from '../../components/error-element/error-element';
 
 function OfferPage() {

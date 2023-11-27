@@ -29,7 +29,7 @@ function App(): JSX.Element {
             element={<FavoritePage />}
           />
           <Route
-            path={`${AppRoute.Offers}/:offerId`}
+            path={`${AppRoute.Offer}/:offerId`}
             element={<OfferPage />}
           />
           <Route

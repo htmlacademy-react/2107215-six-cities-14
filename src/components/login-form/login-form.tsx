@@ -1,5 +1,3 @@
-
-
 import {FormEvent, useState, ChangeEvent} from 'react';
 import {TLoginData} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -9,7 +7,26 @@ import {RequestStatus} from '../../const';
 import styles from './login-form.module.css';
 import cn from 'classnames';
 
-const formFields = [['email', 'E-mail'], ['password', 'Password']];
+const emailTest = {
+  errorText: 'please enter a real email address',
+  regex: /[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/,
+};
+
+const passwordTest = {
+  errorText: 'at least 1 letter and 1 number',
+  regex: /\d+[a-zA-Z]+|[a-zA-Z]+\d+/,
+};
+
+const formFields = [
+  {
+    name: 'email',
+    label: 'E-mail',
+  },
+  {
+    name: 'password',
+    label: 'Password',
+  },
+];
 
 type TField = {
   value: string;
@@ -32,15 +49,13 @@ function LoginForm(): JSX.Element {
       value: '',
       hasValue: false,
       isValid: false,
-      errorText: 'please enter a real email address',
-      regex: /[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/,
+      ...emailTest,
     },
     password: {
       value: '',
       hasValue: false,
       isValid: false,
-      errorText: 'at least 1 letter and 1 number',
-      regex: /\d+[a-zA-Z]+|[a-zA-Z]+\d+/,
+      ...passwordTest,
     }
   });
 
@@ -83,14 +98,14 @@ function LoginForm(): JSX.Element {
       method="post"
       onSubmit={handleSubmitForm}
     >
-      {formFields.map(([name, label]) => {
+      {formFields.map(({name, label}) => {
         const wrapperClass = cn('login__input-wrapper form__input-wrapper', styles.wrapper);
         const inputClass = cn('login__input form__input', {
           [styles.error]: !formData[name].isValid && formData[name].hasValue
         });
         return (
           <div className={wrapperClass} key={name}>
-            <label className="visually-hidden">E-mail</label>
+            <label className="visually-hidden">{label}</label>
             <input
               className={inputClass}
               type={name}
@@ -100,6 +115,9 @@ function LoginForm(): JSX.Element {
               onChange={handleInputChange}
               required
             />
+            {!formData[name].isValid && formData[name].hasValue && (
+              <p className={styles.text}>{formData[name].errorText}</p>
+            )}
           </div>);
 
       })}

@@ -48,7 +48,7 @@ const OfferCard = memo(({offer, size = 'large', block, onCardHover} : TOffersPro
       onMouseLeave={handleMouseLeave}
     >
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Offers}/${id}`}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -77,7 +77,7 @@ const OfferCard = memo(({offer, size = 'large', block, onCardHover} : TOffersPro
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offers}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{currentType}</p>
       </div>

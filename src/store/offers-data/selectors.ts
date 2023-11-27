@@ -3,23 +3,23 @@ import {TCity, TOfferPreview, TState} from '../../types/index';
 import {getActiveCity} from '../app-process/selectors';
 import {RequestStatus, MAX_NEAR_PLACES_COUNT, NameSpace} from '../../const';
 
-export const getOffers = (state: TState): TOfferPreview[] => (
+export const getOffers = (state: Pick<TState, NameSpace.Offers>): TOfferPreview[] => (
   state[NameSpace.Offers].offers
 );
 
-export const getNearPlaces = (state: TState): TOfferPreview[] => (
+export const getNearPlaces = (state: Pick<TState, NameSpace.Offers>): TOfferPreview[] => (
   state[NameSpace.Offers].nearPlaces
 );
 
-export const getNearPlacesStatus = (state: TState): RequestStatus => (
+export const getNearPlacesStatus = (state: Pick<TState, NameSpace.Offers>): RequestStatus => (
   state[NameSpace.Offers].nearPlacesStatus
 );
 
-export const getOfferStatus = (state: TState): RequestStatus => (
+export const getOfferStatus = (state: Pick<TState, NameSpace.Offers>): RequestStatus => (
   state[NameSpace.Offers].offerStatus
 );
 
-export const getFetchingStatus = (state: TState): RequestStatus => (
+export const getFetchingStatus = (state: Pick<TState, NameSpace.Offers>): RequestStatus => (
   state[NameSpace.Offers].fetchingStatus
 );
 
@@ -30,8 +30,14 @@ export const getFilteredOffers = createSelector(
   )
 );
 
+export const getEmptyOffers = createSelector(
+  [getFilteredOffers],
+  (offers: TOfferPreview[]): boolean => (
+    !offers.length
+  ));
+
 export const getActiveOffer = createSelector(
-  (state: TState) => state[NameSpace.Offers],
+  (state: Pick<TState, NameSpace.Offers>) => state[NameSpace.Offers],
   (state) => state.activeOffer
 );
 

@@ -10,7 +10,7 @@ export const RviewSymbolLenght = {
 export const AppRoute = {
   Login: '/login',
   Favorites: '/favorites',
-  Offers: '/offers',
+  Offer: '/offer',
   Root: '/',
   NotFound: '*',
 } as const;

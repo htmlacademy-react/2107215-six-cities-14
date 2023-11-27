@@ -14,7 +14,6 @@ type TOffersData = {
   offerStatus: RequestStatus;
   fetchingStatus: RequestStatus;
   nearPlacesStatus: RequestStatus;
-  dropFavorited: boolean;
 };
 
 const initialState: TOffersData = {
@@ -24,7 +23,6 @@ const initialState: TOffersData = {
   offerStatus: RequestStatus.Idle,
   fetchingStatus: RequestStatus.Idle,
   nearPlacesStatus: RequestStatus.Idle,
-  dropFavorited: false,
 };
 
 export const offersData = createSlice({
@@ -44,7 +42,6 @@ export const offersData = createSlice({
       })
       .addCase(fetchOffersAction.pending, (state) => {
         state.fetchingStatus = RequestStatus.Loading;
-        state.dropFavorited = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.fetchingStatus = RequestStatus.Error;
