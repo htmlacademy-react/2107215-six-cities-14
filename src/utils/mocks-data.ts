@@ -1,13 +1,11 @@
 import {lorem} from 'faker';
-import {getRandomInt, getRandomArrayElement} from './utils';
+import {getRandomInt} from './utils';
 import {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
 import {TState, TUserData, TOffer, TReviews, TLoginData} from '../types/index';
 import {createAPI} from '../services/api';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
-
-const TYPES = ['apartment', 'room', 'house', 'hotel'];
 
 export type TAppThunkDispatch = ThunkDispatch<TState, ReturnType<typeof createAPI>, Action>;
 
@@ -18,12 +16,12 @@ export const fakeUserData: TUserData = {
   avatarUrl: 'https://test/test.png',
   isPro: false,
   email: 'test@test.ru',
-  token: 'secret'
+  token: 'secret',
 };
 
 export const fakeLoginData: TLoginData = {
   email: 'test@test.ru',
-  password: '123456'
+  password: '123456',
 };
 
 export const fakeId = '1';
@@ -31,12 +29,18 @@ export const fakeId = '1';
 export const fakeReview = {
   id: fakeId,
   rating: 5,
-  comment: 'comment'
+  comment: 'comment',
 };
 
-export const fakeFavoriteStatusOne = { id: fakeId, status: 1 };
+export const fakeFavoriteStatusOne = {
+  id: fakeId,
+  status: 1,
+};
 
-export const fakeFavoriteStatusZero = { id: fakeId, status: 0 };
+export const fakeFavoriteStatusZero = {
+  id: fakeId,
+  status: 0,
+};
 
 function getCityOffer(favorite: {favorite: boolean}): TOffer {
   return {
@@ -78,7 +82,7 @@ function getCityOffer(favorite: {favorite: boolean}): TOffer {
     price: getRandomInt(100, 2000),
     rating: getRandomInt(0, 5),
     title: lorem.words(7),
-    type: getRandomArrayElement(TYPES)
+    type: 'room',
   };
 }
 
@@ -92,8 +96,8 @@ export const review: TReviews = {
     id: fakeId,
     isPro: false,
     name: 'test'
-  }
-}
+  },
+};
 
 export const offer = getCityOffer({favorite: false});
 
