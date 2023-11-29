@@ -29,7 +29,7 @@ describe('AppProcess Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should change active city with "changeActiveCity" action', () => {
+  it('should change "activeCity" with "changeActiveCity" action', () => {
     const initialState = {
       activeCity: CityName.Cologne,
       activeSortType: SortOption.Popular,
@@ -42,7 +42,7 @@ describe('AppProcess Slice', () => {
     expect(result.activeCity).toBe(expectedCity);
   });
 
-  it('should set active sort type with "setActiveSortType" action', () => {
+  it('should set "activeSortType" with "setActiveSortType" action', () => {
     const initialState = {
       activeCity: CityName.Cologne,
       activeSortType: SortOption.LowToHigh,

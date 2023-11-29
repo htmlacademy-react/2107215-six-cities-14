@@ -96,7 +96,6 @@ function OfferPage() {
           </main>
         </>
       )}
-
     </div>
   );
 }

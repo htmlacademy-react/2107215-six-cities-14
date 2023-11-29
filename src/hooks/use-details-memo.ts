@@ -3,11 +3,11 @@ import {addPluralEnding} from '../utils/common';
 import {useMemo} from 'react';
 import {TOffer} from '../types';
 
-type DetailsMemoProps = {
+type TDetailsMemoProps = {
   offer: TOffer;
 }
 
-function useDetailsMemo({offer}: DetailsMemoProps) {
+function useDetailsMemo({offer}: TDetailsMemoProps) {
   const {maxAdults, bedrooms, rating} = offer;
 
   const currentMaxAdults = useMemo(

@@ -4,7 +4,7 @@ import {StatusCodes} from 'http-status-codes';
 import browserHistory from '../browser-history';
 import { AppRoute } from '../const';
 
-type DetailMessageType = {
+type TDetailMessageType = {
   type: string;
   message: string;
 }
@@ -32,7 +32,7 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<DetailMessageType>) => {
+    (error: AxiosError<TDetailMessageType>) => {
       if (error.response?.status === StatusCodes.NOT_FOUND) {
 
         browserHistory.push(AppRoute.NotFound);

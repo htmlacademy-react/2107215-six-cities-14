@@ -11,7 +11,6 @@ import {RequestStatus, ErrorCause} from '../../const';
 import ErrorElement from '../../components/error-element/error-element';
 import useFetchData from '../../hooks/use-fetch-data';
 
-
 function MainPage(): JSX.Element {
   useFetchData(fetchOffersAction);
 

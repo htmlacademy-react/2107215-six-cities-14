@@ -1,8 +1,7 @@
 import {favoritesData} from './favorites-data';
 import {RequestStatus} from '../../const';
-import {favoriteOffers} from '../../utils/mocks';
-import {fetchFavoritesAction} from '../api-actions';
-// changeFavoriteStatusAction
+import {favoriteOffer, noFavoriteOffer, fakeFavoriteStatusOne, fakeFavoriteStatusZero} from '../../utils/mocks-data';
+import {fetchFavoritesAction, changeFavoriteStatusAction} from '../api-actions';
 
 describe('FavoritesData Slice', () => {
   it('should return initial state with empty action', () => {
@@ -33,9 +32,9 @@ describe('FavoritesData Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "favorites" to array with favorites, "fetchingStatus" to "success" with "fetchFavoritesAction".fulfilled', () => {
+  it('should set "favorites" to array with "favorites", "fetchingStatus" to "Success" with "fetchFavoritesAction".fulfilled', () => {
     const expectedState = {
-      favorites: [favoriteOffers],
+      favorites: [favoriteOffer],
       fetchingStatus: RequestStatus.Success,
       statusChangeFavorite: RequestStatus.Idle,
     };
@@ -43,13 +42,13 @@ describe('FavoritesData Slice', () => {
     const result = favoritesData.reducer(
       undefined,
       fetchFavoritesAction.fulfilled(
-        [favoriteOffers], '', undefined)
+        [favoriteOffer], '', undefined)
     );
 
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "fetchingStatus" to "loading", with "fetchFavoritesAction.pending"', () => {
+  it('should set "fetchingStatus" to "Loading" with "fetchFavoritesAction.pending"', () => {
     const expectedState = {
       favorites: [],
       fetchingStatus: RequestStatus.Loading,
@@ -61,7 +60,7 @@ describe('FavoritesData Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "fetchingStatus" to "error", with "fetchQuestionAction.rejected', () => {
+  it('should set "fetchingStatus" to "Error", with "fetchQuestionAction.rejected', () => {
     const expectedState = {
       favorites: [],
       fetchingStatus: RequestStatus.Error,
@@ -69,6 +68,44 @@ describe('FavoritesData Slice', () => {
     };
 
     const result = favoritesData.reducer(undefined, fetchFavoritesAction.rejected);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should update "favorite" to array with "favorites" if the status = 1, "statusChangeFavorite" to "Success" with "changeFavoriteStatusAction.fulfilled', () => {
+    const expectedState = {
+      favorites: [favoriteOffer],
+      fetchingStatus: RequestStatus.Idle,
+      statusChangeFavorite: RequestStatus.Success,
+    };
+
+    const result = favoritesData.reducer(
+      undefined,
+      changeFavoriteStatusAction.fulfilled(
+        favoriteOffer, '', fakeFavoriteStatusOne)
+    );
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should delete "favorite" to array with "favorites" if the status = 0, "statusChangeFavorite" to "Success" with "changeFavoriteStatusAction.fulfilled', () => {
+    const initialState = {
+      favorites: [favoriteOffer],
+      fetchingStatus: RequestStatus.Idle,
+      statusChangeFavorite: RequestStatus.Idle,
+    };
+
+    const expectedState = {
+      favorites: [],
+      fetchingStatus: RequestStatus.Idle,
+      statusChangeFavorite: RequestStatus.Success,
+    };
+
+    const result = favoritesData.reducer(
+      initialState,
+      changeFavoriteStatusAction.fulfilled(
+        noFavoriteOffer, '', fakeFavoriteStatusZero)
+    );
 
     expect(result).toEqual(expectedState);
   });

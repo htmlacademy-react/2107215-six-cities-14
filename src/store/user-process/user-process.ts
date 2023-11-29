@@ -31,7 +31,6 @@ export const userProcess = createSlice({
       })
       .addCase(checkAuthAction.pending, (state) => {
         state.user = null;
-
       })
       .addCase(loginAction.rejected, (state) => {
         state.statusLogin = RequestStatus.Error;

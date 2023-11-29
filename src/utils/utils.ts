@@ -43,14 +43,6 @@ function getRandomArrayElement (items: string[]): string {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function getRandomFloat(min: number, max: number, decimals: number): number {
-  const str = (Math.random() * (max - min) + min).toFixed(
-    decimals,
-  );
-
-  return parseFloat(str);
-}
-
 function getRandomInt (min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -61,4 +53,4 @@ function getRandomInt (min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export {formatDate, getRatingWidth, sortByOption, debounce, getRandomArrayElement, getRandomFloat, getRandomInt};
+export {formatDate, getRatingWidth, sortByOption, debounce, getRandomArrayElement, getRandomInt};
