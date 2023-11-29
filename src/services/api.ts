@@ -2,7 +2,7 @@ import axios, {AxiosInstance, InternalAxiosRequestConfig, AxiosError} from 'axio
 import {getToken} from './token';
 import {StatusCodes} from 'http-status-codes';
 import browserHistory from '../browser-history';
-import { AppRoute } from '../const';
+import {AppRoute} from '../const';
 
 type TDetailMessageType = {
   type: string;
