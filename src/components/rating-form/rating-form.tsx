@@ -8,11 +8,11 @@ import {getStatusPost} from '../../store/reviews-data/selectors';
 import {RequestStatus} from '../../const';
 import styles from './rating-form.module.css';
 
-type RatingFormProps = {
+type TRatingFormProps = {
   offerId: string;
 }
 
-const RatingForm = memo(({offerId}: RatingFormProps): JSX.Element => {
+const RatingForm = memo(({offerId}: TRatingFormProps): JSX.Element => {
   const statusPost = useAppSelector(getStatusPost);
 
   const dispatch = useAppDispatch();
@@ -88,7 +88,6 @@ const RatingForm = memo(({offerId}: RatingFormProps): JSX.Element => {
             Failed to post review. Please try again!
           </p>
         </div>
-
       )}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <Rating rating={ratingData.rating} onInputChange={handleInputChange}/>

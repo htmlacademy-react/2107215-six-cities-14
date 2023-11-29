@@ -1,8 +1,8 @@
 import {useRef, useEffect} from 'react';
 import {Marker, layerGroup, Icon} from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import {TOfferPreview, TLocation} from '../../types';
 import useMap from '../../hooks/use-map';
+import 'leaflet/dist/leaflet.css';
 
 type TMapProps = {
   block: string;

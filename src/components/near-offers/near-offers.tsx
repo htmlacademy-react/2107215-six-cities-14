@@ -2,7 +2,6 @@ import OfferCard from '../ui/offer-card';
 import {TOfferPreview} from '../../types';
 import {memo} from 'react';
 
-
 type TNearOfferProps = {
   nearPlacesToRender: TOfferPreview[];
 }

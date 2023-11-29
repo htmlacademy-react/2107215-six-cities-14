@@ -9,17 +9,9 @@ import {getActiveCity} from '../../store/app-process/selectors';
 import {useAppSelector} from '../../hooks';
 import {getFilteredOffers} from '../../store/offers-data/selectors';
 
-type CitiesProps = {
-  onCityChange: (isLength: boolean) => void;
-}
-
-function Cities({onCityChange}: CitiesProps): JSX.Element {
+function Cities(): JSX.Element {
   const activeCity = useAppSelector(getActiveCity);
   const offers = useAppSelector(getFilteredOffers);
-
-  if(offers.length === 0) {
-    onCityChange(true);
-  }
 
   const [activeOfferId, setActiveOfferId] = useState<TOfferPreview['id'] | null>(null);
 

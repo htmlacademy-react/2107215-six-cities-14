@@ -10,9 +10,10 @@ export const RviewSymbolLenght = {
 export const AppRoute = {
   Login: '/login',
   Favorites: '/favorites',
-  Offers: '/offers',
+  Offer: '/offer',
   Root: '/',
   NotFound: '*',
+  Lose: '/lose',
 } as const;
 
 export enum AuthorizationStatus {
@@ -45,7 +46,7 @@ export const SortOption = {
   LowToHigh: 'Price: low to high',
   HighToLow: 'Price: high to low',
   TopRatedFirst: 'Top rated first',
-};
+} as const;
 
 export enum APIRoute {
   Offers = '/offers',

@@ -8,11 +8,11 @@ import {getReviewsStatus} from '../../store/reviews-data/selectors';
 import ErrorElement from '../../components/error-element/error-element';
 import {TOffer} from '../../types';
 
-type ReviewsListProps = PropsWithChildren<{
+type TReviewsListProps = PropsWithChildren<{
   offerId: TOffer['id'];
 }>
 
-function ReviewsList ({children, offerId}: ReviewsListProps) {
+function ReviewsList ({children, offerId}: TReviewsListProps) {
   const reviewsOffer = useAppSelector(getReviewsOffer);
   const reviewsStatus = useAppSelector(getReviewsStatus);
 

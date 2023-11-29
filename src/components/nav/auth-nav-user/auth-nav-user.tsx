@@ -17,7 +17,7 @@ function AuthNavUser(): JSX.Element {
           <div className="header__avatar-wrapper user__avatar-wrapper">
           </div>
           <span className="header__user-name user__name">{userEmail?.email}</span>
-          <span className="header__favorite-count">{favorites.length > 0 ? favorites.length : 0}</span>
+          <span className="header__favorite-count">{favorites.length}</span>
         </Link>
       </li>
       <li className="header__nav-item">
