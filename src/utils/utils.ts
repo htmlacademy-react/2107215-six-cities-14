@@ -39,10 +39,6 @@ function debounce<T extends (...args: unknown[]) => ReturnType<T>>(callback: T, 
   };
 }
 
-function getRandomArrayElement (items: string[]): string {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
 function getRandomInt (min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -53,4 +49,4 @@ function getRandomInt (min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export {formatDate, getRatingWidth, sortByOption, debounce, getRandomArrayElement, getRandomInt};
+export {formatDate, getRatingWidth, sortByOption, debounce, getRandomInt};
