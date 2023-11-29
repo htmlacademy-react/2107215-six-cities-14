@@ -19,7 +19,6 @@ function Cities(): JSX.Element {
     setActiveOfferId(offerId);
   }, []);
 
-
   if(!offers.length) {
     return <MainEmpty city={activeCity}/>;
   }

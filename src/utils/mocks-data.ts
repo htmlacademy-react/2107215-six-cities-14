@@ -104,5 +104,3 @@ export const noFavoriteOffer = {
 };
 
 export const review = getReviews();
-
-
