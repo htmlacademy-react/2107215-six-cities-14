@@ -21,7 +21,10 @@ export const fakeUserData: TUserData = {
   token: 'secret'
 };
 
-export const fakeLoginData: TLoginData = {email: 'test@test.ru', password: '123456'};
+export const fakeLoginData: TLoginData = {
+  email: 'test@test.ru',
+  password: '123456'
+};
 
 export const fakeId = '1';
 
@@ -79,19 +82,17 @@ function getCityOffer(favorite: {favorite: boolean}): TOffer {
   };
 }
 
-function getReviews(): TReviews {
-  return {
-    comment: lorem.text(),
-    date: `2023-${getRandomInt(0, 12).toString().padStart(2, '0')}-02T09:23:20.316Z`,
+export const review: TReviews = {
+  comment: lorem.text(),
+  date: `2023-${getRandomInt(0, 12).toString().padStart(2, '0')}-02T09:23:20.316Z`,
+  id: fakeId,
+  rating: getRandomInt(0, 5),
+  user: {
+    avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
     id: fakeId,
-    rating: getRandomInt(0, 5),
-    user: {
-      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
-      id: fakeId,
-      isPro: false,
-      name: 'Oliver.conner'
-    }
-  };
+    isPro: false,
+    name: 'test'
+  }
 }
 
 export const offer = getCityOffer({favorite: false});
@@ -102,5 +103,3 @@ export const noFavoriteOffer = {
   ...favoriteOffer,
   isFavorite: false,
 };
-
-export const review = getReviews();
