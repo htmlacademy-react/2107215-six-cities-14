@@ -3,29 +3,25 @@ import Nav from '../../components/nav/nav';
 import {Helmet} from 'react-helmet-async';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import {fetchFavoritesAction} from '../../store/api-actions';
-import {useAppSelector} from '../../hooks';
-import {Navigate} from 'react-router-dom';
-import {AppRoute, RequestStatus, ErrorCause, AuthorizationStatus} from '../../const';
-import {getAuthCheckedStatus, getAuthStatus} from '../../store/user-process/selectors';
+import {useAppSelector, useAppDispatch} from '../../hooks';
+import {RequestStatus, ErrorCause} from '../../const';
 import {getFetchingStatus} from '../../store/favorites-data/selectors';
 import Loading from '../../components/loading/loading';
 import ErrorElement from '../../components/error-element/error-element';
 import {getFavoritesOffers} from '../../store/favorites-data/selectors';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
-import useFetchData from '../../hooks/use-fetch-data';
+import {useEffect} from 'react';
 
 function FavoritePage(): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthStatus);
-  const isAuthorized = useAppSelector(getAuthCheckedStatus);
   const fetchingStatus = useAppSelector(getFetchingStatus);
   const favorites = useAppSelector(getFavoritesOffers);
   const isEmpty = favorites.length === 0;
 
-  useFetchData(fetchFavoritesAction);
+  const dispatch = useAppDispatch();
 
-  if (!isAuthorized && authorizationStatus !== AuthorizationStatus.Unknown) {
-    return <Navigate to={AppRoute.Login} />;
-  }
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, [dispatch]);
 
   return (
     <div className={`page ${isEmpty ? 'page--favorites-empty' : ''}`}>

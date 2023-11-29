@@ -9,6 +9,7 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import PrivateRoute from '../private-route/private-route';
 
 function App(): JSX.Element {
   return (
@@ -22,11 +23,17 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginPage />}
+            element={
+              <LoginPage />
+            }
           />
           <Route
             path={AppRoute.Favorites}
-            element={<FavoritePage />}
+            element={
+              <PrivateRoute>
+                <FavoritePage />
+              </PrivateRoute>
+            }
           />
           <Route
             path={`${AppRoute.Offer}/:offerId`}
