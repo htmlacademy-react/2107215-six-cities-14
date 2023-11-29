@@ -6,13 +6,17 @@ import LocationsList from '../../components/locations-list/locations-list';
 import Loading from '../../components/loading/loading';
 import {getFetchingStatus, getEmptyOffers} from '../../store/offers-data/selectors';
 import {fetchOffersAction} from '../../store/api-actions';
-import {useAppSelector} from '../../hooks';
+import {useAppSelector, useAppDispatch} from '../../hooks';
 import {RequestStatus, ErrorCause} from '../../const';
 import ErrorElement from '../../components/error-element/error-element';
-import useFetchData from '../../hooks/use-fetch-data';
+import {useEffect} from 'react';
 
 function MainPage(): JSX.Element {
-  useFetchData(fetchOffersAction);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
 
   const fetchingStatus = useAppSelector(getFetchingStatus);
 

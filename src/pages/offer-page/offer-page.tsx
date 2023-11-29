@@ -20,8 +20,7 @@ function OfferPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    let isMounted = true;
-    if(offerId && isMounted) {
+    if(offerId) {
       dispatch(fetchActiveOfferAction(offerId));
       dispatch(fetchNearPlacesAction(offerId));
       dispatch(fetchReviewsAction(offerId));
@@ -29,8 +28,8 @@ function OfferPage() {
 
     return () => {
       dispatch(dropOffer());
-      isMounted = false;
     };
+
   }, [offerId, dispatch]);
 
   const currentOffer = useAppSelector(getActiveOffer);
