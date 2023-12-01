@@ -20,9 +20,9 @@ const ButtonBookmark = memo(({isFavorite, offerId, islarge}: TButtonBookmarkProp
 
   const btnClassName = cn('button', {
     'place-card__bookmark-button': !islarge,
-    'place-card__bookmark-button--active': isFavorited && !islarge,
+    'place-card__bookmark-button--active': isFavorited && !islarge && isAuthorized,
     'offer__bookmark-button': islarge,
-    'offer__bookmark-button--active': isFavorited && islarge,
+    'offer__bookmark-button--active': isFavorited && islarge && isAuthorized,
   });
 
   const svgClassName = cn({
@@ -37,7 +37,7 @@ const ButtonBookmark = memo(({isFavorite, offerId, islarge}: TButtonBookmarkProp
 
     dispatch(changeFavoriteStatusAction({
       id: offerId,
-      status: isFavorited ? 0 : 1
+      status: isFavorited && isAuthorized ? 0 : 1
     }));
   }
 
